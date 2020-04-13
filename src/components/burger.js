@@ -13,7 +13,7 @@ class Burger extends Component {
   render () {
     return (
       <div id='sidebar'>
-        <div className='toggle-btn' onClick='show()'>
+        <div className='toggle-btn' onClick={show()}>
           <span />
           <span />
           <span />
