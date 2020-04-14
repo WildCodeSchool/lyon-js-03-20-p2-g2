@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import '../style/burger.css';
 
+const button = () => {
+  return (
+    <button className="BtnBurger">
+      hello
+    </button>
+  )
+}
 class Burger extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
-  show () {
-    document.getElementById('sidebar').classList.toggle('active');
-  }
-
-  render () {
+  render() {
     return (
-      <div id='sidebar'>
-        <div className='toggle-btn' onClick='show()'>
-          <span />
-          <span />
-          <span />
-        </div>
+      <div className="TheMenu">
 
         <ul>
           <li>Home</li>
@@ -27,8 +25,11 @@ class Burger extends Component {
           <li>Parameters</li>
         </ul>
       </div>
+
+
     );
   }
 }
+
 
 export default Burger;
