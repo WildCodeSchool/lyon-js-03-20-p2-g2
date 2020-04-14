@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Burger from './components/Burger';
+import Burger from './components/burger';
 
 function App () {
   return (
