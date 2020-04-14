@@ -13,7 +13,7 @@ function Home (props) {
   return <h1>Home</h1>;
 }
 function Position (props) {
-  return <h1>position</h1>;
+  return <h1>Position</h1>;
 }
 function Favorite (props) {
   return <h1>Favorite</h1>;
@@ -23,6 +23,14 @@ function Suggestions (props) {
 }
 function Parameters (props) {
   return <h1>Parameters</h1>;
+}
+function Places (props) {
+  const params = props.match.params;
+  return (
+    <div>
+      <h1>city: <em>{params.city}</em></h1>
+    </div>
+  );
 }
 
 const button = () => {
@@ -51,6 +59,16 @@ class Burger extends Component {
               </li>
               <li>
                 <Link to='/favorites'>Favorite places</Link>
+
+                <ul>
+                  <li>
+                    <Link to='/Lyon'>Lyon</Link>
+                  </li>
+                  <li>
+                    <Link to='/Paris'>Paris</Link>
+                  </li>
+                </ul>
+
               </li>
               <li>
                 <Link to='/suggestions'>Suggestions</Link>
@@ -62,22 +80,19 @@ class Burger extends Component {
           </nav>
 
           <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <Route path='/position'>
-              <Position />
-            </Route>
-            <Route path='/favorites'>
-              <Favorite />
-            </Route>
-            <Route path='/suggestions'>
-              <Suggestions />
-            </Route>
-            <Route path='/parameters'>
-              <Parameters />
-            </Route>
+            <Route exact path='/' component={Home} />
+
+            <Route path='/position' component={Position} />
+
+            <Route path='/favorites' component={Favorite} />
+
+            <Route path='/suggestions' component={Suggestions} />
+
+            <Route path='/parameters' component={Parameters} />
+
+            <Route path='/:city' component={Places} />
           </Switch>
+
         </div>
       </Router>
 
