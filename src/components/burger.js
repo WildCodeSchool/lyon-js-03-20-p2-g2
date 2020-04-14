@@ -16,7 +16,6 @@ class Burger extends Component {
   render() {
     return (
       <div className="TheMenu">
-
         <ul>
           <li>Home</li>
           <li>My position</li>
@@ -25,8 +24,6 @@ class Burger extends Component {
           <li>Parameters</li>
         </ul>
       </div>
-
-
     );
   }
 }
