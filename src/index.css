@@ -3,14 +3,20 @@
   src: local('Raleway'), url(./fonts/Raleway/Raleway-Regular.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Nunito';
+  src: local('Nunito'), url(./fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  height: 100%;
 }
 
 * {
@@ -21,15 +27,18 @@ body {
 img {
   border: none;
 }
+
 ol,
 ul {
   list-style-type: none;
 }
+
 body {
   font-family: "Lakki Reddy", cursive;
   font-size: 14px;
   color: black;
   line-height: 1.8;
+  border: 100%;
 }
 @media (min-width: 451px) {
   body {

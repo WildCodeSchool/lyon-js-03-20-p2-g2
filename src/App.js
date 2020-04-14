@@ -1,16 +1,17 @@
 import React from 'react';
 import './App.css';
-import Burger from './components/Burger';
+import Header from './components/Header';
+import SearchBar from './components/SearchBar';
 
-
-
-
-function App() {
-  return (
-    <div className='App'>
-      <h1>Weather Suggest</h1>
-      <Burger />
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div id='App'>
+        <Header />
+        <SearchBar />
+      </div>
+    );
+  }
 }
+
 export default App;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../style/burger.css';
 import {
   BrowserRouter as Router,
@@ -10,16 +10,13 @@ import {
 // Function temporaire while components is not create
 
 function Home(props) {
-  return <h1>Home</h1>;
-}
-function Position(props) {
-  return <h1>Position</h1>;
+  return <h1></h1>;
 }
 function Favorite(props) {
   return <h1>Favorite</h1>;
 }
-function Suggestions(props) {
-  return <h1>Suggestions</h1>;
+function About(props) {
+  return <h1>About</h1>;
 }
 function Parameters(props) {
   return <h1>Parameters</h1>;
@@ -35,66 +32,57 @@ function Places(props) {
   );
 }
 
-
-
-class Burger extends Component {
-  constructor(props) {
-    super(props);
+export const Burger = (props) => {
+  let navClasses = 'nav-menu';
+  if (props.show) {
+    navClasses = 'nav-menu open';
   }
 
-  render() {
-    return (
-      <Router>
-        <div className='TheMenu'>
-          <nav>
-            <ul>
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/position'>My position</Link>
-              </li>
-              <li>
-                <Link to='/favorites'>Favorite places</Link>
+  return (
+    <Router>
+      <nav className={navClasses}>
+        <div class='closing-menu'>
+          <i class='fas fa-times' onClick={props.handleClick} />
+        </div>
+        <ul class="menuItems">
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/favorites'>Favorite places</Link>
 
-                <ul>
-                  <li>
-                    <Link to='/Lyon'>Lyon</Link>
-                  </li>
-                  <li>
-                    <Link to='/Paris'>Paris</Link>
-                  </li>
-                </ul>
-
+            <ul class="menuFavorites">
+              <li>
+                <Link to='/Lyon'>Lyon</Link>
               </li>
               <li>
-                <Link to='/suggestions'>Suggestions</Link>
-              </li>
-              <li>
-                <Link to='/parameters'>Parameters</Link>
+                <Link to='/Paris'>Paris</Link>
               </li>
             </ul>
-          </nav>
 
-          <Switch>
-            <Route exact path='/' component={Home} />
+          </li>
+          <li>
+            <Link to='/about'>About us</Link>
+          </li>
+          <li>
+            <Link to='/parameters'>Parameters</Link>
+          </li>
+        </ul>
+      </nav>
 
-            <Route path='/position' component={Position} />
+      <Switch>
+        <Route exact path='/' component={Home} />
 
-            <Route path='/favorites' component={Favorite} />
+        <Route path='/favorites' component={Favorite} />
 
-            <Route path='/suggestions' component={Suggestions} />
+        <Route path='/about' component={About} />
 
-            <Route path='/parameters' component={Parameters} />
+        <Route path='/parameters' component={Parameters} />
 
-            <Route path='/:city' component={Places} />
-          </Switch>
-
-        </div>
-      </Router>
-
-    );
-  }
-}
+        <Route path='/:city' component={Places} />
+      </Switch>
+    </Router>
+  );
+};
 
 export default Burger;

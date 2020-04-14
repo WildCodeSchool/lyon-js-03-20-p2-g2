@@ -10,12 +10,13 @@
 #App h2 {
   text-align: center;
   color: white;
-  font-family: 'raleway';
+  font-family: 'Nunito';
   padding-top: 15px;
 }
 .header{
   display: flex;
   flex-direction: column;
+  padding-bottom: 100px;
 }
 .header img{
     width: 150px;
