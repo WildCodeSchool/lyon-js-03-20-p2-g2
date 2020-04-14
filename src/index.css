@@ -3,6 +3,10 @@
   src: local('Raleway'), url(./fonts/Raleway/Raleway-Regular.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Nunito';
+  src: local('Nunito'), url(./fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
 
 body {
   margin: 0;
@@ -13,6 +17,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  height: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -21,15 +29,18 @@ body {
 img {
   border: none;
 }
+
 ol,
 ul {
   list-style-type: none;
 }
+
 body {
   font-family: "Lakki Reddy", cursive;
   font-size: 14px;
   color: black;
   line-height: 1.8;
+  border: 100%;
 }
 @media (min-width: 451px) {
   body {

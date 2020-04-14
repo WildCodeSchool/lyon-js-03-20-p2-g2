@@ -1,35 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../style/burger.css';
 
-const button = () => {
+const Burger = (props) => {
+  let navClasses = 'nav-menu';
+  if (props.show) {
+    navClasses = 'nav-menu open';
+  }
   return (
-    <button className="BtnBurger">
-      hello
-    </button>
-  )
-}
-class Burger extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="TheMenu">
-
-        <ul>
-          <li>Home</li>
-          <li>My position</li>
-          <li>Favorite places</li>
-          <li>Suggestions</li>
-          <li>Parameters</li>
-        </ul>
+    <nav className={navClasses}>
+      <div class='closing-menu'>
+        <i class='fas fa-times' onClick={props.handleClick} />
       </div>
-
-
-    );
-  }
-}
-
+      <ul>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/'>My position</a></li>
+        <li><a href='/'>Favorite places</a></li>
+        <li><a href='/'>Suggestions</a></li>
+        <li><a href='/'>Parameters</a></li>
+      </ul>
+    </nav>
+  );
+};
 
 export default Burger;
