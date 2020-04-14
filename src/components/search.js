@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 
 class Search extends Component {
-  render () {
+  constructor(props) {
+    super(props);
+  }
+  render() {
     return (
-      <div />
+      <div>
+
+      </div>
     );
   }
 }
