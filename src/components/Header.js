@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Burger from './Burger';
+import Burger from './burger'
 import BurgerButton from './BurgerButton';
 
 class Header extends Component {
