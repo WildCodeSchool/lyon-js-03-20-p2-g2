@@ -12,14 +12,11 @@ import {
 function Home (props) {
   return <h1>Home</h1>;
 }
-function Position (props) {
-  return <h1>Position</h1>;
-}
 function Favorite (props) {
   return <h1>Favorite</h1>;
 }
-function Suggestions (props) {
-  return <h1>Suggestions</h1>;
+function About (props) {
+  return <h1>About</h1>;
 }
 function Parameters (props) {
   return <h1>Parameters</h1>;
@@ -55,9 +52,6 @@ class Burger extends Component {
                 <Link to='/'>Home</Link>
               </li>
               <li>
-                <Link to='/position'>My position</Link>
-              </li>
-              <li>
                 <Link to='/favorites'>Favorite places</Link>
 
                 <ul>
@@ -71,7 +65,7 @@ class Burger extends Component {
 
               </li>
               <li>
-                <Link to='/suggestions'>Suggestions</Link>
+                <Link to='/about'>About us</Link>
               </li>
               <li>
                 <Link to='/parameters'>Parameters</Link>
@@ -82,11 +76,9 @@ class Burger extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
 
-            <Route path='/position' component={Position} />
-
             <Route path='/favorites' component={Favorite} />
 
-            <Route path='/suggestions' component={Suggestions} />
+            <Route path='/about' component={About} />
 
             <Route path='/parameters' component={Parameters} />
 
