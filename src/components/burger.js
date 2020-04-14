@@ -1,35 +1,88 @@
 import React, { Component } from 'react';
 import '../style/burger.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
+
+// Function temporaire while components is not create
+
+function Home (props) {
+  return <h1>Home</h1>;
+}
+function Position (props) {
+  return <h1>position</h1>;
+}
+function Favorite (props) {
+  return <h1>Favorite</h1>;
+}
+function Suggestions (props) {
+  return <h1>Suggestions</h1>;
+}
+function Parameters (props) {
+  return <h1>Parameters</h1>;
+}
 
 const button = () => {
   return (
-    <button className="BtnBurger">
+    <button className='BtnBurger'>
       hello
     </button>
-  )
-}
+  );
+};
 class Burger extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
 
-  render() {
+  render () {
     return (
-      <div className="TheMenu">
+      <Router>
+        <div className='TheMenu'>
+          <nav>
+            <ul>
+              <li>
+                <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/position'>My position</Link>
+              </li>
+              <li>
+                <Link to='/favorites'>Favorite places</Link>
+              </li>
+              <li>
+                <Link to='/suggestions'>Suggestions</Link>
+              </li>
+              <li>
+                <Link to='/parameters'>Parameters</Link>
+              </li>
+            </ul>
+          </nav>
 
-        <ul>
-          <li>Home</li>
-          <li>My position</li>
-          <li>Favorite places</li>
-          <li>Suggestions</li>
-          <li>Parameters</li>
-        </ul>
-      </div>
-
+          <Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route path='/position'>
+              <Position />
+            </Route>
+            <Route path='/favorites'>
+              <Favorite />
+            </Route>
+            <Route path='/suggestions'>
+              <Suggestions />
+            </Route>
+            <Route path='/parameters'>
+              <Parameters />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
 
     );
   }
 }
-
 
 export default Burger;
