@@ -9,21 +9,20 @@ import {
 
 // Function temporaire while components is not create
 
-function Home(props) {
-  return <h1></h1>;
+function Home (props) {
+  return <h1 />;
 }
-function Favorite(props) {
+function Favorite (props) {
   return <h1>Favorite</h1>;
 }
-function About(props) {
+function About (props) {
   return <h1>About</h1>;
 }
-function Parameters(props) {
+function Parameters (props) {
   return <h1>Parameters</h1>;
 }
 
-
-function Places(props) {
+function Places (props) {
   const params = props.match.params;
   return (
     <div>
@@ -44,14 +43,14 @@ export const Burger = (props) => {
         <div class='closing-menu'>
           <i class='fas fa-times' onClick={props.handleClick} />
         </div>
-        <ul class="menuItems">
+        <ul class='menuItems'>
           <li>
             <Link to='/'>Home</Link>
           </li>
           <li>
             <Link to='/favorites'>Favorite places</Link>
 
-            <ul class="menuFavorites">
+            <ul class='menuFavorites'>
               <li>
                 <Link to='/Lyon'>Lyon</Link>
               </li>

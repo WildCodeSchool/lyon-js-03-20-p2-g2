@@ -4,7 +4,7 @@ import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <div id='App'>
         <Header />
