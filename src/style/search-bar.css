@@ -10,7 +10,7 @@ input[type=text] {
   border: 2px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
-  background-color: white;
+  background-color: #005C89;
   background-image: url('../images/searchicon.png');
   background-position: 10px 10px; 
   background-repeat: no-repeat;
