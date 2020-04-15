@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import About from './About-us';
 
 // Function temporaire while components is not create
 
@@ -15,13 +16,9 @@ function Home (props) {
 function Favorite (props) {
   return <h1>Favorite</h1>;
 }
-function About (props) {
-  return <h1>About</h1>;
-}
 function Parameters (props) {
   return <h1>Parameters</h1>;
 }
-
 function Places (props) {
   const params = props.match.params;
   return (
