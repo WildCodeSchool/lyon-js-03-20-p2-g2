@@ -4,13 +4,23 @@ import '../style/About-us.css';
 class About extends Component {
   render () {
     return (
-      <div>
+      <div className='about'>
         <h1>About us</h1>
 
         <p>LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem</p>
 
         <h3>Our team</h3>
-        <hr />
+        <div className='line'></div>
+
+        <main>
+
+          <div className='profilDesc'><div className='profil'>t</div>LoremLoremLoremLoremLoremLoremLoremLorem</div>
+          <div className='profilDesc'><div className='profil'>t</div>LoremLoremLoremLoremLoremLoremLoremLorem</div>
+          <div className='profilDesc'><div className='profil'>t</div>LoremLoremLoremLoremLoremLoremLoremLorem</div>
+          <div className='profilDesc'><div className='profil'>t</div>LoremLoremLoremLoremLoremLoremLoremLorem</div>
+          <div className='profilDesc'><div className='profil'>t</div>LoremLoremLoremLoremLoremLoremLoremLorem</div>
+
+        </main>
       </div>
     );
   }
