@@ -2,29 +2,30 @@ import React, { Component } from 'react';
 import '../style/favorit.css';
 
 class Favorit extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-      favorite: true,
+      favorite: true
     };
   }
-  render() {
-      return ( 
-<div>
 
-  <span className={this.state.favorite ? 'is-favorite' : ''}
+  render () {
+    return (
+      <div>
+
+        <span
+          className={this.state.favorite ? 'is-favorite' : ''}
           onClick={event => {
-  const newFavorite = !this.state.favorite;
+            const newFavorite = !this.state.favorite;
 
-  this.setState({ favorite: newFavorite });
-  }}>
-    <i class="fas fa-heart" ></i>
+            this.setState({ favorite: newFavorite });
+          }}
+        >
+          <i class='fas fa-heart' />
 
+        </span>
+      </div>
 
-          </span>
-</div>
-  
-          
     );
   }
 }

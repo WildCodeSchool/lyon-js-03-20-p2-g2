@@ -10,7 +10,7 @@ class About extends Component {
         <p>LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem</p>
 
         <h3>Our team</h3>
-        <div className='line'></div>
+        <div className='line' />
 
         <main>
 
