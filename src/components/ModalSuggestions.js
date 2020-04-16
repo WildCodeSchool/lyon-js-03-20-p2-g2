@@ -7,7 +7,10 @@ import '../style/modalsuggestions.css';
 const TextArea_Popover = (props) => {
   return (
     <div className='text-area open'>
-      <textarea></textarea>
+      <label for="story" className='input-textarea'>Tell us your experience:</label>
+      <textarea className='input-textarea' id="story" name="story" rows="10" cols="4">
+      </textarea>
+      <input type="submit" className='input-textarea' href='#'value='Send !' />
     </div>
   )
 }
@@ -30,7 +33,8 @@ function ModalSuggestions () {
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
-  let textAreaClasses = 'text-area open';
+  let textAreaOpen = 'text-area open';
+  let textAreaClose = 'text-area';
 
   const handleClick = (event) => {
     setShow(!show);
@@ -60,7 +64,7 @@ function ModalSuggestions () {
           </Popover.Content>
         </Popover>
       </Overlay>
-      {secondModal ? <TextArea_Popover className={textAreaClasses} /> : ''}
+      {secondModal ? <TextArea_Popover /> : ''}
       
     </div>
   );
