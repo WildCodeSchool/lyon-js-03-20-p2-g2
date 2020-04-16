@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Popover from 'react-bootstrap/Popover'
 import '../style/modalsuggestions.css'
 
-function ModalSuggestions () {
+function ModalSuggestions() {
   const [show, setShow] = useState(false)
   const [target, setTarget] = useState(null)
   const ref = useRef(null)
@@ -33,7 +33,6 @@ function ModalSuggestions () {
             <i className='far fa-meh iconsPopover' />
             <i className='far fa-smile iconsPopover' />
             <i className='far fa-grin-hearts iconsPopover' />
-
           </Popover.Content>
         </Popover>
       </Overlay>
