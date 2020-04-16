@@ -1,18 +1,15 @@
 import React from 'react';
 import './App.css';
-
-import SearchBar from './components/SearchBar';
 import Header from './components/Header';
+import ModalSuggestions from './components/ModalSuggestions';
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <div id='App'>
         
         <Header />
-       
-        <SearchBar />
-        
+        <ModalSuggestions />
       </div>
     );
   }

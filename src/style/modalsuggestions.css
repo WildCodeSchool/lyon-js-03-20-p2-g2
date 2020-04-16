@@ -1,0 +1,56 @@
+.modal_Suggestions {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_Suggestions {
+    background-color: #005C89 !important;
+    width: 10vw !important;
+    height: 10vh !important;
+    font-size: 4vw !important;
+    padding: 0 !important;
+}
+
+.icon_OpenModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #99D7F5;
+}
+
+.popover_Container {
+    width: 450px !important;
+    background-color: #99D7F5 !important;
+    border: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    color: #005C89 !important;
+    margin-bottom: 1em;
+}
+
+.title_Popover {
+    font-size: 12px !important;
+    background-color: #99D7F5 !important;
+    color: #005C89 !important;
+    font-weight: bold !important;
+    font-family: 'Nunito' !important;
+    border: none !important;
+    text-align: center !important;
+}
+
+.paragraph_Popover {
+    font-size: 32px !important;
+    color: #005C89 !important;
+}
+
+.iconsPopover {
+    margin-left: 10px;
+}
