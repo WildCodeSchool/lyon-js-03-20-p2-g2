@@ -49,7 +49,7 @@ export const Burger = (props) => {
             <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/favorites'>Favorite places</Link>
+            <Link to='/favorites'>Favorite places </Link>
 
             <ul class="menuFavorites">
               <li>
