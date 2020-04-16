@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../style/search-bar.css';
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   render () {
     return (
       <form className='search-bar'>

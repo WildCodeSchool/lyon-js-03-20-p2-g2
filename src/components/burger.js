@@ -6,22 +6,20 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import About from './About-us';
+import SearchBar from './SearchBar';
 
 // Function temporaire while components is not create
 
 function Home (props) {
-  return <h1 />;
+  return <h1>texte</h1>;
 }
 function Favorite (props) {
   return <h1>Favorite</h1>;
 }
-function About (props) {
-  return <h1>About</h1>;
-}
 function Parameters (props) {
   return <h1>Parameters</h1>;
 }
-
 function Places (props) {
   const params = props.match.params;
   return (
@@ -48,7 +46,7 @@ export const Burger = (props) => {
             <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/favorites'>Favorite places</Link>
+            <Link to='/favorites'>Favorite places </Link>
 
             <ul class='menuFavorites'>
               <li>
@@ -70,15 +68,29 @@ export const Burger = (props) => {
       </nav>
 
       <Switch>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/'>
+          <SearchBar />
+          <Home />
+        </Route>
 
-        <Route path='/favorites' component={Favorite} />
+        <Route path='/favorites'>
+          <SearchBar />
+          <Favorite />
+        </Route>
 
-        <Route path='/about' component={About} />
+        <Route path='/about'>
+          <About />
+        </Route>
 
-        <Route path='/parameters' component={Parameters} />
+        <Route path='/parameters'>
+          <SearchBar />
+          <Parameters />
+        </Route>
 
-        <Route path='/:city' component={Places} />
+        <Route path='/:city' component={Places}>
+          <SearchBar />
+        </Route>
+
       </Switch>
     </Router>
   );
