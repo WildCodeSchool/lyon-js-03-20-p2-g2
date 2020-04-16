@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../style/search-bar.css';
 
-
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +14,6 @@ class SearchBar extends React.Component {
   }
 
   //***handleOnInputChange arrow FUNCTION expression *****/
-
   handleOnInputChange = (event) => {
     const query = event.target.value;//get the input value
     this.setState({ query, loading: true, message: '' });//replace by the current state
@@ -28,10 +25,9 @@ class SearchBar extends React.Component {
     return (
       <form className="search-bar">
         <label className="search-label" htmlFor="search-input">
-
           <input
             type="text"
-            value=""
+            //value=""
             id="search-input"
             placeholder="Search City..."
             onChange={this.handleOnInputChange}
@@ -39,7 +35,7 @@ class SearchBar extends React.Component {
 
         </label>
       </form>
-    )
+    );
   }
 }
 

@@ -1,41 +1,40 @@
-import React from 'react';
-import '../style/burger.css';
+import React from 'react'
+import '../style/burger.css'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
-} from 'react-router-dom';
+} from 'react-router-dom'
 
 // Function temporaire while components is not create
 
-function Home(props) {
-  return <h1></h1>;
+function Home (props) {
+  return <h1 />
 }
-function Favorite(props) {
-  return <h1>Favorite</h1>;
+function Favorite (props) {
+  return <h1>Favorite</h1>
 }
-function About(props) {
-  return <h1>About</h1>;
+function About (props) {
+  return <h1>About</h1>
 }
-function Parameters(props) {
-  return <h1>Parameters</h1>;
+function Parameters (props) {
+  return <h1>Parameters</h1>
 }
 
-
-function Places(props) {
-  const params = props.match.params;
+function Places (props) {
+  const params = props.match.params
   return (
     <div>
       <h1>city: <em>{params.city}</em></h1>
     </div>
-  );
+  )
 }
 
 export const Burger = (props) => {
-  let navClasses = 'nav-menu';
+  let navClasses = 'nav-menu'
   if (props.show) {
-    navClasses = 'nav-menu open';
+    navClasses = 'nav-menu open'
   }
 
   return (
@@ -44,14 +43,14 @@ export const Burger = (props) => {
         <div class='closing-menu'>
           <i class='fas fa-times' onClick={props.handleClick} />
         </div>
-        <ul class="menuItems">
+        <ul class='menuItems'>
           <li>
             <Link to='/'>Home</Link>
           </li>
           <li>
             <Link to='/favorites'>Favorite places</Link>
 
-            <ul class="menuFavorites">
+            <ul class='menuFavorites'>
               <li>
                 <Link to='/Lyon'>Lyon</Link>
               </li>
@@ -82,7 +81,7 @@ export const Burger = (props) => {
         <Route path='/:city' component={Places} />
       </Switch>
     </Router>
-  );
-};
+  )
+}
 
-export default Burger;
+export default Burger
