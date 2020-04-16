@@ -4,14 +4,14 @@ import Header from './components/Header';
 import ModalSuggestions from './components/ModalSuggestions';
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <div id='App'>
         <Header />
         <ModalSuggestions />
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

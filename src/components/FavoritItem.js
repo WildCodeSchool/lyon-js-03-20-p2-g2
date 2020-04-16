@@ -1,17 +1,15 @@
-import React from 'react'
+import React from 'react';
 import '../style/favorit.css';
 
-
-
 class Favorit extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       favorite: true
     };
   }
 
-  render() {
+  render () {
     return (
       <div>
 

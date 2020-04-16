@@ -15,27 +15,26 @@ class About extends Component {
 
         <h3>Our team</h3>
 
-
         <Container>
           <Row>
             <Col xs={6} md={4}>
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" roundedCircle />
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi architecto at autem dolorem impedit natus quis rem temporibus voluptatem.</p>
             </Col>
             <Col xs={6} md={4}>
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" roundedCircle />
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi architecto at autem dolorem impedit natus quis rem temporibus voluptatem.</p>
             </Col>
             <Col xs={6} md={4}>
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" roundedCircle />
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi architecto at autem dolorem impedit natus quis rem temporibus voluptatem.</p>
             </Col>
             <Col xs={6} md={4}>
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" roundedCircle />
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi architecto at autem dolorem impedit natus quis rem temporibus voluptatem.</p>
             </Col>
             <Col xs={6} md={4}>
-              <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png" roundedCircle />
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi architecto at autem dolorem impedit natus quis rem temporibus voluptatem.</p>
             </Col>
           </Row>

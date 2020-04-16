@@ -1,19 +1,18 @@
-import React, { useState, useRef } from 'react'
-import Overlay from 'react-bootstrap/Overlay'
-import Button from 'react-bootstrap/Button'
-import Popover from 'react-bootstrap/Popover'
-import '../style/modalsuggestions.css'
+import React, { useState, useRef } from 'react';
+import Overlay from 'react-bootstrap/Overlay';
+import Button from 'react-bootstrap/Button';
+import Popover from 'react-bootstrap/Popover';
+import '../style/modalsuggestions.css';
 
 const TextArea_Popover = (props) => {
   return (
     <div className='text-area open'>
-      <textarea></textarea>
+      <textarea />
     </div>
-  )
-}
+  );
+};
 
 const Smileys_Popover = (props) => {
-
   return (
     <div>
       <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
@@ -23,24 +22,24 @@ const Smileys_Popover = (props) => {
       <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
     </div>
   );
-}
+};
 
-function ModalSuggestions() {
+function ModalSuggestions () {
   const [secondModal, setSecondModal] = useState(false);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
-  let textAreaClasses = 'text-area open';
+  const textAreaClasses = 'text-area open';
 
   const handleClick = (event) => {
-    setShow(!show)
-    setTarget(event.target)
-  }
+    setShow(!show);
+    setTarget(event.target);
+  };
 
   const handleSecondModal = () => {
     setSecondModal(!secondModal);
     console.log(secondModal);
-  }
+  };
 
   return (
     <div className='modal_Suggestions' ref={ref}>
@@ -63,7 +62,7 @@ function ModalSuggestions() {
       {secondModal ? <TextArea_Popover className={textAreaClasses} /> : ''}
 
     </div>
-  )
+  );
 }
 
-export default ModalSuggestions
+export default ModalSuggestions;

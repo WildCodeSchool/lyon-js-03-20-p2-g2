@@ -1,5 +1,5 @@
-import React from 'react'
-import '../style/burgerButton.css'
+import React from 'react';
+import '../style/burgerButton.css';
 
 const BurgerButton = props => {
   return (
@@ -8,7 +8,7 @@ const BurgerButton = props => {
       <div className='toggle-button_line' />
       <div className='toggle-button_line' />
     </button>
-  )
-}
+  );
+};
 
-export default BurgerButton
+export default BurgerButton;
