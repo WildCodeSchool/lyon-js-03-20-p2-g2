@@ -1,12 +1,17 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header';
+import ModalSuggestions from './components/ModalSuggestions';
 
-function App() {
+class App extends React.Component {
+  render () {
     return (
-        <div className="App">
-            <h1>Weather Suggest</h1>
-        </div>
+      <div id='App'>
+        <Header />
+        <ModalSuggestions />
+      </div>
     );
+  }
 }
 
 export default App;

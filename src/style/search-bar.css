@@ -1,0 +1,26 @@
+.search-bar{
+width: 40%;
+margin: auto;
+}
+
+
+input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('../images/searchicon-blue.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 9px 20px 12px 40px;
+  outline: none;
+  background-size: 20px;
+}
+
+.search-label{
+  width: 100%;
+}
+
+
