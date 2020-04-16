@@ -5,7 +5,16 @@ class SearchBar extends Component {
   render () {
     return (
       <form className='search-bar'>
-        <input type='text' onChange={this.props.search} name='search' placeholder='Search City' />
+        <label className='search-label' htmlFor='search-input'>
+          <input
+            type='text'
+            // value=""
+            id='search-input'
+            placeholder='Search City...'
+            onChange={this.handleOnInputChange}
+          />
+
+        </label>
       </form>
     );
   }

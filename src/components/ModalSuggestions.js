@@ -12,21 +12,20 @@ const TextArea_Popover = (props) => {
       </textarea>
       <input type="submit" className='input-textarea' href='#'value='Send !' />
     </div>
-  )
-}
+  );
+};
 
 const Smileys_Popover = (props) => {
-
   return (
-      <div>
-        <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
-      </div>
+    <div>
+      <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
+    </div>
   );
-}
+};
 
 function ModalSuggestions () {
   const [secondModal, setSecondModal] = useState(false);
@@ -34,7 +33,6 @@ function ModalSuggestions () {
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
   let textAreaOpen = 'text-area open';
-  let textAreaClose = 'text-area';
 
   const handleClick = (event) => {
     setShow(!show);
@@ -44,7 +42,7 @@ function ModalSuggestions () {
   const handleSecondModal = () => {
     setSecondModal(!secondModal);
     console.log(secondModal);
-  }
+  };
 
   return (
     <div className='modal_Suggestions' ref={ref}>

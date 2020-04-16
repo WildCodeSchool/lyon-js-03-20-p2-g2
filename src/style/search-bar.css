@@ -19,4 +19,8 @@ input[type=text] {
   background-size: 20px;
 }
 
+.search-label{
+  width: 100%;
+}
+
 
