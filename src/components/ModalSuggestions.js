@@ -6,11 +6,12 @@ import '../style/modalsuggestions.css';
 
 const TextArea_Popover = (props) => {
   return (
-    <div className='text-area open'>
+    <div className='text-area open' action="mailto: xxx@gmail.com">
+      <i className='fas fa-times' onClick={props.handleClick} />
       <label for="story" className='input-textarea'>Tell us your experience:</label>
       <textarea className='input-textarea' id="story" name="story" rows="10" cols="4">
       </textarea>
-      <input type="submit" className='input-textarea' href='#'value='Send !' />
+      <span className='close-textArea'><input type="submit" className='input-textarea' href='#'value='Send !' /></span>
     </div>
   );
 };
@@ -63,7 +64,6 @@ function ModalSuggestions () {
         </Popover>
       </Overlay>
       {secondModal ? <TextArea_Popover /> : ''}
-      
     </div>
   );
 }
