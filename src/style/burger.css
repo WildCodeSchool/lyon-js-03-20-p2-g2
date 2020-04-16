@@ -9,7 +9,7 @@
     left: 0;
     top: 0;
     width: 250px;
-    height: 100vh;
+    height: 100%;
     background-color: #005C89;
     z-index: 100;
     transform: translateX(-100%);
@@ -55,4 +55,9 @@
     color: #02A2EF !important;
     font-size: 1em !important;
 }
+
+.menuItems, .menuFavorites {
+  list-style-type: none;
+}
+
 

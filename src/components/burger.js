@@ -12,13 +12,13 @@ import SearchBar from './SearchBar';
 // Function temporaire while components is not create
 
 function Home(props) {
-  return <h1>texte</h1>;
+  return <h1></h1>;
 }
 function Favorite(props) {
-  return <h1>Favorite</h1>
+  return <h1></h1>;
 }
 function Parameters(props) {
-  return <h1>Parameters</h1>
+  return <h1></h1>;
 }
 function Places(props) {
   const params = props.match.params
@@ -38,17 +38,17 @@ export const Burger = (props) => {
   return (
     <Router>
       <nav className={navClasses}>
-        <div class='closing-menu'>
-          <i class='fas fa-times' onClick={props.handleClick} />
+        <div className='closing-menu'>
+          <i className='fas fa-times' onClick={props.handleClick} />
         </div>
-        <ul class='menuItems'>
+        <ul className='menuItems'>
           <li>
             <Link to='/'>Home</Link>
           </li>
           <li>
             <Link to='/favorites'>Favorite places </Link>
 
-            <ul class='menuFavorites'>
+            <ul className='menuFavorites'>
               <li>
                 <Link to='/Lyon'>Lyon</Link>
               </li>
@@ -79,7 +79,6 @@ export const Burger = (props) => {
         </Route>
 
         <Route path='/about'>
-          <SearchBar />
           <About />
         </Route>
 
