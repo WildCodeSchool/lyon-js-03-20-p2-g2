@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../style/favorit.css';
 
-class Favorit extends React.Component {
+class Favorit extends Component {
   constructor (props) {
     super(props);
     this.state = {

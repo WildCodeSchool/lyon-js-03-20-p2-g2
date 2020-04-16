@@ -79,7 +79,6 @@ export const Burger = (props) => {
         </Route>
 
         <Route path='/about'>
-          <SearchBar />
           <About />
         </Route>
 
