@@ -12,13 +12,13 @@ import SearchBar from './SearchBar';
 // Function temporaire while components is not create
 
 function Home (props) {
-  return <h1>texte</h1>;
+  return <h1></h1>;
 }
 function Favorite (props) {
-  return <h1>Favorite</h1>;
+  return <h1></h1>;
 }
 function Parameters (props) {
-  return <h1>Parameters</h1>;
+  return <h1></h1>;
 }
 function Places (props) {
   const params = props.match.params;

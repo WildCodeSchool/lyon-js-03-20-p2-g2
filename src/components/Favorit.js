@@ -14,7 +14,7 @@ class Favorit extends Component {
       <div>
 
         <span
-          className={this.state.favorite ? 'is-favorite' : ''}
+          className={this.state.favorite ? 'is-favorite' : 'empty'}
           onClick={event => {
             const newFavorite = !this.state.favorite;
 
