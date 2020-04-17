@@ -1,12 +1,8 @@
 #App {
   position: relative;
-  height: 100%;
   width: auto;
-  background-image: url("./images/day-test.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
+
 #App .welcome-message {
   text-align: center;
   color: white;

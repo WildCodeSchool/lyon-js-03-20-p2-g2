@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Burger from './Burger'
 import BurgerButton from './BurgerButton';
-import Favorit from './FavoritItem';
+import FavoriteItem from './FavoriteItem';
 
 class Header extends Component {
   state = {
@@ -21,7 +21,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <Favorit />
+        <FavoriteItem />
 
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>

@@ -18,11 +18,11 @@ const TextArea_Popover = (props) => {
 const Smileys_Popover = (props) => {
   return (
     <div>
-        <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
+      <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
     </div>
   );
 };

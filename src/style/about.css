@@ -35,19 +35,19 @@
   margin-top: 20px;
 }
 
-section > h1 {
+.about > h1 {
   font-family: 'Nunito';
   font-weight: bold;
 }
 
-div > h3 {
+.our-story > h3 {
   font-family: 'Nunito';
   font-size: 32px;
   font-weight: bold;
   color: #005C89;
 }
 
-div > .paragraphs {
+.our-story > .paragraphs {
   font-family: 'Raleway';
   color: #005C89;
 }
@@ -70,4 +70,5 @@ div > .paragraphs {
 
 .our_pics {
   box-shadow: 5px 5px 5px #99D7F5;
+  width: 80%;
 }
