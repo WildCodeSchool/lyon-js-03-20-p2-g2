@@ -6,8 +6,11 @@ import '../style/modalsuggestions.css';
 
 const TextArea_Popover = (props) => {
   return (
-    <div className='text-area open'>
-      <textarea />
+    <div className='text-area open' action='mailto: xxx@gmail.com'>
+      <i className='fas fa-times' onClick={props.handleClick} />
+      <label for='story' className='input-textarea'>Tell us your experience:</label>
+      <textarea className='input-textarea' id='story' name='story' rows='10' cols='4' />
+      <span className='close-textArea'><input type='submit' className='input-textarea' href='#' value='Send !' /></span>
     </div>
   );
 };
@@ -15,12 +18,20 @@ const TextArea_Popover = (props) => {
 const Smileys_Popover = (props) => {
   return (
     <div>
-      <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
-      <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
-      <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
-      <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
-      <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
+      <div>
+        <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
+        <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
+        <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
+        <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
+        <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
+      </div>
+      <div>
+        <label for='story' className='input-textarea'>Tell us your experience:</label>
+        <textarea className='input-textarea' id='story' name='story' rows='4' cols='4' />
+        <span className='close-textArea'><input type='submit' className='input-textarea' href='#' value='Send !' /></span>
+      </div>
     </div>
+
   );
 };
 
@@ -29,7 +40,7 @@ function ModalSuggestions () {
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
-  const textAreaClasses = 'text-area open';
+  const textAreaOpen = 'text-area open';
 
   const handleClick = (event) => {
     setShow(!show);
@@ -53,14 +64,13 @@ function ModalSuggestions () {
         containerPadding={20}
       >
         <Popover id='popover-contained' className='popover_Container'>
-          <Popover.Title as='h3' className='title_Popover'>How would you rate your experience ?</Popover.Title>
+          <Popover.Title as='h3' className='title_Popover'>How would you rate your experience ? <i className='fas fa-times' /></Popover.Title>
           <Popover.Content className='paragraph_Popover'>
             <Smileys_Popover onClick={handleSecondModal} />
           </Popover.Content>
         </Popover>
       </Overlay>
-      {secondModal ? <TextArea_Popover className={textAreaClasses} /> : ''}
-
+      {secondModal ? <TextArea_Popover /> : ''}
     </div>
   );
 }
