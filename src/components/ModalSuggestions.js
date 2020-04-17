@@ -18,20 +18,12 @@ const TextArea_Popover = (props) => {
 const Smileys_Popover = (props) => {
   return (
     <div>
-      <div>
         <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
-      </div>
-      <div>
-        <label for='story' className='input-textarea'>Tell us your experience:</label>
-        <textarea className='input-textarea' id='story' name='story' rows='4' cols='4' />
-        <span className='close-textArea'><input type='submit' className='input-textarea' href='#' value='Send !' /></span>
-      </div>
     </div>
-
   );
 };
 

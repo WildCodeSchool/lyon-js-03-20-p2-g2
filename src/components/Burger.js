@@ -43,12 +43,12 @@ export const Burger = (props) => {
         </div>
         <ul className='menuItems'>
           <li>
-            <Link to='/'>Home</Link>
+            <Link to='/' onClick={props.handleClick}>Home</Link>
           </li>
           <li>
-            <Link to='/favorites'>Favorite places </Link>
+            <Link to='/favorites' onClick={props.handleClick}>Favorite places </Link>
 
-            <ul className='menuFavorites'>
+            <ul className='menuFavorites' onClick={props.handleClick}>
               <li>
                 <Link to='/Lyon'>Lyon</Link>
               </li>
@@ -59,10 +59,10 @@ export const Burger = (props) => {
 
           </li>
           <li>
-            <Link to='/about'>About us</Link>
+            <Link to='/about' onClick={props.handleClick}>About us</Link>
           </li>
           <li>
-            <Link to='/parameters'>Parameters</Link>
+            <Link to='/parameters' onClick={props.handleClick}>Parameters</Link>
           </li>
         </ul>
       </nav>
