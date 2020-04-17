@@ -24,7 +24,7 @@ class Header extends Component {
         <Favorit />
 
         <BurgerButton handleClick={this.openBurgerMenu} />
-        <h2>Welcome to <strong>Weather Suggest</strong></h2>
+        <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
         <img className="menu-logo-img" src={require('../images/logo.png')} alt="logo" />
         <Burger handleClick={this.closeBurgerMenu} show={this.state.openBurger} />
       </div>
