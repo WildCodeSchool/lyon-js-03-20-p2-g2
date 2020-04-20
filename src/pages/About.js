@@ -72,7 +72,7 @@ class About extends Component {
           </Container>
           <footer class='page-footer font-small blue'>
             <div class='footer-copyright text-center py-3 footer-style'>© 2020 Copyright: By Wilders <i className='fas fa-heart coeur' />
-              <a> WeatherSuggest</a>
+              <a href='#'> WeatherSuggest</a>
             </div>
 
           </footer>
