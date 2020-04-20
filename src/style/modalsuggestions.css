@@ -65,7 +65,7 @@
 }
 
 .paragraph_Popover {
-    font-size: 32px !important;
+    font-size: 24px !important;
     color: #005C89 !important;
     display: flex;
     max-height: 220px;
@@ -76,8 +76,16 @@
     cursor: pointer;
 }
 
-.bs-popover-top>.arrow::after {
+.icon-clicked {
+    font-size: 48px;
+    opacity: 1 !important;
+    color: #02A2EF;
+}
+
+.bs-popover-top>.arrow::after, .bs-popover-top>.arrow::before {
     border-top-color: #99D7F5 !important;
+    left: -10px !important;
+    bottom: 2px !important;
 }
 
 [type=button]:focus {
@@ -104,6 +112,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
+    min-height: 10vh;
 } 
 
 .input-textarea {
@@ -118,7 +127,7 @@ label.input-textarea {
     color: #005C89;
 }
 
-textarea[name='story'], textarea[name='story']::placeholder {
+textarea[name='message'], textarea[name='message']::placeholder {
     background-color: #02A2EF;
     border: none;
     color: white;

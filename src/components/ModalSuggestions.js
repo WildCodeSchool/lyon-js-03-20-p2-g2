@@ -5,26 +5,58 @@ import Popover from 'react-bootstrap/Popover';
 import '../style/modalsuggestions.css';
 
 const SmileysPopover = (props) => {
+  const [angryClass, setAngryClass] = useState(false);
+  const [sadClass, setSadClass] = useState(false);
+  const [neutralClass, setNeutralClass] = useState(false);
+  const [smilingClass, setSmilingClass] = useState(false);
+  const [lovingClass, setLovingClass] = useState(false);
+
+  const angryClick = () => {
+    setAngryClass(!angryClass);
+  };
+
+  const sadClick = () => {
+    setSadClass(!sadClass);
+  };
+
+  const neutralClick = () => {
+    setNeutralClass(!neutralClass);
+  };
+
+  const smilingClick = () => {
+    setSmilingClass(!smilingClass);
+  };
+
+  const lovingClick = () => {
+    setLovingClass(!lovingClass);
+  };
+
   return (
     <div className='smileys-popover'>
       <div>
-        <span onClick={props.onClick} ><i className='far fa-angry iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
+        <span className={angryClass ? 'icon-clicked' : ''} onClick={angryClick}><span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
+        <span className={sadClass ? 'icon-clicked' : ''} onClick={sadClick}><span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
+        <span className={neutralClass ? 'icon-clicked' : ''} onClick={neutralClick}><span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
+        <span className={smilingClass ? 'icon-clicked' : ''} onClick={smilingClick}><span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
+        <span className={lovingClass ? 'icon-clicked' : ''} onClick={lovingClick}><span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
       </div>
-      {props.openTextArea ? 
-      <form className="text-area">
-        <textarea className='input-textarea' placeholder='Tell us about your experience...' id='story' name='story' rows='6' cols='30' />
-        <a href="mailto:nathan.guillaumin@outlook.com"><span className='close-textArea'><input type='submit' htmlFor  className='input-textarea' href='#' value='Send !' /></span></a>
-      </form> : ''}
-      
+      {props.openTextArea
+
+        ? <form
+          id='gform' method='POST' className='text-area' data-email='from_email@example.com'
+          action='https://script.google.com/macros/s/AKfycbyS6q2xMTu8lo7izsRYBUaurnCHCLbPKhI-jk5Q/exec'
+        >
+          <label htmlFor='message' />
+          <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
+          <a href='/'><span className='close-textArea'><input type='submit' htmlFor className='input-textarea' value='Send !' /></span></a>
+          </form>
+        : ''}
+
     </div>
   );
 };
 
-function ModalSuggestions() {
+function ModalSuggestions () {
   const [secondModal, setSecondModal] = useState(false);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
