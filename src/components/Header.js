@@ -4,9 +4,13 @@ import BurgerButton from './BurgerButton';
 import FavoriteItem from './FavoriteItem';
 
 class Header extends Component {
-  state = {
-    openBurger: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      openBurger: false
+    };
+  }
+
 
   openBurgerMenu = () => {
     this.setState((prevState) => {

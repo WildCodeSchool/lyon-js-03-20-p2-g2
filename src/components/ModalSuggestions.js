@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
 import '../style/modalsuggestions.css';
 
-const TextArea_Popover = (props) => {
+const TextAreaPopover = (props) => {
   return (
     <div className='text-area open' action='mailto: xxx@gmail.com'>
       <i className='fas fa-times' onClick={props.handleClick} />
@@ -15,7 +15,7 @@ const TextArea_Popover = (props) => {
   );
 };
 
-const Smileys_Popover = (props) => {
+const SmileysPopover = (props) => {
   return (
     <div>
       <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
@@ -27,12 +27,11 @@ const Smileys_Popover = (props) => {
   );
 };
 
-function ModalSuggestions () {
+function ModalSuggestions() {
   const [secondModal, setSecondModal] = useState(false);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
   const ref = useRef(null);
-  const textAreaOpen = 'text-area open';
 
   const handleClick = (event) => {
     setShow(!show);
@@ -46,7 +45,7 @@ function ModalSuggestions () {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'><i class='far fa-grin' /></div></Button>
+      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'><i className='far fa-grin' /></div></Button>
 
       <Overlay
         show={show}
@@ -58,11 +57,11 @@ function ModalSuggestions () {
         <Popover id='popover-contained' className='popover_Container'>
           <Popover.Title as='h3' className='title_Popover'>How would you rate your experience ? <i className='fas fa-times' /></Popover.Title>
           <Popover.Content className='paragraph_Popover'>
-            <Smileys_Popover onClick={handleSecondModal} />
+            <SmileysPopover onClick={handleSecondModal} />
           </Popover.Content>
         </Popover>
       </Overlay>
-      {secondModal ? <TextArea_Popover /> : ''}
+      {secondModal ? <TextAreaPopover /> : ''}
     </div>
   );
 }

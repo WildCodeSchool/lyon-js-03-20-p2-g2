@@ -21,7 +21,7 @@ class FavoriteItem extends React.Component {
             this.setState({ favorite: newFavorite });
           }}
         >
-          <i class='fas fa-heart' />
+          <i className='fas fa-heart' />
 
         </span>
       </div>
