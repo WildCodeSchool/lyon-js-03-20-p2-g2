@@ -8,18 +8,18 @@ const SmileysPopover = (props) => {
   return (
     <div className='smileys-popover'>
       <div>
-        <span onClick={props.onClick} ><i className='far fa-angry iconsPopover' /></span>
+        <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
         <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
       </div>
-      {props.openTextArea ? 
-      <form className="text-area">
-        <textarea className='input-textarea' placeholder='Tell us about your experience...' id='story' name='story' rows='6' cols='30' />
-        <a href="mailto:nathan.guillaumin@outlook.com"><span className='close-textArea'><input type='submit' htmlFor  className='input-textarea' href='#' value='Send !' /></span></a>
-      </form> : ''}
-      
+      {props.openTextArea
+        ? <form className='text-area'>
+          <textarea className='input-textarea' placeholder='Tell us about your experience...' id='story' name='story' rows='6' cols='30' />
+          <a href='mailto:nathan.guillaumin@outlook.com'><span className='close-textArea'><input type='submit' htmlFor className='input-textarea' href='#' value='Send !' /></span></a>
+          </form> : ''}
+
     </div>
   );
 };

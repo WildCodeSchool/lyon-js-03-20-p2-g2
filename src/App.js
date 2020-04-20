@@ -6,9 +6,10 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import SearchBar from './components/SearchBar';
 import About from './pages/About';
 import Home from './pages/Home';
+import Favorite from './pages/FavoritePage';
+import Parameters from './pages/Parameters';
 
 class App extends React.Component {
   render () {
@@ -17,21 +18,15 @@ class App extends React.Component {
         <div id='App'>
 
           <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
+            <Route exact path='/' component={Home} />
 
-            <Route path='/favorites' />
+            <Route path='/favorites' component={Favorite} />
 
-            <Route path='/about'>
-              <About />
-            </Route>
+            <Route path='/about' component={About} />
 
-            <Route path='/parameters' />
+            <Route path='/parameters' component={Parameters} />
 
-            <Route path='/:city' component={About}>
-              <SearchBar />
-            </Route>
+            <Route path='/:city' component={Favorite} />
 
           </Switch>
 
