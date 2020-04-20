@@ -13,22 +13,42 @@ const SmileysPopover = (props) => {
 
   const angryClick = () => {
     setAngryClass(!angryClass);
+    setSadClass(false);
+    setNeutralClass(false);
+    setSmilingClass(false);
+    setLovingClass(false);
   };
 
   const sadClick = () => {
     setSadClass(!sadClass);
+    setAngryClass(false);
+    setNeutralClass(false);
+    setSmilingClass(false);
+    setLovingClass(false);
   };
 
   const neutralClick = () => {
     setNeutralClass(!neutralClass);
+    setSadClass(false);
+    setAngryClass(false);
+    setSmilingClass(false);
+    setLovingClass(false);
   };
 
   const smilingClick = () => {
     setSmilingClass(!smilingClass);
+    setSadClass(false);
+    setNeutralClass(false);
+    setAngryClass(false);
+    setLovingClass(false);
   };
 
   const lovingClick = () => {
     setLovingClass(!lovingClass);
+    setSadClass(false);
+    setNeutralClass(false);
+    setSmilingClass(false);
+    setAngryClass(false);
   };
 
   return (
