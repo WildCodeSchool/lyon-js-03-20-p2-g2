@@ -63,12 +63,11 @@ const SmileysPopover = (props) => {
       {props.openTextArea
 
         ? <form
-          id='gform' method='POST' className='text-area' data-email='from_email@example.com'
-          action='https://script.google.com/macros/s/AKfycbyS6q2xMTu8lo7izsRYBUaurnCHCLbPKhI-jk5Q/exec'
+          id='gform' className='text-area'
         >
           <label htmlFor='message' />
           <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
-          <a href='/'><span className='close-textArea'><input type='submit' htmlFor className='input-textarea' value='Send !' /></span></a>
+          <a href='/'><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a>
           </form>
         : ''}
 
@@ -93,7 +92,7 @@ function ModalSuggestions () {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'>{show ? <i className='fas fa-times' /> : <i class='far fa-grin' />}</div></Button>
+      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</div></Button>
 
       <Overlay
         show={show}
