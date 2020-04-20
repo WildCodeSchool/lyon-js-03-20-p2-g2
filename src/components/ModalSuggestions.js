@@ -27,7 +27,7 @@ const SmileysPopover = (props) => {
   );
 };
 
-function ModalSuggestions() {
+function ModalSuggestions () {
   const [secondModal, setSecondModal] = useState(false);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
