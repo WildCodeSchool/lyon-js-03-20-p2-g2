@@ -44,22 +44,30 @@
     flex-direction: column !important;
     color: #005C89 !important;
     margin-bottom: 1em;
+    bottom: 10px !important;
+    max-width: 290px !important;
 }
 
 .title_Popover {
-    font-size: 12px !important;
+    font-size: 14px !important;
     background-color: #99D7F5 !important;
     color: #005C89 !important;
     font-weight: bold !important;
     font-family: 'Nunito' !important;
     border: none !important;
     text-align: center !important;
+    display: flex;
+}
+
+.closing-modal {
+    margin-left: 5px;
 }
 
 .paragraph_Popover {
     font-size: 32px !important;
     color: #005C89 !important;
     display: flex;
+    max-height: 220px;
 }
 
 .iconsPopover {
@@ -71,34 +79,85 @@
     border-top-color: #99D7F5 !important;
 }
 
+[type=button]:focus {
+    box-shadow: none !important;
+}
+
+[type=button],
+[type=button]:hover {
+    border: none !important;
+}
+
 /* Text area suggestions */ 
 
 .text-area {
-    display:flex;
+    display: none;
     right: 50px;
     bottom: 150px;
     width: 275px;
-    height: 30vh;
+    height: 20vh;
     background-color: #99D7F5;
     z-index: 2000;
-    transform: translateX(-100%);
     transition: transform 0.4s ease-out;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
 } 
-
-.text-area.open {
-    position: fixed;
-    transform: translateX(20%);
-    right: 75px;
-}
-
-.text-area.close
 
 .input-textarea {
     font-family: 'Nunito';
     margin: 10px 0;
     font-weight: bold;
+    font-size: 14px;
+    outline: none;
+}
+
+label.input-textarea {
     color: #005C89;
+}
+
+textarea[name='story'], textarea[name='story']::placeholder {
+    background-color: #02A2EF;
+    border: none;
+    color: white;
+    opacity: 0.8;
+    border-radius: 8px;
+    resize: none;
+    margin: 0;
+}
+
+
+.smileys-popover {
+    display: flex;
+    flex-direction: column;
+}
+
+.smileys-popover > div {
+    text-align: center;
+}
+
+input[type='submit'], input[type='submit']:active, input[type='submit']:focus  {
+    background-color:#005C89 !important;
+    color: #99D7F5 !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    width: 60px;
+    border-radius: 10px;
+    margin: 0;
+}
+
+@media screen and (max-width: 700px) {
+    .btn_Suggestions {
+        height: 7vh;
+        max-height: 7vh;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .btn_Suggestions {
+        height: 5vh;
+        max-height: 5vh;
+    }
 }
