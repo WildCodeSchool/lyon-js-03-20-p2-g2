@@ -9,19 +9,20 @@
   }
 
 .modal_Suggestions {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+   position: absolute;
+    bottom: 0;
+    right: 5px;
     padding: 0;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    padding-bottom: 10px;
 }
 
 .btn_Suggestions {
     background-color: #005C89 !important;
-    width: 10vw !important;
+    width: 10%!important;
     height: 10vh !important;
     font-size: 4vw !important;
     padding: 0 !important;

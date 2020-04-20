@@ -4,12 +4,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import Nathan from '../images/nathan.png';
+import Header from '../components/Header';
 
 class About extends Component {
   render () {
     return (
       <section className='about'>
+        <Header />
         <h1>About us</h1>
         <div className='our-story'>
           <h3>Our story</h3>
@@ -18,8 +19,8 @@ class About extends Component {
           <p className='paragraphs'>In order to answer our program, we are asked to launch 3 work projects during the 5 months. We decided then to launch WeatherSuggest in React.js.
           </p>
           <p className='paragraphs'>
-          WeatherSuggest is a web application that will display the weather forecasts according to the users' preferences whether it be by geolocating or by choosing a position.
-          Our aim is also to provide air quality indices in order to enrich the service we are willing to offer.
+            WeatherSuggest is a web application that will display the weather forecasts according to the users' preferences whether it be by geolocating or by choosing a position.
+            Our aim is also to provide air quality indices in order to enrich the service we are willing to offer.
           </p>
 
           <p className='paragraphs'>After reading that, you could wonder what we suggest more than a traditionnal weather forecast app and what is our objective to launch such an application that we can find by thousands on the web.
@@ -27,7 +28,7 @@ class About extends Component {
           </p>
 
           <p className='paragraphs'>
-          But, WeatherSuggest is more than a weather forecasts application. We are thriving to deliver the best insights and advice to our users.
+            But, WeatherSuggest is more than a weather forecasts application. We are thriving to deliver the best insights and advice to our users.
           To do that, we provide personalized content according to the weather.<br />
           Will it be raining tomorrow in London? No problem, we will tell you what to wear and what to do !
           </p>
@@ -43,7 +44,7 @@ class About extends Component {
                 <p><strong>Abdel</strong> our Mister Weather is always ready to introduce the forecasts to come !</p>
               </Col>
               <Col xs={6} md={4} className='team-card'>
-                <Image className='our_pics' src={Nathan} alt='Nathan' roundedCircle />
+                <Image className='our_pics' src={require('../images/nathan.png')} alt='Nathan' roundedCircle />
                 <h2 className='us'>Nathan</h2>
                 <p><strong>Nathan</strong> is our special correspondent for our special forecasts !</p>
               </Col>
@@ -69,6 +70,12 @@ class About extends Component {
               </Col>
             </Row>
           </Container>
+          <footer class='page-footer font-small blue'>
+            <div class='footer-copyright text-center py-3 footer-style'>© 2020 Copyright: By Wilders <i className='fas fa-heart coeur' />
+              <a href='#'> WeatherSuggest</a>
+            </div>
+
+          </footer>
         </div>
       </section>
     );

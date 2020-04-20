@@ -15,6 +15,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color:#d4cbcb;
 }
 
 .about > h1 {
@@ -71,4 +72,12 @@
 .our_pics {
   box-shadow: 5px 5px 5px #99D7F5;
   width: 80%;
+}
+.footer-style{
+  width: 80%;
+  margin: auto;
+  color: white;
+}
+.coeur{
+  color: red;
 }
