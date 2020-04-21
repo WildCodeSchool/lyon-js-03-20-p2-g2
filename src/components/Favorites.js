@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../style/favorites.css';
-import { FavItem } from './FavoriteItem';
+import FavoriteItem, { FavItem } from './FavoriteItem';
 
 class Favorites extends Component {
   constructor (props) {
@@ -10,17 +10,23 @@ class Favorites extends Component {
       list: [],
       favList: []
     };
-    this.list = [(
-      Lyon: 
-        id: 1, 
-        favorite: false,
-      Paris: 
-        id: 2, 
-        favorite: false, 
-      Maison: 
-        id: 3, 
+    this.list = {
+      Lyon: {
+        name: 'Lyon',
+        id: 1,
         favorite: false
-    )];
+      },
+      Paris: {
+        name: 'Paris',
+        id: 2,
+        favorite: false
+      },
+      Maison: {
+        name: 'Maison',
+        id: 3,
+        favorite: false
+      }
+    };
   }
 
   addToFav = cityId => {
@@ -34,21 +40,24 @@ class Favorites extends Component {
     );
   };
 
-  handleChange = (city) => {
+  handleChange = city => {
     const newFavorite = !this.state.city.favorite;
 
     this.setState({ favorite: newFavorite });
   };
 
+  getPath = () => {
+    const params = this.props.match.params;
+
+    const filteredCity = this.list.filter(city => city.name === params.city);
+
+    return filteredCity;
+  }
+
   render () {
     return (
       <div className='favorites'>
-        <ul>
-          {this.state.list.map(city => {
-            return (<li key={city}>{city}</li>);
-          })}
-        </ul>
-        <FavItem onClick={this.handleChange} active={this.state.city.favorite} />
+        <FavItem onClick={this.handleChange} active={this.state.city.name.favorite} />
       </div>
     );
   }
