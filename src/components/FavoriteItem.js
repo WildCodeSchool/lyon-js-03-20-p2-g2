@@ -7,7 +7,7 @@ class FavoriteItem extends React.Component {
       <div>
 
         <span
-          className={this.props.favorite ? 'is-favorite' : 'empty'}
+          className={this.props.active ? 'is-favorite' : 'empty'}
           onClick={this.props.handleChange}
         >
           <i className='fas fa-heart' />

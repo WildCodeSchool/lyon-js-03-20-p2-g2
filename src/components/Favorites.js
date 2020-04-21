@@ -9,25 +9,24 @@ class Favorites extends Component {
     super(props);
 
     this.state = {
-      list: [],
+      list: {
+        Lyon: {
+          name: 'Lyon',
+          id: 1,
+          favorite: false
+        },
+        Paris: {
+          name: 'Paris',
+          id: 2,
+          favorite: false
+        },
+        Maison: {
+          name: 'Maison',
+          id: 3,
+          favorite: false
+        }
+      },
       favList: []
-    };
-    this.list = {
-      Lyon: {
-        name: 'Lyon',
-        id: 1,
-        favorite: false
-      },
-      Paris: {
-        name: 'Paris',
-        id: 2,
-        favorite: false
-      },
-      Maison: {
-        name: 'Maison',
-        id: 3,
-        favorite: false
-      }
     };
   }
 
@@ -51,7 +50,7 @@ class Favorites extends Component {
   getPath = () => {
     const params = this.props.match.params;
 
-    const filteredCity = this.list.filter(city => city.name === params.city);
+    const filteredCity = this.state.list.filter(city => city.name === params.city);
 
     return filteredCity;
   }
