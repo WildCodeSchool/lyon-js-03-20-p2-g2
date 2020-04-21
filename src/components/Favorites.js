@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../style/favorites.css';
-import FavoriteItem, { FavItem } from './FavoriteItem';
+import FavoriteItem from './FavoriteItem';
+// import { FavoriteItem as FavItem } from './FavoriteItem';
+import { Link } from 'react-router-dom';
 
 class Favorites extends Component {
   constructor (props) {
@@ -57,7 +59,10 @@ class Favorites extends Component {
   render () {
     return (
       <div className='favorites'>
-        <FavItem onClick={this.handleChange} active={this.state.city.name.favorite} />
+        {this.props.state.list.map(city => {
+          return (<li key={city.id}><Link to={city.name}>{city.name}</Link></li>);
+        })}
+        <FavoriteItem onClick={this.handleChange} active={this.state.city.name.favorite} />
       </div>
     );
   }
