@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../style/favorites.css';
 import FavoriteItem from './FavoriteItem';
 // import { FavoriteItem as FavItem } from './FavoriteItem';
-import { Link } from 'react-router-dom';
+import Burger from './Burger';
 
 class Favorites extends Component {
   constructor (props) {
@@ -41,7 +41,7 @@ class Favorites extends Component {
     );
   };
 
-  handleChange = city => {
+  favActive = city => {
     const newFavorite = !this.state.city.favorite;
 
     this.setState({ favorite: newFavorite });
@@ -58,10 +58,8 @@ class Favorites extends Component {
   render () {
     return (
       <div className='favorites'>
-        {this.props.state.list.map(city => {
-          return (<li key={city.id}><Link to={city.name}>{city.name}</Link></li>);
-        })}
-        <FavoriteItem onClick={this.handleChange} active={this.state.city.name.favorite} />
+        <Burger list={this.state.list} />
+        <FavoriteItem handleChange={this.favActive} active={this.state.city.name.favorite} />
       </div>
     );
   }

@@ -21,7 +21,7 @@ export const Burger = (props) => {
         <li>
           <Link to='/favorites' onClick={props.handleClick}>Favorite places </Link>
           <ul className='menuFavorites'>
-            {this.props.state.list.map(city => {
+            {props.list.map(city => {
               return (<li key={city.id}><Link to={city.name} onClick={props.handleClick}>{city.name}</Link></li>);
             })}
             <Favorite />
