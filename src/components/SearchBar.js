@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../style/search-bar.css';
 
 class SearchBar extends React.Component {
@@ -15,7 +15,7 @@ class SearchBar extends React.Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.getCoordinates);
     } else {
-      alert('Geolocation is not supported by this browser.');
+      window.alert('Geolocation is not supported by this browser.');
     }
   }
 
@@ -25,6 +25,7 @@ class SearchBar extends React.Component {
   }
 
   render () {
+    const handleButtonClick = this.getCoordinates;
     return (
       <form className='search-bar'>
         <label className='search-label' htmlFor='search-input'>
@@ -35,7 +36,7 @@ class SearchBar extends React.Component {
             placeholder='Type city name...'
           />
         </label>
-        <button onClick={this.getCoordinates} className='geoLocation-input'><i className='fas fa-map-marker-alt' /></button>
+        <button onClick={handleButtonClick} className='geoLocation-input'><i className='fas fa-map-marker-alt' /></button>
       </form>
     );
   }
