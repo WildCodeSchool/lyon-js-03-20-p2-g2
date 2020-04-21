@@ -67,7 +67,7 @@ const SmileysPopover = (props) => {
         >
           <label htmlFor='message' />
           <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
-          <a href='/'><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a>
+          <a href='mailto:weathersuggest@gmail.com'><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a>
           </form>
         : ''}
 
