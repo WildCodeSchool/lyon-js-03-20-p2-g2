@@ -9,9 +9,15 @@
 }
 
 .search-bar{
-width: 40%;
-margin: auto;
-display: flex
+  width: 40%;
+  margin: auto;
+  display: flex
+}
+
+@media only screen and (max-width: 800px) {
+  .search-bar{
+    width: 90%;
+  }
 }
 
 input[type=text] {

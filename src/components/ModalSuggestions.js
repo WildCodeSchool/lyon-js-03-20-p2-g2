@@ -6,7 +6,7 @@ import '../style/modalsuggestions.css';
 
 const SmileysPopover = (props) => {
   const [clickedSmiley, setClickedSmiley] = useState(null);
-  const body = 'bla bla'
+  const body = 'bla bla';
 
   return (
     <div className='smileys-popover'>

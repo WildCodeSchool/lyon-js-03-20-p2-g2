@@ -14,7 +14,7 @@ class App extends React.Component {
   render () {
     return (
       <Router>
-        <div id='App'>
+        <main id='App'>
 
           <Switch>
             <Route exact path='/'>
@@ -35,7 +35,12 @@ class App extends React.Component {
 
           </Switch>
 
-        </div>
+        </main>
+        <footer className='page-footer font-small blue'>
+          <div className='footer-copyright text-center py-3 footer-style'>© 2020 Copyright: By Wilders <i className='fas fa-heart coeur' />
+            <a href='/'> WeatherSuggest</a>
+          </div>
+        </footer>
       </Router>
     );
   }
