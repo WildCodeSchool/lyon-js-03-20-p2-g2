@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'Raleway';
+  src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+.about {
+  text-align: center;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('../images/Aube.jpg')
+}
+
+.about > h1 {
+  color: #005C89;
+}
+
+.our-story {
+  width: 70%;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.our-story p {
+  text-align: justify;
+}
+
+.paragraphs {
+  margin-top: 20px;
+}
+
+.about > h1 {
+  font-family: 'Nunito';
+  font-weight: bold;
+}
+
+.our-story > h3, .team > h3 {
+  font-family: 'Nunito';
+  font-size: 32px;
+  font-weight: bold;
+  color: #005C89;
+}
+
+.our-story, .team {
+  background: rgba(153, 215, 245, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+
+.our-story > .paragraphs {
+  font-family: 'Raleway';
+  color: #005C89;
+}
+
+.us {
+  font-family: 'Nunito';
+  color: #005C89;
+  margin-top: 20px;
+}
+
+.us ~ p {
+  font-family: 'Raleway';
+  color: #005C89;
+  margin-bottom: 50px;
+}
+
+.container-about {
+  margin-top: 50px;
+}
+
+.our_pics {
+  box-shadow: 5px 5px 5px #99D7F5;
+  width: 80%;
+}
+
+.footer-style{
+  width: 100%;
+  margin: auto;
+  color: white;
+}
+
+.coeur{
+  color: red;
+}

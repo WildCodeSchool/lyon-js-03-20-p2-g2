@@ -1,13 +1,9 @@
 #App {
   position: relative;
-  height: 100%;
   width: auto;
-  background-image: url("./images/day-test.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
-#App h2 {
+
+.welcome-message {
   text-align: center;
   color: white;
   font-family: 'Nunito';
@@ -16,7 +12,8 @@
 .header{
   display: flex;
   flex-direction: column;
-  padding-bottom: 100px;
+ 
+  width: 100%;
 }
 .header img{
     width: 150px;

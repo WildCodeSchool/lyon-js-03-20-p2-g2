@@ -1,7 +1,7 @@
 import React from 'react';
-import '../style/favorit.css';
+import '../style/favorite-item.css';
 
-class Favorit extends React.Component {
+class FavoriteItem extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -21,7 +21,7 @@ class Favorit extends React.Component {
             this.setState({ favorite: newFavorite });
           }}
         >
-          <i class='fas fa-heart' />
+          <i className='fas fa-heart' />
 
         </span>
       </div>
@@ -29,4 +29,4 @@ class Favorit extends React.Component {
     );
   }
 }
-export default Favorit;
+export default FavoriteItem;
