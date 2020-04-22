@@ -1,70 +1,50 @@
 import React, { Component } from 'react';
 import '../style/favorites.css';
-import FavoriteItem from './FavoriteItem';
 // import { FavoriteItem as FavItem } from './FavoriteItem';
-import Burger from './Burger';
 import Header from './Header';
 import SearchBar from './SearchBar';
 
 class Favorites extends Component {
-  constructor (props) {
-    super(props);
+  // addToFav = cityId => {
+  //   this.setState(
+  //     prevstate => {
+  //       return {
+  //         favList: [...prevstate.favList, cityId]
+  //       };
+  //     }
+  //   );
+  // };
 
-    this.state = {
-      list: {
-        Lyon: {
-          name: 'Lyon',
-          id: 1,
-          favorite: false
-        },
-        Paris: {
-          name: 'Paris',
-          id: 2,
-          favorite: false
-        },
-        Besancon: {
-          name: 'Besançon',
-          id: 3,
-          favorite: false
-        }
-      },
-      favList: []
-    };
-  }
+  // removeToFav = cityId => {
+  //   const removeCity = this.state.favList.findIndex(city => city === cityId);
 
-  addToFav = cityId => {
-    this.setState(
-      prevstate => {
-        return {
-          favList: [...prevstate.favList, cityId]
-        };
-      },
-      () => {}
-    );
-  };
+  //   const newFavList = this.state.favList.slice(removeCity, 1);
 
-  favActive = city => {
-    const newFavorite = !this.state.favorite;
+  //   this.setState({ favList: newFavList });
+  // };
 
-    this.setState({ favorite: newFavorite });
-  };
+  // favActive = city => {
+  //   const newFavorite = !this.state.favorite;
 
-  getPath = () => {
-    const params = this.props.match.params;
+  //   this.setState({ favorite: newFavorite });
 
-    const filteredCity = this.state.list.filter(cityName => cityName === params.city);
+  //   this.state.favList.city.favorite ? this.addToFav(city) : this.removeToFav(city);
+  // };
 
-    return filteredCity;
-  }
+  // getPath = () => {
+  //   const params = this.props.match.params;
+
+  //   const filteredCity = this.state.favList.filter(cityName => cityName === params.city);
+
+  //   return filteredCity;
+  // }
 
   render () {
     return (
       <div className='favorites'>
         <Header />
         <SearchBar />
-        <FavoriteItem handleChange={this.favActive} active={this.state.list.favorite} />
-        <Burger list={this.state.list} />
-        <h1>city: {this.getPath()}</h1>
+        {console.log(this.state.favList)}
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +7,6 @@ import {
 } from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
-import Favorites from './components/Favorites';
 import Parameters from './pages/Parameters';
 
 class App extends React.Component {
@@ -20,13 +18,13 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={Home} />
 
-            <Route path='/favorites' component={Favorites} />
+            <Route path='/favorites' component={Home} />
 
             <Route path='/about' component={About} />
 
             <Route path='/parameters' component={Parameters} />
 
-            <Route path='/:city' component={Favorites} />
+            <Route path='/:city' component={Home} />
 
           </Switch>
 
