@@ -26,7 +26,7 @@ export const Burger = (props) => {
               <div>
                 <ul className='menuFavorites'>
                   {props.list.map(city => {
-                    return (<li key={city.id}><Link to={city.name} onClick={props.handleClick}>{city.name}</Link></li>);
+                    return (<li key={city.id}><Link to={props.city.name} onClick={props.handleClick}>{props.city.name}</Link></li>);
                   })}
                 </ul>
               </div>

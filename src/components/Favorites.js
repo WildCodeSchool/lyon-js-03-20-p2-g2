@@ -22,8 +22,8 @@ class Favorites extends Component {
           id: 2,
           favorite: false
         },
-        Maison: {
-          name: 'Maison',
+        Besancon: {
+          name: 'Besançon',
           id: 3,
           favorite: false
         }
@@ -44,7 +44,7 @@ class Favorites extends Component {
   };
 
   favActive = city => {
-    const newFavorite = !this.state.city.favorite;
+    const newFavorite = !this.state.favorite;
 
     this.setState({ favorite: newFavorite });
   };
@@ -52,7 +52,7 @@ class Favorites extends Component {
   getPath = () => {
     const params = this.props.match.params;
 
-    const filteredCity = this.state.list.filter(city => city.name === params.city);
+    const filteredCity = this.state.list.filter(cityName => cityName === params.city);
 
     return filteredCity;
   }
@@ -64,6 +64,7 @@ class Favorites extends Component {
         <SearchBar />
         <FavoriteItem handleChange={this.favActive} active={this.state.list.favorite} />
         <Burger list={this.state.list} />
+        <h1>city: {this.getPath()}</h1>
       </div>
     );
   }
