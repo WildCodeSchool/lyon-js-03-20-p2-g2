@@ -3,6 +3,8 @@ import '../style/favorites.css';
 import FavoriteItem from './FavoriteItem';
 // import { FavoriteItem as FavItem } from './FavoriteItem';
 import Burger from './Burger';
+import Header from './Header';
+import SearchBar from './SearchBar';
 
 class Favorites extends Component {
   constructor (props) {
@@ -58,7 +60,9 @@ class Favorites extends Component {
   render () {
     return (
       <div className='favorites'>
-        <FavoriteItem handleChange={this.favActive} active={this.state.city.name.favorite} />
+        <Header />
+        <SearchBar />
+        <FavoriteItem handleChange={this.favActive} active={this.state.list.favorite} />
         <Burger list={this.state.list} />
       </div>
     );

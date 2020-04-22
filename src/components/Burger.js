@@ -1,7 +1,6 @@
 import React from 'react';
 import '../style/burger.css';
 import { Link } from 'react-router-dom';
-import Favorite from '../pages/FavoritePage';
 
 export const Burger = (props) => {
   let navClasses = 'nav-menu';
@@ -18,15 +17,24 @@ export const Burger = (props) => {
         <li>
           <Link to='/' onClick={props.handleClick}>Home</Link>
         </li>
+
         <li>
           <Link to='/favorites' onClick={props.handleClick}>Favorite places </Link>
-          <ul className='menuFavorites'>
-            {props.list.map(city => {
-              return (<li key={city.id}><Link to={city.name} onClick={props.handleClick}>{city.name}</Link></li>);
-            })}
-            <Favorite />
-          </ul>
+          {console.log(props.list)}
+          {(props) => {
+            return (
+              <div>
+                <ul className='menuFavorites'>
+                  {props.list.map(city => {
+                    return (<li key={city.id}><Link to={city.name} onClick={props.handleClick}>{city.name}</Link></li>);
+                  })}
+                </ul>
+              </div>
+            );
+          }}
+          {console.log(props)}
         </li>
+
         <li>
           <Link to='/about' onClick={props.handleClick}>About us</Link>
         </li>

@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
-import Favorite from './pages/FavoritePage';
+import Favorites from './components/Favorites';
 import Parameters from './pages/Parameters';
 
 class App extends React.Component {
@@ -20,13 +20,13 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={Home} />
 
-            <Route path='/favorites' component={Favorite} />
+            <Route path='/favorites' component={Favorites} />
 
             <Route path='/about' component={About} />
 
             <Route path='/parameters' component={Parameters} />
 
-            <Route path='/:city' component={Favorite} />
+            <Route path='/:city' component={Favorites} />
 
           </Switch>
 
