@@ -4,11 +4,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 class About extends Component {
   render () {
     return (
       <section className='about'>
+        <Header />
         <h1>About us</h1>
         <div className='our-story'>
           <h3>Our story</h3>
@@ -70,6 +73,7 @@ class About extends Component {
           </Container>
 
         </div>
+        <Footer />
       </section>
     );
   }
