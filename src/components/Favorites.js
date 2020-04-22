@@ -58,8 +58,8 @@ class Favorites extends Component {
   render () {
     return (
       <div className='favorites'>
-        <Burger list={this.state.list} />
         <FavoriteItem handleChange={this.favActive} active={this.state.city.name.favorite} />
+        <Burger list={this.state.list} />
       </div>
     );
   }
