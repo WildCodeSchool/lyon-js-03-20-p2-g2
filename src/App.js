@@ -18,7 +18,7 @@ class App extends React.Component {
 
           <Switch>
             <Route exact path='/'>
-              <Home onClick={this.getLocation} />
+              <Home />
             </Route>
 
             <Route path='/favorites' />

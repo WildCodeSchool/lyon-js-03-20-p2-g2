@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SearchBar from '../components/SearchBar';
 import ModalSuggestions from '../components/ModalSuggestions';
 import Header from '../components/Header';
@@ -8,7 +8,7 @@ const Home = (props) => {
   return (
     <div className='home'>
       <Header />
-      <SearchBar onClick={props.onClick} />
+      <SearchBar />
       <ModalSuggestions />
     </div>
   );

@@ -61,14 +61,11 @@ const SmileysPopover = (props) => {
         <span className={lovingClass ? 'icon-clicked' : ''} onClick={lovingClick}><span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
       </div>
       {props.openTextArea
-
-        ? <form
-          id='gform' className='text-area'
-        >
+        ? <form id='gform' className='text-area'>
           <label htmlFor='message' />
           <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
-          <a href='mailto:weathersuggest@gmail.com'><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a>
-          </form>
+          <a href='mailto:weathersuggest@gmail.com'><input type='submit' className='input-textarea' value='Send !' /></a>
+        </form> // eslint-disable-line
         : ''}
 
     </div>
