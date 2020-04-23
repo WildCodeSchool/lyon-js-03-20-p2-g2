@@ -8,7 +8,7 @@ class Header extends Component {
     super(props);
     this.state = {
       openBurger: false,
-      favoritesList: ['Lyon', 'Paris']
+      favoritesList: ['Lyon', 'Paris', 'Autre']
     };
   }
 
@@ -22,33 +22,27 @@ class Header extends Component {
     this.setState({ openBurger: false });
   }
 
-  addFavorite = favorite => {
+  addFavorite = currentlyCity => {
     const { favoritesList } = this.state;
+    const isFavorite = favoritesList.some(alreadyFavorite => alreadyFavorite === currentlyCity);
 
-    if (
-      !favoritesList.some(alreadyFavorite => alreadyFavorite.id === favorite.id)
-    ) {
+    if (!isFavorite) {
       this.setState({
-        favoritesList: [...this.state.favoritesList, favorite]
+        favoritesList: [...favoritesList, currentlyCity]
+      });
+    } else if (isFavorite) {
+      const indexFavorite = favoritesList.indexOf(currentlyCity);
+      console.log(indexFavorite);
+      this.setState({
+        favoritesList: [...favoritesList, favoritesList.splice(indexFavorite, 1)]
       });
     }
-  };
-
-  delFavorite = favorite => {
-    const { favoritesList } = this.state;
-    if (
-      !favoritesList.some(alreadyFavorite => alreadyFavorite.id === !favorite.id)
-    ) {
-      this.setState({
-        favoritesList: [...this.state.favoritesList, favoritesList.splice(0, 1)]
-      });
-    }
-  };
+  }
 
   render () {
     return (
       <div className='header'>
-        <FavoriteItem handleChange={this.favActive} active={false} />
+        <FavoriteItem handleChange={this.addFavorite} active={(currentlyCity) => this.state.favoritesList.includes(currentlyCity)} />
 
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
