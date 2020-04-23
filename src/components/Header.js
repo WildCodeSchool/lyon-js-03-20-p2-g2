@@ -8,7 +8,7 @@ class Header extends Component {
     super(props);
     this.state = {
       openBurger: false,
-      favList: ['Lyon', 'Paris']
+      favoritesList: ['Lyon', 'Paris']
     };
   }
 
@@ -22,9 +22,28 @@ class Header extends Component {
     this.setState({ openBurger: false });
   }
 
-  getToggleFav = () => {
+  addFavorite = favorite => {
+    const { favoritesList } = this.state;
 
-  }
+    if (
+      !favoritesList.some(alreadyFavorite => alreadyFavorite.id === favorite.id)
+    ) {
+      this.setState({
+        favoritesList: [...this.state.favoritesList, favorite]
+      });
+    }
+  };
+
+  delFavorite = favorite => {
+    const { favoritesList } = this.state;
+    if (
+      !favoritesList.some(alreadyFavorite => alreadyFavorite.id === !favorite.id)
+    ) {
+      this.setState({
+        favoritesList: [...this.state.favoritesList, favoritesList.splice(0, 1)]
+      });
+    }
+  };
 
   render () {
     return (
@@ -34,7 +53,7 @@ class Header extends Component {
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
         <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
-        <Burger handleClick={this.closeBurgerMenu} show={this.state.openBurger} list={this.state.favList} />
+        <Burger handleClick={this.closeBurgerMenu} show={this.state.openBurger} favoriteList={this.state.favoritesList} />
       </div>
     );
   }
