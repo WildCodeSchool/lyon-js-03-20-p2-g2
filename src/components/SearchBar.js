@@ -5,15 +5,15 @@ import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
 import citiesList from '../cities.js';
+import FavoriteItem from './FavoriteItem.js';
 
 const cities = citiesList.map(element => `${element.city}, ${element.country}`);
 
 const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
-/*
 const ApiKey2 = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
 const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
 const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
-*/
+
 class SearchBar extends React.Component {
   constructor() {
     super();
@@ -26,12 +26,23 @@ class SearchBar extends React.Component {
       city: '',
       loading: false,
       suggestions: [],
-      text: ''
+      text: '',
+      favorites: [],
+      list: ['Lyon', 'Paris', 'Marseille']
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.cancel = '';
   }
+
+  addFavorite = (favorite) => {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite == favorite)) {
+      this.setState({
+        favorites: [...this.state.favorites, favorite]
+      });
+    }
+  };
 
   handleTextChanged = (e) => {
     const value = e.target.value;
@@ -63,7 +74,7 @@ class SearchBar extends React.Component {
   } // eslint-disable-line
 
   fetchSearchResults = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey}&q=${city}&language=fr&details=true`;
+    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey4}&q=${city}&language=fr&details=true`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -77,7 +88,7 @@ class SearchBar extends React.Component {
       .then(data => {
         setTimeout(this.setState({ data: data, loading: false }), 3000);
 
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
+        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
           .then(res => res.json())
           .then(data => this.setState({ meteoBySearch: data }));
       })
@@ -109,13 +120,13 @@ class SearchBar extends React.Component {
       setTimeout(() => {
         this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
-        fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
+        fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey4}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
 
           .then(res => res.json())
           .then(data => {
             this.setState({ data: data });
 
-            fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
+            fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
               .then(res => res.json())
               .then(data => this.setState({ meteoByGeo: data }));
           });
@@ -142,11 +153,14 @@ class SearchBar extends React.Component {
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
         </form>
 
+        <ul className='list-favorites'>{this.state.favorites.map(favorite => <li>{favorite}</li>)}</ul>
+
         {/* Loader */}
         <img src={Loader} className={`search-loding ${loading ? 'show' : 'hide'}`} alt='loader' />
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
+            <FavoriteItem  addFavorite={this.addFavorite} city={this.state.city} />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
@@ -165,7 +179,6 @@ class SearchBar extends React.Component {
             </Header>
 
             <Card.Group className='cards'>
-
               {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
                 return <Meteo
                   key={index}
