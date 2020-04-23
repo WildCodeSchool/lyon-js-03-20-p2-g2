@@ -11,8 +11,9 @@ class Meteo extends Component {
     return (
       <Card className='Meteo'>
         <Card.Content>
-          <Image floated='right' size='tiny' src={this.props.icon} alt={this.props.phrase} />
+
           <Card.Header>{this.props.phrase}</Card.Header>
+          <Image floated='right' size='tiny' src={this.props.icon} alt={this.props.phrase} />
           <Card.Meta>{moment(this.props.date).format('dddd')}</Card.Meta>
           <Card.Description>
             {this.props.min}° | {this.props.max}°
