@@ -12,10 +12,10 @@ const SmileysPopover = (props) => {
     <div className='smileys-popover'>
       <div>
         <span className={clickedSmiley === 'angry' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('angry')}><span onClick={clickedSmiley === 'angry' ? () => {} : props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
-        <span className={clickedSmiley === 'sad' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('sad')}><span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
-        <span className={clickedSmiley === 'meh' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('meh')}><span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
-        <span className={clickedSmiley === 'smile' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('smile')}><span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
-        <span className={clickedSmiley === 'loving' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('loving')}><span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'sad' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('sad')}><span onClick={clickedSmiley === 'sad' ? () => {} : props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'meh' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('meh')}><span onClick={clickedSmiley === 'meh' ? () => {} : props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'smile' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('smile')}><span onClick={clickedSmiley === 'smile' ? () => {} : props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'loving' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('loving')}><span onClick={clickedSmiley === 'loving' ? () => {} : props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
       </div>
       {props.openTextArea
         ? // eslint-disable-line
