@@ -25,8 +25,6 @@ class Header extends Component {
   render () {
     return (
       <div className='header'>
-        <FavoriteItem />
-
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
         <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />

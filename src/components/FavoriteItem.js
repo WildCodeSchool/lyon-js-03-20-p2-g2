@@ -1,20 +1,22 @@
 import React from 'react';
 import '../style/favorite-item.css';
 
-function FavoriteItem (props) {
-  return (
-    <div>
+class FavoriteItem extends React.Component {
+  render () {
+    return (
+      <div>
 
-      <span
-        className={props.active ? 'is-favorite' : 'empty'}
-        onClick={props.handleChange}
-      >
-        <i className='fas fa-heart' />
+        <span
+          className='is-favorite'
+          onClick={() => this.props.addFavorite(this.props.city)}
+        >
+          <i className='fas fa-heart' />
 
-      </span>
-    </div>
+        </span>
+      </div>
 
-  );
+    );
+  }
 }
 
 export default FavoriteItem;

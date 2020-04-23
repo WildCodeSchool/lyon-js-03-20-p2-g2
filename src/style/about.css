@@ -15,7 +15,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url('../images/Aube.jpg')
+  background: url('../images/Aube.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 .about > h1 {

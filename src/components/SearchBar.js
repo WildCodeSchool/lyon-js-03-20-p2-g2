@@ -5,17 +5,17 @@ import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
 import citiesList from '../cities.js';
+import FavoriteItem from './FavoriteItem.js';
 
-let cities = citiesList.map(element => `${element.city}, ${element.country}`);
+const cities = citiesList.map(element => `${element.city}, ${element.country}`);
 
-/*
 const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
 const ApiKey2 = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
-const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
-*/
 const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
+const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
+
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       lat: 0,
@@ -26,13 +26,23 @@ class SearchBar extends React.Component {
       city: '',
       loading: false,
       suggestions: [],
-      text: ''
+      text: '',
+      favorites: [],
+      list: ['Lyon', 'Paris', 'Marseille']
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
     this.cancel = '';
   }
+
+  addFavorite = (favorite) => {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite == favorite)) {
+      this.setState({
+        favorites: [...this.state.favorites, favorite]
+      });
+    }
+  };
 
   handleTextChanged = (e) => {
     const value = e.target.value;
@@ -44,14 +54,14 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
-  suggestionSelected (value) {
+  suggestionSelected(value) {
     this.setState(() => ({
       text: value,
       suggestions: []
     }));
   }
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -76,7 +86,7 @@ class SearchBar extends React.Component {
 
       .then(res => res.data)
       .then(data => {
-        setTimeout(this.setState({ data: data, loading: false }), 5000);
+        setTimeout(this.setState({ data: data, loading: false }), 3000);
 
         fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
           .then(res => res.json())
@@ -90,7 +100,7 @@ class SearchBar extends React.Component {
       });
   }
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -103,7 +113,7 @@ class SearchBar extends React.Component {
     }
   }
 
-  handleClick (e) {
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -124,12 +134,12 @@ class SearchBar extends React.Component {
     });
   }
 
-  render () {
+  render() {
     const { loading } = this.state;
     return (
       <div className='main-search'>
 
-        <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */ }
+        <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
             <input
               type='text'
@@ -143,50 +153,55 @@ class SearchBar extends React.Component {
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
         </form>
 
+        <ul className='list-favorites'>{this.state.favorites.map(favorite => <li>{favorite}</li>)}</ul>
+
         {/* Loader */}
         <img src={Loader} className={`search-loding ${loading ? 'show' : 'hide'}`} alt='loader' />
 
-        { (this.state.meteoByGeo || this.state.meteoBySearch) ? 
-        <div className='display-weather'>
-          <Header as='h2' className='title'>
-            <Icon name='adjust' />
-            <Header.Content>
-              <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
-              <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
-            </Header.Content>
-          </Header>
-          <Header as='h2' className='title'>
-            <Icon name='adjust' />
-            <Header.Content>
-              <p> {this.state.meteoBySearch ? this.state.data[0].EnglishName : ''}</p>
-              <p>{this.state.meteoBySearch ? this.state.data[0].Country.EnglishName : ''}</p>
-            </Header.Content>
-          </Header>
-          <Card.Group className='cards'>
+        {(this.state.meteoByGeo || this.state.meteoBySearch)
+          ? <div className='display-weather'>
+            <FavoriteItem  addFavorite={this.addFavorite} city={this.state.city} />
+            {this.state.meteoByGeo
+              ? <Header as='h2' className='title'>
+                <Icon name='adjust' />
+                <Header.Content>
+                  <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
+                  <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
+                </Header.Content>
+              </Header> : ''}
 
-            {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
-              return <Meteo
-                key={index}
-                phrase={meteo.Day.IconPhrase}
-                date={meteo.Date}
-                min={Math.round(meteo.Temperature.Minimum.Value)}
-                max={Math.round(meteo.Temperature.Maximum.Value)}
-                icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
-              />; // eslint-disable-line
-            }) : ''}
+            <Header as='h2' className='title'>
+              <Icon name='adjust' />
+              <Header.Content>
+                <p> {this.state.meteoBySearch ? this.state.data[0].EnglishName : ''}</p>
+                <p>{this.state.meteoBySearch ? this.state.data[0].Country.EnglishName : ''}</p>
+              </Header.Content>
+            </Header>
 
-            {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
-              return <Meteo
-                key={index}
-                phrase={meteo.Day.IconPhrase}
-                date={meteo.Date}
-                min={Math.round(meteo.Temperature.Minimum.Value)}
-                max={Math.round(meteo.Temperature.Maximum.Value)}
-                icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
-              />; // eslint-disable-line
-            }) : ''}
-          </Card.Group>
-        </div> : ''}
+            <Card.Group className='cards'>
+              {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
+                return <Meteo
+                  key={index}
+                  phrase={meteo.Day.IconPhrase}
+                  date={meteo.Date}
+                  min={Math.round(meteo.Temperature.Minimum.Value)}
+                  max={Math.round(meteo.Temperature.Maximum.Value)}
+                  icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
+                />; // eslint-disable-line
+              }) : ''}
+
+              {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
+                return <Meteo
+                  key={index}
+                  phrase={meteo.Day.IconPhrase}
+                  date={meteo.Date}
+                  min={Math.round(meteo.Temperature.Minimum.Value)}
+                  max={Math.round(meteo.Temperature.Maximum.Value)}
+                  icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
+                />; // eslint-disable-line
+              }) : ''}
+            </Card.Group>
+          </div> : ''}
 
       </div>
     );

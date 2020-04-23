@@ -7,11 +7,12 @@
   font-family: 'Nunito';
   src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
 }
-
 .search-bar{
 width: 40%;
 margin: auto;
-display: flex
+display: flex;
+padding-bottom: 50px;
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -41,6 +42,23 @@ display: flex
   color: rgba(0, 92, 137, 0.4);
   font-family: 'Nunito';
 }
+.search-bar ul{
+  
+    position: absolute;
+    list-style-type: none;
+    background-color: white;
+    width: 39%;
+    border-radius: 10px;
+}
+.search-bar ul li{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  
+}
+.search-bar ul li:hover{
+background-color: #bde8fd;
+}
 
 .search-bar ul{
     position: absolute;
@@ -63,35 +81,7 @@ background-color: #bde8fd;
   width: 100%;
 }
 
-.display-weather {
-  --title-color: #ffffff;
-  --text-color: #5c5e83;
-  --card-color: #ffffff;
-  padding: 2rem;
-  background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
-  width: 80%;
-  margin: auto;
-}
 
-.title {
-  display: flex;
-  justify-content: center;
-  color: var(--title-color) !important;
-  padding: 2rem !important;
-}
-
-.title i {
-  margin-top: 12px;
-  margin-left: -5px;
-}
-
-.cards {
-  display: flex;
-  justify-content: space-around;
-}
-.Meteo{
-width: 18%;
-}
 .main-search{
   padding-bottom: 100px;
 }
@@ -118,4 +108,21 @@ img.show {
 
 img.hide {
   display: none;
+}
+
+/* Favoris */
+.list-favorites {
+  margin: 0 auto;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #005C89;
+  width: 30%;
+  margin-bottom: 10px;
+  font-family: 'Nunito';
+  border-radius: 10px;
+}
+
+.list-favorites li {
+  text-align: center;
+  font-weight: 600;
 }
