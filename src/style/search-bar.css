@@ -1,26 +1,121 @@
+@font-face {
+  font-family: 'Raleway';
+  src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
 .search-bar{
 width: 40%;
 margin: auto;
+display: flex
 }
 
+@media only screen and (max-width: 800px) {
+  .search-bar{
+    width: 90%;
+  }
+}
 
-input[type=text] {
+.search-bar input[type=text] {
   width: 100%;
   box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+  border: 1px solid #005C89;
+  border-radius: 12px;
   font-size: 16px;
   background-color: white;
   background-image: url('../images/searchicon-blue.png');
-  background-position: 10px 10px; 
+  background-position: 10px 15px; 
   background-repeat: no-repeat;
-  padding: 9px 20px 12px 40px;
+  padding: 15px 20px 10px 40px;
   outline: none;
-  background-size: 20px;
+  background-size: 24px;
+  color: #005C89;
+  font-family: 'Nunito';
+}
+
+.search-bar input[type=text]::placeholder {
+  color: rgba(0, 92, 137, 0.4);
+  font-family: 'Nunito';
+}
+
+.search-bar ul{
+    position: absolute;
+    list-style-type: none;
+    background-color: white;
+    width: 39%;
+    border-radius: 10px;
+}
+.search-bar ul li{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  
+}
+.search-bar ul li:hover{
+background-color: #bde8fd;
 }
 
 .search-label{
   width: 100%;
 }
 
+.display-weather {
+  --title-color: #ffffff;
+  --text-color: #5c5e83;
+  --card-color: #ffffff;
+  padding: 2rem;
+  background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
+  width: 80%;
+  margin: auto;
+}
 
+.title {
+  display: flex;
+  justify-content: center;
+  color: var(--title-color) !important;
+  padding: 2rem !important;
+}
+
+.title i {
+  margin-top: 12px;
+  margin-left: -5px;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+}
+.Meteo{
+width: 18%;
+}
+.main-search{
+  padding-bottom: 100px;
+}
+
+.geoLocation-input {
+  position: relative;
+  right: 30px;
+  bottom: 5px;
+  background: none;
+  border: none;
+  color: #005C89;
+  font-size: 24px;
+}
+
+.geoLocation-input:focus, .geoLocation-input:active {
+  outline: none;
+}
+
+/* Loader */
+img.show {
+  display: flex;
+  margin: 0 auto;
+}
+
+img.hide {
+  display: none;
+}

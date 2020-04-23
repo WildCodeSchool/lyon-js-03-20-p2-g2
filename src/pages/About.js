@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class About extends Component {
@@ -70,13 +71,9 @@ class About extends Component {
               </Col>
             </Row>
           </Container>
-          <footer class='page-footer font-small blue'>
-            <div class='footer-copyright text-center py-3 footer-style'>© 2020 Copyright: By Wilders <i className='fas fa-heart coeur' />
-              <a href='#'> WeatherSuggest</a>
-            </div>
 
-          </footer>
         </div>
+        <Footer />
       </section>
     );
   }

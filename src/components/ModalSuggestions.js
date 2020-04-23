@@ -5,21 +5,25 @@ import Popover from 'react-bootstrap/Popover';
 import '../style/modalsuggestions.css';
 
 const SmileysPopover = (props) => {
+  const [clickedSmiley, setClickedSmiley] = useState(null);
+  const body = 'bla bla';
+
   return (
     <div className='smileys-popover'>
       <div>
-        <span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span>
-        <span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span>
+        <span className={clickedSmiley === 'angry' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('angry')}><span onClick={clickedSmiley === 'angry' ? () => {} : props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'sad' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('sad')}><span onClick={clickedSmiley === 'sad' ? () => {} : props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'meh' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('meh')}><span onClick={clickedSmiley === 'meh' ? () => {} : props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'smile' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('smile')}><span onClick={clickedSmiley === 'smile' ? () => {} : props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'loving' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('loving')}><span onClick={clickedSmiley === 'loving' ? () => {} : props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
       </div>
       {props.openTextArea
-        ? <form className='text-area'>
-          <textarea className='input-textarea' placeholder='Tell us about your experience...' id='story' name='story' rows='6' cols='30' />
-          <a href='mailto:nathan.guillaumin@outlook.com'><span className='close-textArea'><input type='submit' htmlFor className='input-textarea' href='#' value='Send !' /></span></a>
-          </form> : ''}
-
+        ? // eslint-disable-line
+          <form id='gform' className='text-area'> { /* eslint-disable-line */ }
+            <label htmlFor='message' /> { /* eslint-disable-line */ }
+            <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' /> { /* eslint-disable-line */ }
+            <a href={'mailto:weathersuggest@gmail.com?body=' + encodeURI(body)}><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a> { /* eslint-disable-line */ }
+        </form> : ''} { /* eslint-disable-line */ }
     </div>
   );
 };
@@ -41,7 +45,7 @@ function ModalSuggestions () {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'>{show ? <i className='fas fa-times' /> : <i class='far fa-grin' />}</div></Button>
+      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</div></Button>
 
       <Overlay
         show={show}

@@ -22,32 +22,15 @@ class Header extends Component {
     this.setState({ openBurger: false });
   }
 
-  addFavorite = currentlyCity => {
-    const { favoritesList } = this.state;
-    const isFavorite = favoritesList.some(alreadyFavorite => alreadyFavorite === currentlyCity);
-
-    if (!isFavorite) {
-      this.setState({
-        favoritesList: [...favoritesList, currentlyCity]
-      });
-    } else if (isFavorite) {
-      const indexFavorite = favoritesList.indexOf(currentlyCity);
-      console.log(indexFavorite);
-      this.setState({
-        favoritesList: [...favoritesList, favoritesList.splice(indexFavorite, 1)]
-      });
-    }
-  }
-
   render () {
     return (
       <div className='header'>
-        <FavoriteItem handleChange={this.addFavorite} active={(currentlyCity) => this.state.favoritesList.includes(currentlyCity)} />
+        <FavoriteItem />
 
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
         <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
-        <Burger handleClick={this.closeBurgerMenu} show={this.state.openBurger} favoriteList={this.state.favoritesList} />
+        <Burger handleClick={this.closeBurgerMenu} show={this.state.openBurger} />
       </div>
     );
   }

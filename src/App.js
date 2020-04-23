@@ -13,22 +13,22 @@ class App extends React.Component {
   render () {
     return (
       <Router>
-        <div id='App'>
+        <main id='App'>
 
           <Switch>
-            <Route exact path='/' component={Home} />
-
-            <Route path='/favorites' component={Home} />
-
-            <Route path='/about' component={About} />
-
-            <Route path='/parameters' component={Parameters} />
-
-            <Route path='/:city' component={Home} />
-
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route path='/favorites' />
+            <Route path='/about'>
+              <About />
+            </Route>
+            <Route path='/parameters' />
+            <Route path='/:city' component={About}>
+              <SearchBar />
+            </Route>
           </Switch>
-
-        </div>
+        </main>
       </Router>
     );
   }
