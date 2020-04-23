@@ -100,3 +100,15 @@ img.show {
 img.hide {
   display: none;
 }
+
+/* Autocompletion */
+.autocomplete {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #005C89;
+  font-family: 'Nunito';
+  list-style: none;
+  border: 1px solid #005C89;
+  width: 98%;
+  margin: 0 auto;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0,.1), 0 2px 4px 1px rgba(0, 0, 0, .18);
+}

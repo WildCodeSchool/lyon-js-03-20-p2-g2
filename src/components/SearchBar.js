@@ -61,7 +61,7 @@ class SearchBar extends React.Component {
       return null;
     }
     return (
-      <ul>
+      <ul className='autocomplete'>
         {suggestions.map((item, index) => <li key={index} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
       </ul>
     );
