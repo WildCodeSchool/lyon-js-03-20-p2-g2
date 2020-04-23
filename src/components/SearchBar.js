@@ -6,7 +6,7 @@ import axios from 'axios';
 import Loader from '../images/loader.gif';
 import citiesList from '../cities.js';
 
-const cities = citiesList.map(element => `${element.city}, ${element.country}`)
+let cities = citiesList.map(element => `${element.city}, ${element.country}`);
 
 /*
 const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
@@ -58,7 +58,7 @@ class SearchBar extends React.Component {
     }
     return (
       <ul className='autocomplete'>
-        {suggestions.map((item, index) => <li key={index} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
+        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
       </ul>
     );
   } // eslint-disable-line

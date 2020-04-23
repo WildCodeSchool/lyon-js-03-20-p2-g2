@@ -20,7 +20,7 @@ display: flex
   }
 }
 
-input[type=text] {
+.search-bar input[type=text] {
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #005C89;
@@ -28,21 +28,35 @@ input[type=text] {
   font-size: 16px;
   background-color: white;
   background-image: url('../images/searchicon-blue.png');
-  background-position: 10px 10px; 
+  background-position: 10px 15px; 
   background-repeat: no-repeat;
-  padding: 10px 20px 10px 40px;
+  padding: 15px 20px 10px 40px;
   outline: none;
   background-size: 24px;
-}
-
-input[type=text] {
   color: #005C89;
   font-family: 'Nunito';
 }
 
-input[type=text]::placeholder {
+.search-bar input[type=text]::placeholder {
   color: rgba(0, 92, 137, 0.4);
   font-family: 'Nunito';
+}
+
+.search-bar ul{
+    position: absolute;
+    list-style-type: none;
+    background-color: white;
+    width: 39%;
+    border-radius: 10px;
+}
+.search-bar ul li{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  
+}
+.search-bar ul li:hover{
+background-color: #bde8fd;
 }
 
 .search-label{
@@ -102,37 +116,6 @@ img.show {
   margin: 0 auto;
 }
 
-
 img.hide {
   display: none;
-}
-
-/* Autocompletion */
-.autocomplete {
-  background-color: rgba(255, 255, 255, 0.5);
-  color: #005C89;
-  font-family: 'Nunito';
-  list-style: none;
-  border: 1px solid #005C89;
-  width: 98%;
-  margin: 0 auto;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0,.1), 0 2px 4px 1px rgba(0, 0, 0, .18);
-  z-index: 3000;
-  position: absolute;
-  width: 37%;
-}
-
-.autocomplete li {
-  padding: 10px 5px;
-  cursor: pointer;
-}
-
-.autocomplete li:hover {
-  background-color: rgba(128, 128, 128, 0.2)
-}
-
-@media only screen and (max-width: 800px) {
-  .autocomplete {
-    width: 87%;
-  }
 }
