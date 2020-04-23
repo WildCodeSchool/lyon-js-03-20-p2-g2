@@ -5,69 +5,25 @@ import Popover from 'react-bootstrap/Popover';
 import '../style/modalsuggestions.css';
 
 const SmileysPopover = (props) => {
-  const [angryClass, setAngryClass] = useState(false);
-  const [sadClass, setSadClass] = useState(false);
-  const [neutralClass, setNeutralClass] = useState(false);
-  const [smilingClass, setSmilingClass] = useState(false);
-  const [lovingClass, setLovingClass] = useState(false);
-
-  const angryClick = () => {
-    setAngryClass(!angryClass);
-    setSadClass(false);
-    setNeutralClass(false);
-    setSmilingClass(false);
-    setLovingClass(false);
-  };
-
-  const sadClick = () => {
-    setSadClass(!sadClass);
-    setAngryClass(false);
-    setNeutralClass(false);
-    setSmilingClass(false);
-    setLovingClass(false);
-  };
-
-  const neutralClick = () => {
-    setNeutralClass(!neutralClass);
-    setSadClass(false);
-    setAngryClass(false);
-    setSmilingClass(false);
-    setLovingClass(false);
-  };
-
-  const smilingClick = () => {
-    setSmilingClass(!smilingClass);
-    setSadClass(false);
-    setNeutralClass(false);
-    setAngryClass(false);
-    setLovingClass(false);
-  };
-
-  const lovingClick = () => {
-    setLovingClass(!lovingClass);
-    setSadClass(false);
-    setNeutralClass(false);
-    setSmilingClass(false);
-    setAngryClass(false);
-  };
+  const [clickedSmiley, setClickedSmiley] = useState(null);
+  const body = 'bla bla';
 
   return (
     <div className='smileys-popover'>
       <div>
-        <span className={angryClass ? 'icon-clicked' : ''} onClick={angryClick}><span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
-        <span className={sadClass ? 'icon-clicked' : ''} onClick={sadClick}><span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
-        <span className={neutralClass ? 'icon-clicked' : ''} onClick={neutralClick}><span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
-        <span className={smilingClass ? 'icon-clicked' : ''} onClick={smilingClick}><span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
-        <span className={lovingClass ? 'icon-clicked' : ''} onClick={lovingClick}><span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'angry' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('angry')}><span onClick={clickedSmiley === 'angry' ? () => {} : props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'sad' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('sad')}><span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'meh' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('meh')}><span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'smile' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('smile')}><span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
+        <span className={clickedSmiley === 'loving' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('loving')}><span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
       </div>
       {props.openTextArea
-        ? <form id='gform' className='text-area'>
-          <label htmlFor='message' />
-          <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
-          <a href='mailto:weathersuggest@gmail.com'><input type='submit' className='input-textarea' value='Send !' /></a>
-        </form> // eslint-disable-line
-        : ''}
-
+        ? // eslint-disable-line
+          <form id='gform' className='text-area'> { /* eslint-disable-line */ }
+            <label htmlFor='message' /> { /* eslint-disable-line */ }
+            <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' /> { /* eslint-disable-line */ }
+            <a href={'mailto:weathersuggest@gmail.com?body=' + encodeURI(body)}><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a> { /* eslint-disable-line */ }
+        </form> : ''} { /* eslint-disable-line */ }
     </div>
   );
 };

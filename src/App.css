@@ -3,7 +3,7 @@
   width: auto;
 }
 
-#App .welcome-message {
+.welcome-message {
   text-align: center;
   color: white;
   font-family: 'Nunito';

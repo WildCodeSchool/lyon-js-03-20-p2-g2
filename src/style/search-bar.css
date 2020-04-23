@@ -9,11 +9,25 @@
 }
 
 .search-bar{
+<<<<<<< HEAD
 width: 40%;
 margin: auto;
 display: flex
 }
 
+=======
+  width: 40%;
+  margin: auto;
+  display: flex
+}
+
+@media only screen and (max-width: 800px) {
+  .search-bar{
+    width: 90%;
+  }
+}
+
+>>>>>>> dev
 input[type=text] {
   width: 100%;
   box-sizing: border-box;
@@ -85,6 +99,13 @@ width: 18%;
   color: #005C89;
   font-size: 24px;
 }
+<<<<<<< HEAD
+=======
+
+.geoLocation-input:focus, .geoLocation-input:active {
+  outline: none;
+}
+>>>>>>> dev
 
 .geoLocation-input:focus, .geoLocation-input:active {
   outline: none;
