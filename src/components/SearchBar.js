@@ -4,13 +4,9 @@ import Meteo from './Meteo';
 import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
+import citiesList from '../cities.js';
 
-const citiesList = [
-  'Londres',
-  'Lyon',
-  'Paris',
-  'Marseille'
-];
+const cities = citiesList.map(element => `${element.city}, ${element.country}`)
 
 /*
 const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
@@ -43,7 +39,7 @@ class SearchBar extends React.Component {
     let suggestions = [];
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, 'i');
-      suggestions = citiesList.sort().filter(v => regex.test(v));
+      suggestions = cities.sort().filter(v => regex.test(v));
     }
     this.setState(() => ({ suggestions, text: value }));
   }
@@ -140,6 +136,7 @@ class SearchBar extends React.Component {
               placeholder='Search for....'
               onKeyDown={this.handleChange}
               onChange={this.handleTextChanged}
+              value={this.state.text}
             />
             {this.renderSuggestions()}
           </label>
@@ -149,6 +146,7 @@ class SearchBar extends React.Component {
         {/* Loader */}
         <img src={Loader} className={`search-loding ${loading ? 'show' : 'hide'}`} alt='loader' />
 
+        { (this.state.meteoByGeo || this.state.meteoBySearch) ? 
         <div className='display-weather'>
           <Header as='h2' className='title'>
             <Icon name='adjust' />
@@ -188,7 +186,7 @@ class SearchBar extends React.Component {
               />; // eslint-disable-line
             }) : ''}
           </Card.Group>
-        </div>
+        </div> : ''}
 
       </div>
     );

@@ -14,6 +14,12 @@ margin: auto;
 display: flex
 }
 
+@media only screen and (max-width: 800px) {
+  .search-bar{
+    width: 90%;
+  }
+}
+
 input[type=text] {
   width: 100%;
   box-sizing: border-box;
@@ -111,4 +117,22 @@ img.hide {
   width: 98%;
   margin: 0 auto;
   box-shadow: 0 0 0 1px rgba(0, 0, 0,.1), 0 2px 4px 1px rgba(0, 0, 0, .18);
+  z-index: 3000;
+  position: absolute;
+  width: 37%;
+}
+
+.autocomplete li {
+  padding: 10px 5px;
+  cursor: pointer;
+}
+
+.autocomplete li:hover {
+  background-color: rgba(128, 128, 128, 0.2)
+}
+
+@media only screen and (max-width: 800px) {
+  .autocomplete {
+    width: 87%;
+  }
 }
