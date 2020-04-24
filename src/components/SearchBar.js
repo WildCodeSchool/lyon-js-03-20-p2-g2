@@ -6,10 +6,10 @@ import axios from 'axios';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 
+/* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 
 /* const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu'; */
-
 const ApiKey2 = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
 /*
 const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
@@ -34,6 +34,11 @@ class SearchBar extends React.Component {
     this.cancel = '';
   }
 
+  /* La méthode handleTextChanged me permet de faire apparaître l'autocomplete de la façon suivante:
+    Si l'utilisateur commence à entrer une ville (length > 1), je vérifie qu'il a bien rentré des caractères de l'alphabet (regex),
+    si tel est le cas, j'insère ces villes là dans un tableau (suggestions).
+  */
+
   handleTextChanged = (e) => {
     const value = e.target.value;
     let suggestions = [];
@@ -44,14 +49,42 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
+  /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
+  caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
+
+  renderSuggestions () {
+    const { suggestions } = this.state;
+    if (suggestions.length === 0) {
+      return null;
+    }
+    return (
+      <ul className='autocomplete'>
+        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
+      </ul>
+    );
+  } // eslint-disable-line
+
+  /* La méthode handleSuggestionSelected me permet (au click, voir ci-dessous le onClick créé dans la méthode renderSuggestions) 
+    d'affecter la ville rentrée par l'utilisateur à la propriété 'text' de mon state, et de "vider" ma liste de suggestions.
+
+    Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click 
+    de l'utilisateur.
+  */
+
   handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
+      loading: true,
     }));
 
     this.fetchOnClick(this.state.text);
-}; 
+  }
+
+  /* fetchOnclick va nous permettre de faire nos requêtes à l'API. 
+    Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
+    Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
+  */
 
   fetchOnClick = (city) => {
     const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey2}&q=${city}&language=fr&details=true`;
@@ -69,8 +102,8 @@ class SearchBar extends React.Component {
         this.setState({ data: data, loading: false });
 
         fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey2}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
-        .then(res => res.json())
-        .then(data => this.setState({ meteoBySearch: data }));
+          .then(res => res.json())
+          .then(data => this.setState({ meteoBySearch: data }));
       })
 
       .catch(error => {
@@ -78,19 +111,27 @@ class SearchBar extends React.Component {
           this.setState({ loading: false });
         }
       });
-}
+  }
 
-  renderSuggestions () {
-    const { suggestions } = this.state;
-    if (suggestions.length === 0) {
-      return null;
+  /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur
+    la touche 'Entrée'.
+    A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
+    J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
+    */
+
+  handleChange (event, city) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const city = event.target.value;
+
+      this.setState({ city: city, meteoByGeo: false, loading: true });
+      this.fetchSearchResults(city);
     }
-    return (
-      <ul className='autocomplete'>
-        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
-      </ul>
-    );
-  } // eslint-disable-line
+  }
+
+  /* La méthode fetchSearchResults va appeler notre API en fonction de la ville choisie par l'utilisateur.
+    On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
+  */
 
   fetchSearchResults = (city) => {
     const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey2}&q=${city}&language=fr&details=true`;
@@ -119,15 +160,9 @@ class SearchBar extends React.Component {
       });
   }
 
-  handleChange (event, city) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      const city = event.target.value;
-
-      this.setState({ city: city, meteoByGeo: false, loading: true });
-      this.fetchSearchResults(city);
-    }
-  }
+  /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
+    Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
+  */
 
   handleClick (e) {
     e.preventDefault();
