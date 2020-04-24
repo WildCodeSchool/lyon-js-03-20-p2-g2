@@ -4,9 +4,9 @@ import Meteo from './Meteo';
 import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
-import citiesList from '../cities.js';
+import citiesList from 'cities.json';
 
-const cities = citiesList.map(element => `${element.city}, ${element.country}`);
+const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 
 const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
 /*
@@ -15,7 +15,7 @@ const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
 const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
 */
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       lat: 0,
@@ -43,14 +43,14 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
-  suggestionSelected(value) {
+  suggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: []
     }));
   }
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -75,7 +75,7 @@ class SearchBar extends React.Component {
 
       .then(res => res.data)
       .then(data => {
-        setTimeout(this.setState({ data: data, loading: false }), 3000);
+        this.setState({ data: data, loading: false });
 
         fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
           .then(res => res.json())
@@ -89,41 +89,36 @@ class SearchBar extends React.Component {
       });
   }
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
 
       this.setState({ city: city, meteoByGeo: false, loading: true });
-
-      setTimeout(() => {
-        this.fetchSearchResults(city);
-      }, 3000);
+      this.fetchSearchResults(city);
     }
   }
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
-      setTimeout(() => {
-        this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
+      this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
         fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
 
-          .then(res => res.json())
-          .then(data => {
-            this.setState({ data: data });
+        .then(res => res.json())
+        .then(data => {
+          this.setState({ data: data });
 
             fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
-              .then(res => res.json())
-              .then(data => this.setState({ meteoByGeo: data }));
-          });
-      }, 1000);
+            .then(res => res.json())
+            .then(data => this.setState({ meteoByGeo: data }));
+        });
     });
   }
 
-  render() {
+  render () {
     const { loading } = this.state;
     return (
       <div className='main-search'>
@@ -154,7 +149,7 @@ class SearchBar extends React.Component {
                   <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
                   <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
                 </Header.Content>
-              </Header> : ''}
+              </Header> : ''} { /* eslint-disable-line */}
 
             <Header as='h2' className='title'>
               <Icon name='adjust' />
@@ -188,7 +183,7 @@ class SearchBar extends React.Component {
                 />; // eslint-disable-line
               }) : ''}
             </Card.Group>
-          </div> : ''}
+          </div> : ''} { /* eslint-disable-line */}
 
       </div>
     );
