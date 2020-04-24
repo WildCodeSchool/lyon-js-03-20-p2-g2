@@ -43,7 +43,7 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
-  suggestionSelected (value) {
+  handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: []
@@ -57,7 +57,7 @@ class SearchBar extends React.Component {
     }
     return (
       <ul className='autocomplete'>
-        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
+        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
       </ul>
     );
   } // eslint-disable-line
