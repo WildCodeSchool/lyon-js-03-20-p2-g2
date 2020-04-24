@@ -1,4 +1,17 @@
-.home {
+.day {
+    background-image: url("../images/day-test.jpg");
+    min-height: 100vh;
+}
+.aube {
+    background-image: url("../images/Aube.jpg");
+    min-height: 100vh;
+}
+.night {
+    background-image: url("../images/background_night1.jpg");
+    min-height: 100vh;
+}
+.dusk {
+    background-image: url("../images/background_dusk1.jpg");
     min-height: 100vh;
     
 }
