@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Burger from './Burger';
 import BurgerButton from './BurgerButton';
-import FavoriteItem from './FavoriteItem';
 
 class Header extends Component {
   constructor (props) {

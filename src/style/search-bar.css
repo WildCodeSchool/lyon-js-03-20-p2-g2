@@ -7,12 +7,12 @@
   font-family: 'Nunito';
   src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
 }
-.search-bar{
-width: 40%;
-margin: auto;
-display: flex;
-padding-bottom: 50px;
 
+.search-bar{
+  width: 40%;
+  margin: auto;
+  display: flex;
+  padding-bottom: 50px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -42,45 +42,46 @@ padding-bottom: 50px;
   color: rgba(0, 92, 137, 0.4);
   font-family: 'Nunito';
 }
+
 .search-bar ul{
-  
-    position: absolute;
-    list-style-type: none;
-    background-color: white;
-    width: 39%;
-    border-radius: 10px;
+  position: absolute;
+  list-style-type: none;
+  background-color: white;
+  width: 39%;
+  border-radius: 10px;
 }
+
 .search-bar ul li{
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  
 }
+
 .search-bar ul li:hover{
-background-color: #bde8fd;
+  background-color: #bde8fd;
 }
 
 .search-bar ul{
-    position: absolute;
-    list-style-type: none;
-    background-color: white;
-    width: 39%;
-    border-radius: 10px;
+  position: absolute;
+  list-style-type: none;
+  background-color: white;
+  width: 39%;
+  border-radius: 10px;
 }
+
 .search-bar ul li{
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  
 }
+
 .search-bar ul li:hover{
-background-color: #bde8fd;
+  background-color: #bde8fd;
 }
 
 .search-label{
   width: 100%;
 }
-
 
 .main-search{
   padding-bottom: 100px;
@@ -101,28 +102,7 @@ background-color: #bde8fd;
 }
 
 /* Loader */
-img.show {
+img.search-loding {
   display: flex;
   margin: 0 auto;
-}
-
-img.hide {
-  display: none;
-}
-
-/* Favoris */
-.list-favorites {
-  margin: 0 auto;
-  list-style: none;
-  background-color: rgba(255, 255, 255, 0.4);
-  color: #005C89;
-  width: 30%;
-  margin-bottom: 10px;
-  font-family: 'Nunito';
-  border-radius: 10px;
-}
-
-.list-favorites li {
-  text-align: center;
-  font-weight: 600;
 }

@@ -4,18 +4,21 @@ import Meteo from './Meteo';
 import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
-import citiesList from '../cities.js';
-import FavoriteItem from './FavoriteItem.js';
+import citiesList from 'cities.json';
 
-const cities = citiesList.map(element => `${element.city}, ${element.country}`);
 
-const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
+const cities = citiesList.map(element => `${element.name}, ${element.country}`);
+
+/* const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu'; */
+
 const ApiKey2 = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
+/*
 const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
 const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
+*/
 
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       lat: 0,
@@ -37,7 +40,7 @@ class SearchBar extends React.Component {
 
   addFavorite = (favorite) => {
     const { favorites } = this.state;
-    if (!favorites.some(alreadyFavorite => alreadyFavorite == favorite)) {
+    if (!favorites.some(alreadyFavorite => alreadyFavorite === favorite)) {
       this.setState({
         favorites: [...this.state.favorites, favorite]
       });
@@ -54,27 +57,27 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
-  suggestionSelected(value) {
+  handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: []
     }));
   }
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
     }
     return (
       <ul className='autocomplete'>
-        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
+        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
       </ul>
     );
   } // eslint-disable-line
 
   fetchSearchResults = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey4}&q=${city}&language=fr&details=true`;
+    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey2}&q=${city}&language=fr&details=true`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -86,9 +89,9 @@ class SearchBar extends React.Component {
 
       .then(res => res.data)
       .then(data => {
-        setTimeout(this.setState({ data: data, loading: false }), 3000);
+        this.setState({ data: data, loading: false });
 
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
+        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey2}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
           .then(res => res.json())
           .then(data => this.setState({ meteoBySearch: data }));
       })
@@ -100,41 +103,36 @@ class SearchBar extends React.Component {
       });
   }
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
 
       this.setState({ city: city, meteoByGeo: false, loading: true });
-
-      setTimeout(() => {
-        this.fetchSearchResults(city);
-      }, 3000);
+      this.fetchSearchResults(city);
     }
   }
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
-      setTimeout(() => {
-        this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
+      this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
-        fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey4}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
+        fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey2}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
 
-          .then(res => res.json())
-          .then(data => {
-            this.setState({ data: data });
+        .then(res => res.json())
+        .then(data => {
+          this.setState({ data: data });
 
-            fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
-              .then(res => res.json())
-              .then(data => this.setState({ meteoByGeo: data }));
-          });
-      }, 1000);
+            fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey2}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
+            .then(res => res.json())
+            .then(data => this.setState({ meteoByGeo: data }));
+        });
     });
   }
 
-  render() {
+  render () {
     const { loading } = this.state;
     return (
       <div className='main-search'>
@@ -153,14 +151,13 @@ class SearchBar extends React.Component {
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
         </form>
 
-        <ul className='list-favorites'>{this.state.favorites.map(favorite => <li>{favorite}</li>)}</ul>
+        <ul className='list-favorites'>{this.state.favorites.map(favorite => <li>{favorite}</li>)}</ul> { /* eslint-disable-line */}
 
         {/* Loader */}
-        <img src={Loader} className={`search-loding ${loading ? 'show' : 'hide'}`} alt='loader' />
+        {loading && <img src={Loader} className='search-loding' alt='loader' />};
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
-            <FavoriteItem  addFavorite={this.addFavorite} city={this.state.city} />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
@@ -168,7 +165,7 @@ class SearchBar extends React.Component {
                   <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
                   <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
                 </Header.Content>
-              </Header> : ''}
+              </Header> : ''} { /* eslint-disable-line */}
 
             <Header as='h2' className='title'>
               <Icon name='adjust' />
@@ -201,7 +198,7 @@ class SearchBar extends React.Component {
                 />; // eslint-disable-line
               }) : ''}
             </Card.Group>
-          </div> : ''}
+          </div> : ''} { /* eslint-disable-line */}
 
       </div>
     );

@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import About from './pages/About';
 import Home from './pages/Home';
-import Parameters from './pages/Parameters';
 
 class App extends React.Component {
   render () {
@@ -24,9 +23,7 @@ class App extends React.Component {
               <About />
             </Route>
             <Route path='/parameters' />
-            <Route path='/:city' component={About}>
-              <SearchBar />
-            </Route>
+            <Route path='/:city' component={About} />
           </Switch>
         </main>
       </Router>
