@@ -17,7 +17,7 @@ const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
 const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
 
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       lat: 0,
@@ -45,14 +45,14 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
-  suggestionSelected(value) {
+  suggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: []
     }));
   }
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -91,7 +91,7 @@ class SearchBar extends React.Component {
       });
   }
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -104,7 +104,7 @@ class SearchBar extends React.Component {
     }
   }
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -125,7 +125,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  render() {
+  render () {
     const { loading } = this.state;
     return (
       <div className='main-search'>
