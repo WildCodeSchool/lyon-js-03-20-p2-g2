@@ -47,9 +47,38 @@ class SearchBar extends React.Component {
   handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
-      suggestions: []
+      suggestions: [],
     }));
-  }
+
+    this.fetchOnClick(this.state.text);
+}; 
+
+  fetchOnClick = (city) => {
+    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey2}&q=${city}&language=fr&details=true`;
+
+    if (this.cancel) {
+      this.cancel.cancel();
+    }
+
+    this.cancel = axios.CancelToken.source();
+
+    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+
+      .then(res => res.data)
+      .then(data => {
+        this.setState({ data: data, loading: false });
+
+        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey2}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
+        .then(res => res.json())
+        .then(data => this.setState({ meteoBySearch: data }));
+      })
+
+      .catch(error => {
+        if (axios.isCancel(error) || error) {
+          this.setState({ loading: false });
+        }
+      });
+}
 
   renderSuggestions () {
     const { suggestions } = this.state;
