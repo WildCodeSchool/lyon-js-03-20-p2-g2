@@ -76,6 +76,7 @@ class SearchBar extends React.Component {
       text: value,
       suggestions: [],
       loading: true,
+      meteoByGeo: false
     }));
 
     this.fetchOnClick(this.state.text);
@@ -203,7 +204,7 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        {loading && <img src={Loader} className='search-loding' alt='loader' />};
+        {loading && <img src={Loader} className='search-loding' alt='loader' />}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
