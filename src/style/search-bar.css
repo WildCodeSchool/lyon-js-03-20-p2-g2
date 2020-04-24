@@ -101,11 +101,7 @@ background-color: #bde8fd;
 }
 
 /* Loader */
-img.show {
+img.search-loding {
   display: flex;
   margin: 0 auto;
-}
-
-img.hide {
-  display: none;
 }

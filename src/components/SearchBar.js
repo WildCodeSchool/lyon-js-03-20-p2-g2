@@ -138,7 +138,7 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        <img src={Loader} className={`search-loding ${loading ? 'show' : 'hide'}`} alt='loader' />
+        {loading && <img src={Loader} className='search-loding' alt='loader' />};
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
