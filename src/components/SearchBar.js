@@ -9,8 +9,8 @@ import citiesList from 'cities.json';
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 
-/* const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu'; */
-const ApiKey2 = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
+/* const ApiKey = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq'; */
+const ApiKey2 = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
 /*
 const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
 const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
