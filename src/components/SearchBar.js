@@ -64,10 +64,10 @@ class SearchBar extends React.Component {
     );
   } // eslint-disable-line
 
-  /* La méthode handleSuggestionSelected me permet (au click, voir ci-dessous le onClick créé dans la méthode renderSuggestions) 
+  /* La méthode handleSuggestionSelected me permet (au click, voir ci-dessous le onClick créé dans la méthode renderSuggestions)
     d'affecter la ville rentrée par l'utilisateur à la propriété 'text' de mon state, et de "vider" ma liste de suggestions.
 
-    Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click 
+    Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
     de l'utilisateur.
   */
 
@@ -82,7 +82,7 @@ class SearchBar extends React.Component {
     this.fetchOnClick(this.state.text);
   }
 
-  /* fetchOnclick va nous permettre de faire nos requêtes à l'API. 
+  /* fetchOnclick va nous permettre de faire nos requêtes à l'API.
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
   */
