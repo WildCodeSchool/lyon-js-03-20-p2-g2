@@ -8,12 +8,13 @@ class Cloudy extends Component {
       <Card className='WeatherWear'>
         <Card.Content>
 
-          <Card.Header>CARD HEADER</Card.Header>
+          <Card.Header>Our suggestion</Card.Header>
           <Image floated='right' size='tiny' src='https://fr.fakenamegenerator.com/images/sil-female.png' alt='texteAlte' />
-          <Card.Meta>CARD META</Card.Meta>
-          <Card.Description>
-            TEXTE DESCRIPTION
+          <Card.Meta>Texte température (c'est froid, pluivieux...)</Card.Meta>
+          <Card.Description className='whatWear'>
+            Don't forget to wear ... clothes :
           </Card.Description>
+          
         </Card.Content>
       </Card>
     );

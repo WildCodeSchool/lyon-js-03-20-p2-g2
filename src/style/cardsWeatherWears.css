@@ -7,14 +7,14 @@
   width: 80%;
   margin: auto;
   opacity: 0.5;
+  text-align: center;
 }
 
-.cards {
-  display: flex;
-  justify-content: space-around;
+.whatWear {
+  background-color: aqua;
+  width: 100%;
 }
 
-.WeatherWear img{
+.WeatherWear img {
   width: 80px;
-  margin-left: 55%;
 }
