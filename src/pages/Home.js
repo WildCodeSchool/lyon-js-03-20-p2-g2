@@ -3,7 +3,7 @@ import SearchBar from '../components/SearchBar';
 import ModalSuggestions from '../components/ModalSuggestions';
 import Header from '../components/Header';
 import '../style/home.css';
-import Cloudy from '../components/weather/cloudy';
+import Snowy from '../components/weather/snowy';
 
 let className = '';
 
@@ -43,7 +43,7 @@ class Home extends Component {
       <div className={this.state.weatherClassName}>
         <Header />
         <SearchBar />
-        <Cloudy />
+        <Snowy />
         <ModalSuggestions />
       </div>
     );
