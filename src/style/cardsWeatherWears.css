@@ -4,11 +4,9 @@
 }
 
 .cloudy {
-  background-color: var(--card-color);
   box-shadow: 0px 70px 40px -50px rgba(0, 0, 0, 0.2), 0px 3px 20px rgba(0, 0, 0, 0.8);
   margin: auto;
-  width: 80%;
-
+  width: 70%;
 }
 
 h4 {
@@ -35,4 +33,16 @@ h4 {
 
 h1, h2 {
   padding: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .clothes img {
+    width: 20%;
+  }
+
+  .humanoid {
+    width: 40%;
+  }
+
 }

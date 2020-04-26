@@ -29,18 +29,3 @@ class Cloudy extends Component {
 }
 
 export default Cloudy;
-
-{/* <Card className='WeatherWear'>
-<Card.Content>
-
-  <Card.Header>Our suggestion</Card.Header>
-  <img size='tiny' src='https://react.semantic-ui.com/images/wireframe/image.png' alt='texteAlte' />
-  <Card.Meta>Texte température (c'est froid, pluivieux...)</Card.Meta>
-  <Card.Description className='whatWear'>
-    Don't forget to wear ... clothes :
-  </Card.Description>
-  <Truc />
-</Card.Content>
-</Card>
-);
-} */}
