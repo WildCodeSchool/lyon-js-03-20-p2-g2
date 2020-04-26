@@ -8,7 +8,7 @@ class Rainy extends Component {
   render () {
     return (
       <div className='rainy'>
-        <div className='WeatherClothes'>
+        <div className='weatherCard'>
 
           <h1>Our suggestions</h1>
           <img className='humanoid' src="https://previews.123rf.com/images/topvectors/topvectors1703/topvectors170301170/74887388-fille-en-manteau-jaune-et-%C3%A9charpe-enfant-en-automne-v%C3%AAtements-en-automne-saison-enjoyingn-pluie-et-temps.jpg" />

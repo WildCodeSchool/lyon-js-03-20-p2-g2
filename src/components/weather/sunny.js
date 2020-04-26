@@ -8,7 +8,7 @@ class Sunny extends Component {
   render () {
     return (
       <div className='sunny'>
-        <div className='WeatherClothes'>
+        <div className='weatherCard'>
 
           <h1>Our suggestions</h1>
           <img className='humanoid' src="https://www.rkj.fr/wp-content/uploads/2015/07/soleil.jpg"/>

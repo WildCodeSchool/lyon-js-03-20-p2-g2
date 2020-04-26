@@ -8,7 +8,7 @@ class Snowy extends Component {
   render () {
     return (
       <div className='snowy'>
-        <div className='WeatherClothes'>
+        <div className='weatherCard'>
 
           <h1>Our suggestions</h1>
           <img className='humanoid' src="https://image.freepik.com/free-vector/_58813-296.jpg"/>
