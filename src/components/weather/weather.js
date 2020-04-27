@@ -10,13 +10,13 @@ class Weather extends Component {
   componentDidMount = () => {
     const temperature = this.props.min;
 
-    if (temperature >= 6 && temperature < 12) {
+    if (temperature >= 16 && temperature <= 19) {
       clothes = <Cloudy />;
-    } else if (temperature <= 3 && temperature < -20) {
+    } else if (temperature <= 3) {
       clothes = <Snowy />;
-    } else if (temperature >= 3 && temperature <= 15) {
+    } else if (temperature >= 4 && temperature <= 15) {
       clothes = <Rainy />;
-    } else if (temperature >= 20 && temperature < 30) {
+    } else if (temperature >= 20 && temperature <= 35) {
       clothes = <Sunny />;
     }
   }
