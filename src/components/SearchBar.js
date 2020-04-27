@@ -11,7 +11,7 @@ const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       lat: 0,
@@ -47,7 +47,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -66,7 +66,7 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected(value) {
+  handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
@@ -85,7 +85,6 @@ class SearchBar extends React.Component {
     fetch(searchCityUrl)          /* eslint-disable-line */
       .then(res => res.json())   /* eslint-disable-line */
       .then(data => {
-
         this.setState({
           meteoBySearch: {
             city: data.city.name,
@@ -103,7 +102,7 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
     */
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -138,7 +137,7 @@ class SearchBar extends React.Component {
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
   */
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -161,7 +160,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  render() {
+  render () {
     const { loading } = this.state;
     return (
       <div className='main-search'>
