@@ -7,6 +7,7 @@ import Cold from '../components/weather/cold';
 import Rainy from '../components/weather/rain';
 import Sunny from '../components/weather/sunny';
 import Snowy from '../components/weather/snowy';
+import Weather from '../components/weather/weather';
 
 let className = '';
 
