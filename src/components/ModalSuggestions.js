@@ -20,6 +20,7 @@ const SmileysPopover = (props) => {
         ? // eslint-disable-line
         <form className='text-area' name='suggestions' method='post'> { /* eslint-disable-line */ }
           <input type='hidden' name='form-name' value='suggestions' /> { /* eslint-disable-line */ }
+          <input type="hidden" name='smiley' value={clickedSmiley}/> { /* eslint-disable-line */ }
           <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' /> { /* eslint-disable-line */ }
           <span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span> { /* eslint-disable-line */ }
         </form> : ''} { /* eslint-disable-line */ }
