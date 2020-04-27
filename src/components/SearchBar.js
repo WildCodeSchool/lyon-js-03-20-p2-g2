@@ -250,12 +250,10 @@ class SearchBar extends React.Component {
                 />; // eslint-disable-line
               }) : ''}
             </Card.Group>
-            {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
-              return <Weather key={index} min={Math.round(meteo.Temperature.Minimum.Value)} />;
-            }) : ''}
-            {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
-              return <Weather key={index} min={Math.round(meteo.Temperature.Minimum.Value)} />;
-            }) : ''}
+            {this.state.meteoByGeo &&
+              <Weather min={Math.round(this.state.meteoByGeo.DailyForecasts.Temperature.Minimum.Value)} />}
+            {this.state.meteoBySearch &&
+              <Weather min={Math.round(this.state.meteoBySearch.DailyForecasts.Temperature.Minimum.Value)} />}
           </div> : ''} { /* eslint-disable-line */}
 
       </div>
