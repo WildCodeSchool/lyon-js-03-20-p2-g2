@@ -20,7 +20,7 @@
 .clothes {
   padding: 15px;
   display: flex;
-  background-color: white;
+  background-color:white;
   justify-content: space-evenly;
 }
 

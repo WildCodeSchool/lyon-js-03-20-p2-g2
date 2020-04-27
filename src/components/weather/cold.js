@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 import '../../style/cardsWeatherWears.css';
 
-class Cloudy extends Component {
+class Cold extends Component {
   render () {
     return (
-      <div className='cloudy'>
+      <div className='cold'>
         <div className='weatherCard'>
 
           <h1 className='ourSuggest'>Our suggestions</h1>
@@ -25,4 +25,4 @@ class Cloudy extends Component {
   }
 }
 
-export default Cloudy;
+export default Cold;
