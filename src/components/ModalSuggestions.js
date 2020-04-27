@@ -6,7 +6,6 @@ import '../style/modalsuggestions.css';
 
 const SmileysPopover = (props) => {
   const [clickedSmiley, setClickedSmiley] = useState(null);
-  const body = 'bla bla';
 
   return (
     <div className='smileys-popover'>
@@ -19,10 +18,10 @@ const SmileysPopover = (props) => {
       </div>
       {props.openTextArea
         ? // eslint-disable-line
-          <form id='gform' className='text-area'> { /* eslint-disable-line */ }
-            <label htmlFor='message' /> { /* eslint-disable-line */ }
-            <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' /> { /* eslint-disable-line */ }
-            <a href={'mailto:weathersuggest@gmail.com?body=' + encodeURI(body)}><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a> { /* eslint-disable-line */ }
+        <form className='text-area' name='suggestions' method='post'> { /* eslint-disable-line */ }
+          <input type='hidden' name='form-name' value='suggestions' /> { /* eslint-disable-line */ }
+          <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' /> { /* eslint-disable-line */ }
+          <span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span> { /* eslint-disable-line */ }
         </form> : ''} { /* eslint-disable-line */ }
     </div>
   );
