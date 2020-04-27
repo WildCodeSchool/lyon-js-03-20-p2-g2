@@ -251,7 +251,7 @@ class SearchBar extends React.Component {
               }) : ''}
             </Card.Group>
             {this.state.meteoByGeo &&
-              <Weather min={Math.round(this.state.meteoByGeo.DailyForecasts.Temperature.Minimum.Value)} />}
+              <Weather min={Math.round(this.state.meteoByGeo.DailyForecasts[0].Temperature.Minimum.Value)} />}
             {this.state.meteoBySearch &&
               <Weather min={Math.round(this.state.meteoBySearch.DailyForecasts[0].Temperature.Minimum.Value)} />}
           </div> : ''} { /* eslint-disable-line */}
