@@ -5,6 +5,7 @@ import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
+import Weather from './weather/weather';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -249,6 +250,12 @@ class SearchBar extends React.Component {
                 />; // eslint-disable-line
               }) : ''}
             </Card.Group>
+            {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
+              return <Weather key={index} min={Math.round(meteo.Temperature.Minimum.Value)} />;
+            }) : ''}
+            {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
+              return <Weather key={index} min={Math.round(meteo.Temperature.Minimum.Value)} />;
+            }) : ''}
           </div> : ''} { /* eslint-disable-line */}
 
       </div>

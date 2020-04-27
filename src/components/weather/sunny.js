@@ -9,7 +9,7 @@ class Sunny extends Component {
         <div className='weatherCard'>
 
           <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src='https://www.rkj.fr/wp-content/uploads/2015/07/soleil.jpg' />
+          <img className='humanoid' src='https://www.rkj.fr/wp-content/uploads/2015/07/soleil.jpg' alt='clothingHuman' />
           <h2 className='textClothes'>The weather will be sunny so don't cover yourself too much but protect you skin and don't forget your glasses </h2>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>

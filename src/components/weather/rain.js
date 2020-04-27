@@ -9,7 +9,7 @@ class Rainy extends Component {
         <div className='weatherCard'>
 
           <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src='https://previews.123rf.com/images/topvectors/topvectors1703/topvectors170301170/74887388-fille-en-manteau-jaune-et-%C3%A9charpe-enfant-en-automne-v%C3%AAtements-en-automne-saison-enjoyingn-pluie-et-temps.jpg' />
+          <img className='humanoid' src='https://previews.123rf.com/images/topvectors/topvectors1703/topvectors170301170/74887388-fille-en-manteau-jaune-et-%C3%A9charpe-enfant-en-automne-v%C3%AAtements-en-automne-saison-enjoyingn-pluie-et-temps.jpg' alt='clothingHuman' />
           <h2 className='textClothes'>The weather will be cloudy and overcast, so don't forget to cover yourself, a jacket,some boots will be useful and don't forget your umbrella</h2>
           <h4 className='dontForget'>  Do not forget to wear ...</h4>
           <div className='clothes'>
