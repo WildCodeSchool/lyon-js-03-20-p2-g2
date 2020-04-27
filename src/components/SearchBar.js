@@ -1,32 +1,26 @@
 import React from 'react';
 import '../style/search-bar.css';
-import Meteo from './Meteo';
-import { Header, Icon, Card } from 'semantic-ui-react';
-import axios from 'axios';
+
+import { Header, Icon } from 'semantic-ui-react';
+
 import Loader from '../images/loader.gif';
-import citiesList from '../cities.js';
+import citiesList from 'cities.json';
 
-const cities = citiesList.map(element => `${element.city}, ${element.country}`);
-/*
-const ApiKey = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
-
-const ApiKey2 = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
-
-const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
-*/
-const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
+/* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
+const cities = citiesList.map(element => `${element.name}, ${element.country}`);
+const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       lat: 0,
       long: 0,
-      data: undefined,
       meteoByGeo: false,
-      meteoBySearch: false,
-      city: '',
+      meteoBySearch: {},
       loading: false,
+      city: '',
+      country: '',
       suggestions: [],
       text: ''
     };
@@ -34,6 +28,11 @@ class SearchBar extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.cancel = '';
   }
+
+  /* La méthode handleTextChanged me permet de faire apparaître l'autocomplete de la façon suivante:
+    Si l'utilisateur commence à entrer une ville (length > 1), je vérifie qu'il a bien rentré des caractères de l'alphabet (regex),
+    si tel est le cas, j'insère ces villes là dans un tableau (suggestions).
+  */
 
   handleTextChanged = (e) => {
     const value = e.target.value;
@@ -45,91 +44,128 @@ class SearchBar extends React.Component {
     this.setState(() => ({ suggestions, text: value }));
   }
 
-  suggestionSelected (value) {
-    this.setState(() => ({
-      text: value,
-      suggestions: []
-    }));
-  }
+  /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
+  caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
     }
     return (
       <ul className='autocomplete'>
-        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
+        {suggestions.slice(0, 3).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
       </ul>
     );
   } // eslint-disable-line
 
-  fetchSearchResults = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey3}&q=${city}&language=fr&details=true`;
+  /* La méthode handleSuggestionSelected me permet (au click, voir ci-dessous le onClick créé dans la méthode renderSuggestions)
+    d'affecter la ville rentrée par l'utilisateur à la propriété 'text' de mon state, et de "vider" ma liste de suggestions.
 
-    if (this.cancel) {
-      this.cancel.cancel();
-    }
+    Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
+    de l'utilisateur.
+  */
 
-    this.cancel = axios.CancelToken.source();
+  handleSuggestionSelected(value) {
+    this.setState(() => ({
+      text: value,
+      suggestions: [],
+      meteoByGeo: false
+    }));
 
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+    this.fetchOnClick(this.state.text);
+  }
 
-      .then(res => res.data)
+  /* fetchOnclick va nous permettre de faire nos requêtes à l'API.
+    Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
+    Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
+  */
+  fetchOnClick = (city) => {
+    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
+    fetch(searchCityUrl)          /* eslint-disable-line */
+      .then(res => res.json())   /* eslint-disable-line */
       .then(data => {
-        setTimeout(this.setState({ data: data, loading: false }), 3000);
 
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey3}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
-          .then(res => res.json())
-          .then(data => this.setState({ meteoBySearch: data }));
-      })
+        this.setState({
+          meteoBySearch: {
+            city: data.city.name,
+            country: data.city.country,
+            temperature: (data.list[0].main.temp.toFixed(0) - 273)
 
-      .catch(error => {
-        if (axios.isCancel(error) || error) {
-          this.setState({ loading: false });
-        }
+          }
+        });
       });
   }
 
-  handleChange (event, city) {
+  /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur
+    la touche 'Entrée'.
+    A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
+    J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
+    */
+
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
 
-      this.setState({ city: city, meteoByGeo: false, loading: true });
-
-      setTimeout(() => {
-        this.fetchSearchResults(city);
-      }, 3000);
+      this.setState({ city: city, meteoByGeo: false });
+      this.fetchSearchResults(city);
     }
   }
 
-  handleClick (e) {
+  /* La méthode fetchSearchResults va appeler notre API en fonction de la ville choisie par l'utilisateur.
+    On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
+  */
+
+  fetchSearchResults = city => {
+    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
+    fetch(searchCityUrl)/* eslint-disable-line */
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          meteoBySearch: {
+            city: data.city.name,
+            country: data.city.country,
+            temperature: (data.list[0].main.temp.toFixed(0) - 273)
+
+          }
+        });
+      });
+  };
+
+  /* .city.name. */
+  /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
+    Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
+  */
+
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
-      setTimeout(() => {
-        this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
+      this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
-        fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey3}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&apikey=${Apikeyw}`) /* eslint-disable-line */
 
-          .then(res => res.json())
-          .then(data => {
-            this.setState({ data: data });
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            meteoBySearch: {
+              city: data.city.name,
+              country: data.city.country,
+              temperature: (data.list[0].main.temp.toFixed(0) - 273)
 
-            fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey3}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
-              .then(res => res.json())
-              .then(data => this.setState({ meteoByGeo: data }));
+            },
+            loading: false
           });
-      }, 1000);
+        });
     });
   }
 
-  render () {
+  render() {
     const { loading } = this.state;
     return (
       <div className='main-search'>
-
+        {this.state.data}
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
             <input
@@ -145,7 +181,7 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        <img src={Loader} className={`search-loding ${loading ? 'show' : 'hide'}`} alt='loader' />
+        {loading && <img src={Loader} className='search-loding' alt='loader' />}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
@@ -156,41 +192,19 @@ class SearchBar extends React.Component {
                   <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
                   <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
                 </Header.Content>
-              </Header> : ''}{/*eslint-disable-line*/}
+              </Header> : ''} { /* eslint-disable-line */}
 
             <Header as='h2' className='title'>
               <Icon name='adjust' />
               <Header.Content>
-                <p> {this.state.meteoBySearch ? this.state.data[0].EnglishName : ''}</p>
-                <p>{this.state.meteoBySearch ? this.state.data[0].Country.EnglishName : ''}</p>
+
+                <p>{this.state.meteoBySearch ? this.state.meteoBySearch.city : ''}</p>
+
+                <p>{this.state.meteoBySearch ? this.state.meteoBySearch.temperature : ''}</p>
               </Header.Content>
             </Header>
 
-            <Card.Group className='cards'>
-
-              {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
-                return <Meteo
-                  key={index}
-                  phrase={meteo.Day.IconPhrase}
-                  date={meteo.Date}
-                  min={Math.round(meteo.Temperature.Minimum.Value)}
-                  max={Math.round(meteo.Temperature.Maximum.Value)}
-                  icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
-                />; // eslint-disable-line
-              }) : ''}
-
-              {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
-                return <Meteo
-                  key={index}
-                  phrase={meteo.Day.IconPhrase}
-                  date={meteo.Date}
-                  min={Math.round(meteo.Temperature.Minimum.Value)}
-                  max={Math.round(meteo.Temperature.Maximum.Value)}
-                  icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
-                />; // eslint-disable-line
-              }) : ''}
-            </Card.Group>
-          </div> : ''} {/*eslint-disable-line*/}
+          </div> : ''} { /* eslint-disable-line */}
 
       </div>
     );
