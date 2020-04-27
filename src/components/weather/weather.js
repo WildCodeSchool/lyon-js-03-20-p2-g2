@@ -26,9 +26,6 @@ class Weather extends Component {
       <div>{clothes}</div>
     );
   }
-  this.setState({
-    weatherClassName: className
-  });
 }
 
 
