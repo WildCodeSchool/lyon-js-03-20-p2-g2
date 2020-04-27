@@ -11,10 +11,10 @@ import Weather from './weather/weather';
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 
 /* const ApiKey = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq'; */
-const ApiKey2 = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
+const ApiKey2 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
 /*
 const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
-const ApiKey3 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
+const ApiKey3 = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';
 */
 class SearchBar extends React.Component {
   constructor () {
@@ -250,12 +250,10 @@ class SearchBar extends React.Component {
                 />; // eslint-disable-line
               }) : ''}
             </Card.Group>
-            {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
-              return <Weather key={index} min={Math.round(meteo.Temperature.Minimum.Value)} />;
-            }) : ''}
-            {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
-              return <Weather key={index} min={Math.round(meteo.Temperature.Minimum.Value)} />;
-            }) : ''}
+            {this.state.meteoByGeo &&
+              <Weather min={Math.round(this.state.meteoByGeo.DailyForecasts[0].Temperature.Minimum.Value)} />}
+            {this.state.meteoBySearch &&
+              <Weather min={Math.round(this.state.meteoBySearch.DailyForecasts[0].Temperature.Minimum.Value)} />}
           </div> : ''} { /* eslint-disable-line */}
 
       </div>
