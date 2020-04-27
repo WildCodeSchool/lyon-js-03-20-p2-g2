@@ -18,7 +18,7 @@ class Home extends Component {
     };
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.getWeatherClassName();
   }
 
@@ -46,7 +46,6 @@ class Home extends Component {
       <div className={this.state.weatherClassName}>
         <Header />
         <SearchBar />
-        <Cold />
         <ModalSuggestions />
       </div>
     );

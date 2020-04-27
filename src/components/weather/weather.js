@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
-import Cold from '../components/weather/cold';
-import Rainy from '../components/weather/rain';
-import Sunny from '../components/weather/sunny';
-import Snowy from '../components/weather/snowy';
+import Cold from './cold';
+import Snowy from './snowy';
+import Sunny from './sunny';
+import Rainy from './rain';
 
+let clothes = '';
 
-}
-getWeatherClassName () {
-  const today = new Date();
-  const degres = today.getTemperature();
-  // let time = 1;
+class Weather extends Component {
+  componentDidMount = () => {
+    const temperature = this.props.min;
 
-  if (degres >= 6 && time < 12) {
-    className = 'sunny';
-  } else if (degres >= 12 && time < 18) {
-    className = 'snowy';
-  } else if (degres >= 18 && time <= 23) {
-    className = 'cold';
-  } else if (degres >= 0 && time < 6) {
-    className = 'rainy';
+    if (temperature >= 6 && temperature < 12) {
+      clothes = <Cold />;
+    } else if (temperature <= 3 && temperature < -20) {
+      clothes = <Snowy />;
+    } else if (temperature >= 3 && temperature <= 15) {
+      clothes = <Rainy />;
+    } else if (temperature >= 20 && temperature < 30) {
+      clothes = <Sunny />;
+    }
+  }
+
+  render () {
+    return (
+      <div>{clothes}</div>
+    );
   }
   this.setState({
     weatherClassName: className
