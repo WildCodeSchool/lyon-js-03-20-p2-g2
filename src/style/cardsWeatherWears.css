@@ -4,13 +4,12 @@
   width: 70%;
   background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
   text-align: center;
-  z-index: 2;
 }
 
-h4 {
+.dontForget {
   background-color: aqua;
   width: 100%;
-  margin-bottom: 0px !important;
+  margin-bottom: 0px;
   padding: 3px;
 }
 
@@ -33,24 +32,20 @@ h4 {
   width: 40%;
 }
 
-h1, h2 {
+.ourSuggest, .textClothes {
   padding: 20px;
 }
 
-h1 {
+.ourSuggest {
   color: #073a54;
-  font-weight: bold !important;
+  font-weight: bold;
 }
 
-h2 {
+.textClothes {
   color: #005C89;
 }
 
 @media only screen and (max-width: 800px) {
-
-  .clothes img {
-    width: 20%;
-  }
 
   .humanoid {
     width: 40%;
