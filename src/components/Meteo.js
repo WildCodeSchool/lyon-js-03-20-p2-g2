@@ -7,17 +7,15 @@ import '../style/Meteo.css';
 moment.locale('en-US');
 
 class Meteo extends Component {
-  capitalize (a) {
-    return (a + '').charAt(0).toUpperCase() + a.substr(1);
-  }
-
   render () {
+    const capitalize = (a) => {
+      return (a + '').charAt(0).toUpperCase() + a.substr(1);
+    };
     return (
       <Card className='Meteo'>
         <Card.Content>
-
-          <Card.Header className='card-phrase-weather'>{this.capitalize(this.props.phrase)}</Card.Header>
-          <div className='card-icons'>{this.props.icon}</div>
+          <Card.Header className='card-phrase-weather'>{capitalize(this.props.phrase)}</Card.Header>
+          <div className='card-icons'><i className={this.props.icon} /></div>
           <Card.Meta className='card-date'>{moment(this.props.date).format('dddd')}</Card.Meta>
           <Card.Description className='card-temperatures'>
             {this.props.min}°C | {this.props.max}°C

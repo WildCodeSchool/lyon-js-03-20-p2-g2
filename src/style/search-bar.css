@@ -16,8 +16,12 @@
 }
 
 @media only screen and (max-width: 800px) {
-  .search-bar{
+  .search-bar {
     width: 90%;
+  }
+
+  .search-label .autocomplete {
+    width: 87%;
   }
 }
 

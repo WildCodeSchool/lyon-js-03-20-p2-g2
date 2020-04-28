@@ -119,6 +119,7 @@ class SearchBar extends React.Component {
   handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
+
       const city = event.target.value;
 
       this.setState({ city: city, meteoByGeo: false });
@@ -151,7 +152,8 @@ class SearchBar extends React.Component {
             weatherData: data.list,
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
-          loading: false
+          loading: false,
+          suggestions: []
         });
       })
       .catch(error => {
@@ -204,6 +206,19 @@ class SearchBar extends React.Component {
 
   render () {
     const { loading } = this.state;
+    function icons (meteo) {
+      const prefix = 'wi wi-';
+      const code = meteo.weather[0].id;
+      let icon = weatherIcons[meteo.weather[0].id].icon;
+
+      // If we are not in the ranges mentioned above, add a day/night prefix.
+      if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+        return (icon = prefix + 'day-' + icon);
+      }
+
+      // Finally tack on the prefix.
+      return (icon = prefix + icon);
+    }
 
     return (
       <div className='main-search'>
@@ -236,20 +251,20 @@ class SearchBar extends React.Component {
                     <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
                   </div>
                 </Header.Content>
-              </Header> : ''} { /* eslint-disable-line */}
+              </Header> /*  eslint-disable-line */
 
-            <Header as='h2' className='title'>
-              <Icon name='adjust' />
-              <Header.Content>
-                {this.state.meteoBySearch &&
-                  <div>
-                    <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                    <h2>{this.state.meteoBySearch.temperature}°C</h2>
-                    <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
+              : <Header as='h2' className='title'>
+                <Icon name='adjust' />
+                <Header.Content>
+                  {this.state.meteoBySearch &&
+                    <div>
+                      <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
+                      <h2>{this.state.meteoBySearch.temperature}°C</h2>
+                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
 
-                  </div>}
-              </Header.Content>
-            </Header>
+                    </div>}
+                </Header.Content>
+                </Header>} {/*  eslint-disable-line */}
 
             <Card.Group className='cards'>
               {this.state.meteoByGeo &&
@@ -260,9 +275,9 @@ class SearchBar extends React.Component {
                       key={index}
                       phrase={meteo.weather[0].description}
                       date={meteo.dt_txt}
-                      min={Math.round(meteo.main.temp_min - 273.15)}
-                      max={Math.round(meteo.main.temp_max - 273.15)}
-                      icon={<i className={`wi wi-${weatherIcons[meteo.weather[0].id].icon}`} />}
+                      min={Math.floor(meteo.main.temp_min - 273.15)}
+                      max={Math.ceil(meteo.main.temp_max - 273.15)}
+                      icon={icons(meteo)}
                     />; // eslint-disable-line
                   })}
 
@@ -274,9 +289,9 @@ class SearchBar extends React.Component {
                       key={index}
                       phrase={meteo.weather[0].description}
                       date={meteo.dt_txt}
-                      min={Math.round(meteo.main.temp_min - 273.15)}
-                      max={Math.round(meteo.main.temp_max - 273.15)}
-                      icon={<i className={`wi wi-${weatherIcons[meteo.weather[0].id].icon}`} />}
+                      min={Math.floor(meteo.main.temp_min - 273.15)}
+                      max={Math.ceil(meteo.main.temp_max - 273.15)}
+                      icon={icons(meteo)}
                     />; // eslint-disable-line
                   })}
             </Card.Group>
