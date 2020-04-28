@@ -9,13 +9,13 @@ class Rainy extends Component {
         <div className='weatherCard'>
 
           <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src='https://previews.123rf.com/images/topvectors/topvectors1703/topvectors170301170/74887388-fille-en-manteau-jaune-et-%C3%A9charpe-enfant-en-automne-v%C3%AAtements-en-automne-saison-enjoyingn-pluie-et-temps.jpg' alt='clothingHuman' />
+          <img className='humanoid' src={require('../../images/image-rain.png')}  alt='clothingHuman' />
           <h2 className='textClothes'>The weather will be cloudy and overcast, so don't forget to cover yourself, a jacket,some boots will be useful and don't forget your umbrella</h2>
           <h4 className='dontForget'>  Do not forget to wear ...</h4>
           <div className='clothes'>
-            <Image src='https://i.pinimg.com/236x/af/6c/ad/af6cadf5e551eaa1c4cb32f14d9f4d38--image-clipart-cartoon-picture.jpg' />
-            <Image src='https://image.freepik.com/vecteurs-libre/parapluie-bleu-realiste_1284-11412.jpg' />
-            <Image src='https://t3.ftcdn.net/jpg/02/90/73/20/240_F_290732062_guwcvXbRTLgnsA6lJdHEvm31eWj1vVGR.jpg' />
+            <Image src={require('../../images/rain-boots.jpg')} />
+            <Image src={require('../../images/umbrella.jpg')} />
+            <Image src={require('../../images/rain-coat.jpg')} />
 
           </div>
         </div>

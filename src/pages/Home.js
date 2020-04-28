@@ -47,7 +47,6 @@ class Home extends Component {
       <div className={this.state.weatherClassName}>
         <Header />
         <SearchBar />
-        <Weather />
         <ModalSuggestions />
       </div>
     );

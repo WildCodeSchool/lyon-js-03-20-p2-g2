@@ -9,14 +9,14 @@ class Snowy extends Component {
         <div className='weatherCard'>
 
           <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src='https://image.freepik.com/free-vector/_58813-296.jpg' alt='clothingHuman' />
+          <img className='humanoid' src={require('../../images/image-snow.png')}  alt='clothingHuman' />
           <h2 className='textClothes'>The weather will be snowy and cold, so don't forget to cover yourself with a jacket, a hat and a scarf.Let it snow!</h2>
           <h4 className='dontForget'> Do not forget to wear ...</h4>
           <div className='clothes'>
-            <Image src='https://www.cdiscount.com/pdt2/7/6/9/1/700x700/mp07051769/rw/kimberfeel-bottes-apres-ski-loris-homme-beige.jpg' />
-            <Image src='http://ekladata.com/iJn60fMlLozKiEcOUdg3NmXDf4Q@191x191.jpg' />
-            <Image src='http://ekladata.com/bNcVLzV0965u0CkVBnymSY15oKw@211x211.jpg' />
-            <Image src='https://media.istockphoto.com/vectors/mitten-winter-glove-line-icon-outline-vector-sign-linear-pictogram-vector-id689121152' />
+            <Image src={require('../../images/snow-boots.jpg')} />
+            <Image src={require('../../images/gloves.jpg')} />
+            <Image src={require('../../images/bonnet.jpg')} />
+            <Image src={require('../../images/coat.jpg')} />
           </div>
         </div>
       </div>
