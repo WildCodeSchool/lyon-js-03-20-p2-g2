@@ -3,11 +3,6 @@ import SearchBar from '../components/SearchBar';
 import ModalSuggestions from '../components/ModalSuggestions';
 import Header from '../components/Header';
 import '../style/home.css';
-import Cold from '../components/weather/cold';
-import Rainy from '../components/weather/rain';
-import Sunny from '../components/weather/sunny';
-import Snowy from '../components/weather/snowy';
-import Weather from '../components/weather/weather';
 
 let className = '';
 
@@ -26,7 +21,6 @@ class Home extends Component {
   getWeatherClassName () {
     const today = new Date();
     const time = today.getHours();
-    // let time = 1;
 
     if (time >= 6 && time < 12) {
       className = 'aube';
