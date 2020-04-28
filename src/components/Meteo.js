@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Image } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import moment from 'moment';
 import 'moment/locale/fr';
 import '../style/Meteo.css';
@@ -13,7 +13,7 @@ class Meteo extends Component {
         <Card.Content>
 
           <Card.Header>{this.props.phrase}</Card.Header>
-          <Image floated='right' size='tiny' src={this.props.icon} alt={this.props.phrase} />
+          <div>{this.props.icon}</div>
           <Card.Meta>{moment(this.props.date).format('dddd')}</Card.Meta>
           <Card.Description>
             {this.props.min}° | {this.props.max}°

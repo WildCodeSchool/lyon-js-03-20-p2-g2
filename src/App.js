@@ -9,6 +9,7 @@ import {
 import SearchBar from './components/SearchBar';
 import About from './pages/About';
 import Home from './pages/Home';
+import 'weather-icons/css/weather-icons.css';
 
 class App extends React.Component {
   render () {

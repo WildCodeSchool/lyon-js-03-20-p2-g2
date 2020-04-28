@@ -1,23 +1,25 @@
 import React from 'react';
 import '../style/search-bar.css';
-
-import { Header, Icon } from 'semantic-ui-react';
-
+import { Header, Icon, Card } from 'semantic-ui-react';
+import axios from 'axios';
+import Meteo from './Meteo';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
+import weatherIcons from '../weatherIcons.json';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
+      city: '',
       lat: 0,
       long: 0,
       meteoByGeo: false,
-      meteoBySearch: {},
+      meteoBySearch: false,
       loading: false,
       city: '',
       country: '',
@@ -47,7 +49,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -66,14 +68,12 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected (value) {
+  handleSuggestionSelected(value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
       meteoByGeo: false
-    }));
-
-    this.fetchOnClick(this.state.text);
+    }), () => this.fetchOnClick(this.state.text));
   }
 
   /* fetchOnclick va nous permettre de faire nos requêtes à l'API.
@@ -82,17 +82,32 @@ class SearchBar extends React.Component {
   */
   fetchOnClick = (city) => {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
-    fetch(searchCityUrl)          /* eslint-disable-line */
-      .then(res => res.json())   /* eslint-disable-line */
+
+    if (this.cancel) {
+      this.cancel.cancel();
+    }
+
+    this.cancel = axios.CancelToken.source();
+
+    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+
+      .then(res => res.data)
       .then(data => {
         this.setState({
           meteoBySearch: {
-            city: data.city.name,
+            city: data.city.name.replace('Arrondissement de', ''),
             country: data.city.country,
-            temperature: (data.list[0].main.temp.toFixed(0) - 273)
-
-          }
+            temperature: Math.round(data.list[0].main.temp - 273.15),
+            weatherData: data.list,
+            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+          },
+          loading: false
         });
+      })
+      .catch(error => {
+        if (axios.isCancel(error) || error) {
+          this.setState({ loading: false });
+        }
       });
   }
 
@@ -102,7 +117,7 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
     */
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -116,52 +131,82 @@ class SearchBar extends React.Component {
     On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
   */
 
-  fetchSearchResults = city => {
+  fetchSearchResults = (city) => {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
-    fetch(searchCityUrl)/* eslint-disable-line */
-      .then(res => res.json())
+
+    if (this.cancel) {
+      this.cancel.cancel();
+    }
+
+    this.cancel = axios.CancelToken.source();
+
+    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+
+      .then(res => res.data)
       .then(data => {
         this.setState({
           meteoBySearch: {
-            city: data.city.name,
+            city: data.city.name.replace('Arrondissement de', ''),
             country: data.city.country,
-            temperature: (data.list[0].main.temp.toFixed(0) - 273)
-
-          }
+            temperature: Math.round(data.list[0].main.temp - 273.15),
+            weatherData: data.list,
+            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+          },
+          loading: false
         });
+      })
+      .catch(error => {
+        if (axios.isCancel(error) || error) {
+          this.setState({ loading: false });
+        }
       });
-  };
-
+  }
   /* .city.name. */
   /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
   */
 
-  handleClick (e) {
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
-      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&apikey=${Apikeyw}`) /* eslint-disable-line */
+      const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
 
-        .then(res => res.json())
+      if (this.cancel) {
+        this.cancel.cancel();
+      }
+
+      this.cancel = axios.CancelToken.source();
+
+      axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+
+        .then(res => res.data)
         .then(data => {
-          this.setState({
-            meteoBySearch: {
-              city: data.city.name,
-              country: data.city.country,
-              temperature: (data.list[0].main.temp.toFixed(0) - 273)
 
+          this.setState({
+            meteoByGeo: {
+              city: data.city.name.replace('Arrondissement de', ''),
+              country: data.city.country,
+              temperature: Math.round(data.list[0].main.temp - 273.15),
+              weatherData: data.list,
+              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
           });
+        })
+        .catch(error => {
+          if (axios.isCancel(error) || error) {
+            this.setState({ loading: false });
+          }
         });
     });
   }
 
-  render () {
+  render() {
     const { loading } = this.state;
+
     return (
       <div className='main-search'>
         {this.state.data}
@@ -172,7 +217,6 @@ class SearchBar extends React.Component {
               placeholder='Search for....'
               onKeyDown={this.handleChange}
               onChange={this.handleTextChanged}
-              value={this.state.text}
             />
             {this.renderSuggestions()}
           </label>
@@ -188,24 +232,61 @@ class SearchBar extends React.Component {
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
                 <Header.Content>
-                  <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
-                  <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
+                  <div>
+                    <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
+                    <h2>{this.state.meteoByGeo.temperature}</h2>
+                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
+                  </div>
                 </Header.Content>
               </Header> : ''} { /* eslint-disable-line */}
 
             <Header as='h2' className='title'>
               <Icon name='adjust' />
               <Header.Content>
+                {this.state.meteoBySearch &&
+                  <div>
+                    <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
+                    <h2>{this.state.meteoBySearch.temperature}</h2>
+                    <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
 
-                <p>{this.state.meteoBySearch ? this.state.meteoBySearch.city : ''}</p>
-
-                <p>{this.state.meteoBySearch ? this.state.meteoBySearch.temperature : ''}</p>
+                  </div>}
               </Header.Content>
             </Header>
 
-          </div> : ''} { /* eslint-disable-line */}
+            <Card.Group className='cards'>
+              {this.state.meteoByGeo &&
+                this.state.meteoByGeo.weatherData
+                  .filter(data => data.dt_txt.includes("12:00:00"))
+                  .map((meteo, index) => {
+                    return <Meteo
+                      key={index}
+                      phrase={meteo.weather[0].description}
+                      date={meteo.dt_txt}
+                      min={Math.round(meteo.main.temp_min - 273.15)}
+                      max={Math.round(meteo.main.temp_max - 273.15)}
+                      icon={<i className={`wi wi-${weatherIcons[meteo.weather[0].id].icon}`} />}
+                    />; // eslint-disable-line
+                  })}
 
-      </div>
+
+              {this.state.meteoBySearch &&
+                this.state.meteoBySearch.weatherData
+                  .filter(data => data.dt_txt.includes("12:00:00"))
+                  .map((meteo, index) => {
+                    return <Meteo
+                      key={index}
+                      phrase={meteo.weather[0].description}
+                      date={meteo.dt_txt}
+                      min={Math.round(meteo.main.temp_min - 273.15)}
+                      max={Math.round(meteo.main.temp_max - 273.15)}
+                      icon={<i className={`wi wi-${weatherIcons[meteo.weather[0].id].icon}`} />}
+                    />; // eslint-disable-line
+                  })}
+            </Card.Group>
+
+          </div>
+
+          : ''}</div>
     );
   }
 }
