@@ -19,9 +19,9 @@ class Home extends Component {
   }
 
   getWeatherClassName () {
-    let today = new Date()
-    let time = today.getHours();
-    //let time = 1;
+    const today = new Date();
+    const time = today.getHours();
+    // let time = 1;
 
     if (time >= 6 && time < 12) {
       className = 'aube';
