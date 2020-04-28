@@ -12,7 +12,7 @@ const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       city: '',
@@ -21,7 +21,6 @@ class SearchBar extends React.Component {
       meteoByGeo: false,
       meteoBySearch: false,
       loading: false,
-      city: '',
       country: '',
       suggestions: [],
       text: ''
@@ -49,7 +48,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -68,7 +67,7 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected(value) {
+  handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
@@ -117,7 +116,7 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
     */
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -166,7 +165,7 @@ class SearchBar extends React.Component {
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
   */
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -184,7 +183,6 @@ class SearchBar extends React.Component {
 
         .then(res => res.data)
         .then(data => {
-
           this.setState({
             meteoByGeo: {
               city: data.city.name.replace('Arrondissement de', ''),
@@ -204,7 +202,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  render() {
+  render () {
     const { loading } = this.state;
 
     return (
@@ -256,7 +254,7 @@ class SearchBar extends React.Component {
             <Card.Group className='cards'>
               {this.state.meteoByGeo &&
                 this.state.meteoByGeo.weatherData
-                  .filter(data => data.dt_txt.includes("12:00:00"))
+                  .filter(data => data.dt_txt.includes('12:00:00'))
                   .map((meteo, index) => {
                     return <Meteo
                       key={index}
@@ -268,10 +266,9 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
 
-
               {this.state.meteoBySearch &&
                 this.state.meteoBySearch.weatherData
-                  .filter(data => data.dt_txt.includes("12:00:00"))
+                  .filter(data => data.dt_txt.includes('12:00:00'))
                   .map((meteo, index) => {
                     return <Meteo
                       key={index}
@@ -284,9 +281,10 @@ class SearchBar extends React.Component {
                   })}
             </Card.Group>
 
-          </div>
+          </div>/*eslint-disable-line*/
 
-          : ''}</div>
+          : ''}
+      </div>
     );
   }
 }

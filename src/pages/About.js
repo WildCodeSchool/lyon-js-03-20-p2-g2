@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class About extends Component {
-  render() {
+  render () {
     return (
       <section className='about'>
         <Header />
