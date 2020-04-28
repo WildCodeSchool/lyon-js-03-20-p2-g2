@@ -232,7 +232,7 @@ class SearchBar extends React.Component {
                 <Header.Content>
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                    <h2>{this.state.meteoByGeo.temperature}</h2>
+                    <h2>{this.state.meteoByGeo.temperature}°C</h2>
                     <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
                   </div>
                 </Header.Content>
@@ -244,7 +244,7 @@ class SearchBar extends React.Component {
                 {this.state.meteoBySearch &&
                   <div>
                     <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                    <h2>{this.state.meteoBySearch.temperature}</h2>
+                    <h2>{this.state.meteoBySearch.temperature}°C</h2>
                     <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
 
                   </div>}
