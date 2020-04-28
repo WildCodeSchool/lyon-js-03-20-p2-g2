@@ -7,11 +7,7 @@ import Rainy from './rain';
 let clothes = '';
 
 class Weather extends Component {
-
-
-
-
-  render() {
+  render () {
     const temperature = this.props.min;
 
     if (temperature >= 16 && temperature <= 19) {

@@ -1,15 +1,15 @@
 span.empty {
-    color: rgba(173, 173, 173, 0.884);
-    top: 15px;
-    right: 40px;
-    font-size: 40px;
-    position: absolute;
+color: rgba(173, 173, 173, 0.884);
+top: 15px;
+right: 40px;
+font-size: 40px;
+position: absolute;
 }
 
 span.is-favorite {
-    color: rgba(30, 130, 223, 0.966);
-    top: 15px;
-    right: 40px;
-    font-size: 40px;
-    position: absolute;
+color: rgba(30, 130, 223, 0.966);
+top: 15px;
+right: 40px;
+font-size: 40px;
+position: absolute;
 }
