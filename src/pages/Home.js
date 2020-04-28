@@ -7,18 +7,18 @@ import '../style/home.css';
 let className = '';
 
 class Home extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       weatherClassName: 'day'
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.getWeatherClassName();
   }
 
-  getWeatherClassName() {
+  getWeatherClassName () {
     const today = new Date();
     const time = today.getHours();
 
@@ -36,7 +36,7 @@ class Home extends Component {
     });
   }
 
-  render() {
+  render () {
     return (
       <div className={this.state.weatherClassName}>
         <Header />

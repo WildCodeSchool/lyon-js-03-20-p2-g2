@@ -8,10 +8,12 @@ margin-top: 60px;
 }
 
 .dontForget {
-background-color: aqua;
+background-color: #ffffff47;
 width: 100%;
-margin-bottom: 0px;
-padding: 3px;
+margin-bottom: 0;
+padding: 10px;
+color: white;
+border-top: solid #8080807d;
 }
 
 .humanoid {
@@ -22,8 +24,8 @@ border-radius: 10px;
 .clothes {
 padding: 15px;
 display: flex;
-background-color:white;
-justify-content: space-evenly;
+background-color: #fff;
+justify-content: space-around;
 }
 
 .clothes img {
