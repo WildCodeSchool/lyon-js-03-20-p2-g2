@@ -9,7 +9,7 @@ class Snowy extends Component {
         <div className='weatherCard'>
 
           <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src={require('../../images/image-snow.png')}  alt='clothingHuman' />
+          <img className='humanoid' src={require('../../images/image-snowy.png')}  alt='clothingHuman' />
           <h2 className='textClothes'>The weather will be snowy and cold, so don't forget to cover yourself with a jacket, a hat and a scarf.Let it snow!</h2>
           <h4 className='dontForget'> Do not forget to wear ...</h4>
           <div className='clothes'>
