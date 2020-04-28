@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import ModalSuggestions from './components/ModalSuggestions';
+
 
 import {
   BrowserRouter as Router,
@@ -13,7 +12,7 @@ import About from './pages/About';
 import Home from './pages/Home';
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <Router>
         <main id='App'>

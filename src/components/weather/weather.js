@@ -7,7 +7,11 @@ import Rainy from './rain';
 let clothes = '';
 
 class Weather extends Component {
-  componentDidMount = () => {
+
+
+
+
+  render() {
     const temperature = this.props.min;
 
     if (temperature >= 16 && temperature <= 19) {
@@ -19,9 +23,6 @@ class Weather extends Component {
     } else if (temperature >= 20 && temperature <= 35) {
       clothes = <Sunny />;
     }
-  }
-
-  render () {
     return (
       <div>{clothes}</div>
     );
