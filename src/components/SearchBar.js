@@ -10,10 +10,10 @@ import Weather from './weather/weather';
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 
-/* const ApiKey = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq'; */
-/*const ApiKey2 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';*/
-
-const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';
+ const ApiKey = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq'; 
+/*const ApiKey2 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
+/*
+const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy';*/
 /*const ApiKey3 = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu';*/
 
 class SearchBar extends React.Component {
@@ -89,7 +89,7 @@ class SearchBar extends React.Component {
   */
 
   fetchOnClick = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey4}&q=${city}&language=fr&details=true`;
+    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey}&q=${city}&language=fr&details=true`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -103,7 +103,7 @@ class SearchBar extends React.Component {
       .then(data => {
         this.setState({ data: data, loading: false });
 
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
+        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
           .then(res => res.json())
           .then(data => this.setState({ meteoBySearch: data }));
       })
@@ -136,7 +136,7 @@ class SearchBar extends React.Component {
   */
 
   fetchSearchResults = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey4}&q=${city}&language=fr&details=true`;
+    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey}&q=${city}&language=fr&details=true`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -150,7 +150,7 @@ class SearchBar extends React.Component {
       .then(data => {
         this.setState({ data: data, loading: false });
 
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
+        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
           .then(res => res.json())
           .then(data => this.setState({ meteoBySearch: data }));
       })
@@ -172,13 +172,13 @@ class SearchBar extends React.Component {
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
-      fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey4}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
+      fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
 
         .then(res => res.json())
         .then(data => {
           this.setState({ data: data });
 
-          fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey4}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
+          fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
             .then(res => res.json())
             .then(data => this.setState({ meteoByGeo: data }));
         });
