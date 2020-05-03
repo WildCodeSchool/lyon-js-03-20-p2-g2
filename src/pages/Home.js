@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar';
 import ModalSuggestions from '../components/ModalSuggestions';
-import '../style/home.css';
 import Header from '../components/Header';
+import '../style/home.css';
+import Footer from '../components/Footer';
 
 let className = '';
 
@@ -41,8 +42,9 @@ class Home extends Component {
     return (
       <div className={this.state.weatherClassName}>
         <Header />
-        <ModalSuggestions />
         <SearchBar />
+        <ModalSuggestions />
+        <Footer />
       </div>
     );
   }

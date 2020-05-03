@@ -11,16 +11,21 @@
 .search-bar{
   width: 40%;
   margin: auto;
-  display: flex
+  display: flex;
+  padding-bottom: 50px;
 }
 
 @media only screen and (max-width: 800px) {
-  .search-bar{
+  .search-bar {
     width: 90%;
+  }
+
+  .search-label .autocomplete {
+    width: 87%;
   }
 }
 
-input[type=text] {
+.search-bar input[type=text] {
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #005C89;
@@ -28,25 +33,63 @@ input[type=text] {
   font-size: 16px;
   background-color: white;
   background-image: url('../images/searchicon-blue.png');
-  background-position: 10px 10px; 
+  background-position: 10px 15px; 
   background-repeat: no-repeat;
-  padding: 10px 20px 10px 40px;
+  padding: 15px 20px 10px 40px;
   outline: none;
   background-size: 24px;
-}
-
-input[type=text] {
   color: #005C89;
   font-family: 'Nunito';
 }
 
-input[type=text]::placeholder {
+.search-bar input[type=text]::placeholder {
   color: rgba(0, 92, 137, 0.4);
   font-family: 'Nunito';
 }
 
+.search-bar ul{
+  position: absolute;
+  list-style-type: none;
+  background-color: white;
+  width: 39%;
+  border-radius: 10px;
+}
+
+.search-bar ul li{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.search-bar ul li:hover{
+  background-color: #bde8fd;
+}
+
+.search-bar ul{
+  position: absolute;
+  list-style-type: none;
+  background-color: white;
+  width: 39%;
+  border-radius: 10px;
+}
+
+.search-bar ul li{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.search-bar ul li:hover{
+  background-color: #bde8fd;
+}
+
 .search-label{
   width: 100%;
+}
+
+.main-search{
+  padding-bottom: 100px;
 }
 
 .geoLocation-input {
@@ -63,3 +106,8 @@ input[type=text]::placeholder {
   outline: none;
 }
 
+/* Loader */
+img.search-loding {
+  display: flex;
+  margin: 0 auto;
+}
