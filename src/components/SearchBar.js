@@ -10,6 +10,7 @@ import weatherIcons from '../weatherIcons.json';
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
+const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 class SearchBar extends React.Component {
   constructor () {
@@ -23,7 +24,9 @@ class SearchBar extends React.Component {
       loading: false,
       country: '',
       suggestions: [],
-      text: ''
+      text: '',
+      AQI: null,
+      pollutionIndex: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -79,7 +82,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
   */
-  fetchOnClick = (city) => {
+  async fetchOnClick (city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -102,7 +105,22 @@ class SearchBar extends React.Component {
           },
           loading: false
         });
+      });
+
+    axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          AQI: data.data.aqi,
+          pollutionIndex: {
+            NO2: data.data.iaqi.no2.v,
+            O3: data.data.iaqi.o3.v,
+            PM10: data.data.iaqi.pm10.v,
+            test: console.log(data.data.aqi)
+          }
+        });
       })
+
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
@@ -155,7 +173,21 @@ class SearchBar extends React.Component {
           loading: false,
           suggestions: []
         });
+      });
+
+    axios.get(`https://api.waqi.info/feed/${city}/?token=${keyAQI}`)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          AQI: data.data.aqi,
+          pollutionIndex: {
+            NO2: data.data.iaqi.no2.v,
+            O3: data.data.iaqi.o3.v,
+            PM10: data.data.iaqi.pm10.v
+          }
+        });
       })
+
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
@@ -195,7 +227,21 @@ class SearchBar extends React.Component {
             },
             loading: false
           });
+        });
+
+      axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
+        .then(res => res.data)
+        .then(data => {
+          this.setState({
+            AQI: data.data.aqi,
+            pollutionIndex: {
+              NO2: data.data.iaqi.no2.v,
+              O3: data.data.iaqi.o3.v,
+              PM10: data.data.iaqi.pm10.v
+            }
+          });
         })
+
         .catch(error => {
           if (axios.isCancel(error) || error) {
             this.setState({ loading: false });
@@ -299,6 +345,14 @@ class SearchBar extends React.Component {
           </div>/*eslint-disable-line*/
 
           : ''}
+
+        {this.state.AQI &&
+          <div className='display-weather'>
+            <h3>{this.state.AQI} AQI</h3><br />
+            <h4>{this.state.pollutionIndex.NO2} NO2</h4>
+            <h4>{this.state.pollutionIndex.O3} O3</h4>
+            <h4>{this.state.pollutionIndex.PM10} PM10</h4>
+          </div>}
       </div>
     );
   }
