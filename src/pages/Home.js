@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar';
 import ModalSuggestions from '../components/ModalSuggestions';
 import Header from '../components/Header';
 import '../style/home.css';
+import Footer from '../components/Footer';
 
 let className = '';
 
@@ -42,6 +43,7 @@ class Home extends Component {
         <Header />
         <SearchBar />
         <ModalSuggestions />
+        <Footer />
       </div>
     );
   }
