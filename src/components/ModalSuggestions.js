@@ -18,7 +18,7 @@ const SmileysPopover = (props) => {
       </div>
       <form className='text-area' name='suggestions' method='post'>
         <input type='hidden' name='form-name' value='suggestions' />
-        <input type="hidden" name='smiley' value={clickedSmiley}/>
+        <input type='hidden' name='smiley' value={clickedSmiley} />
         <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
         <span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span>
       </form>
