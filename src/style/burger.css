@@ -4,6 +4,7 @@ src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype')
 }
 
 .nav-menu {
+<<<<<<< HEAD
 display:flex;
 position: fixed;
 left: 0;
@@ -15,6 +16,19 @@ z-index: 100;
 transform: translateX(-105%);
 transition: transform 0.4s ease-out;
 text-align: left;
+=======
+    display:flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #005C89;
+    z-index: 100;
+    transform: translateX(-105%);
+    transition: transform 0.4s ease-out;
+    text-align: left;
+>>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
 } 
 
 .nav-menu.open {

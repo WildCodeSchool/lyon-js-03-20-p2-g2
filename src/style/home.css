@@ -1,6 +1,7 @@
 .day {
     background-image: url("../images/day-test.jpg");
     min-height: 100vh;
+<<<<<<< HEAD
     background-size: cover;
 }
 
@@ -21,3 +22,18 @@
     min-height: 100vh;
     background-size: cover;
 }
+=======
+}
+.aube {
+    background-image: url("../images/Aube.jpg");
+    min-height: 100vh;
+}
+.night {
+    background-image: url("../images/background_night1.jpg");
+    min-height: 100vh;
+}
+.dusk {
+    background-image: url("../images/background_dusk1.jpg");
+    min-height: 100vh;
+}
+>>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c

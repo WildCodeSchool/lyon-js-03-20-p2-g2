@@ -18,6 +18,22 @@ export const Burger = (props) => {
           <Link to='/' onClick={props.handleClick}>Home</Link>
         </li>
         <li>
+<<<<<<< HEAD
+=======
+          <Link to='/favorites' onClick={props.handleClick}>Favorite places </Link>
+
+          <ul className='menuFavorites' onClick={props.handleClick}>
+            <li>
+              <Link to='/Lyon'>Lyon</Link>
+            </li>
+            <li>
+              <Link to='/Paris'>Paris</Link>
+            </li>
+          </ul>
+
+        </li>
+        <li>
+>>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
           <Link to='/about' onClick={props.handleClick}>About us</Link>
         </li>
         <li>

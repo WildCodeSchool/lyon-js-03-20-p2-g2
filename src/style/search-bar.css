@@ -1,4 +1,5 @@
 @font-face {
+<<<<<<< HEAD
     font-family: 'Raleway';
     src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
 }
@@ -19,6 +20,52 @@
     .search-bar {
         width: 90%;
     }
+=======
+  font-family: 'Raleway';
+  src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+.search-bar{
+  width: 40%;
+  margin: auto;
+  display: flex
+}
+
+@media only screen and (max-width: 800px) {
+  .search-bar{
+    width: 90%;
+  }
+}
+
+input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #005C89;
+  border-radius: 12px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('../images/searchicon-blue.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 10px 20px 10px 40px;
+  outline: none;
+  background-size: 24px;
+}
+
+input[type=text] {
+  color: #005C89;
+  font-family: 'Nunito';
+}
+
+input[type=text]::placeholder {
+  color: rgba(0, 92, 137, 0.4);
+  font-family: 'Nunito';
+>>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
 }
 
 .search-bar input[type=text] {
@@ -38,9 +85,24 @@
     font-family: 'Nunito';
 }
 
+<<<<<<< HEAD
 .search-bar input[type=text]::placeholder {
     color: rgba(0, 92, 137, 0.4);
     font-family: 'Nunito';
+=======
+.geoLocation-input {
+  position: relative;
+  right: 30px;
+  bottom: 5px;
+  background: none;
+  border: none;
+  color: #005C89;
+  font-size: 24px;
+}
+
+.geoLocation-input:focus, .geoLocation-input:active {
+  outline: none;
+>>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
 }
 
 .search-bar ul {
