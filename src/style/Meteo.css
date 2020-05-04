@@ -2,8 +2,8 @@
     font-family: 'Raleway';
     src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
 }
-  
-  @font-face {
+
+@font-face {
     font-family: 'Nunito';
     src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
 }
@@ -19,7 +19,7 @@
 
 .Meteo {
     background-color: var(--card-color);
-    box-shadow: 0px 70px 40px -50px rgba(0, 0, 0, 0.2), 0px 3px 20px rgba(0, 0, 0, 0.1) !important; 
+    box-shadow: 0px 70px 40px -50px rgba(0, 0, 0, 0.2), 0px 3px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
 .card {
@@ -33,7 +33,7 @@
     margin: auto;
 }
 
-.display-weather h2{
+.display-weather h2 {
     text-align: center;
     font-family: 'Nunito';
     color: white;
@@ -61,8 +61,8 @@
     font-size: 40px;
 }
 
-.display-weather div.card>.content {
-    margin: .875em .5em; 
+.display-weather div.card > .content {
+    margin: .875em .5em;
     --title-color: #fff;
     --text-color: #5c5e83;
     --card-color: #fff;
@@ -73,7 +73,7 @@
     margin-left: -5px;
 }
 
-.card:hover{
+.card:hover {
     transform: scale(1.05);
     transition: 0.4s;
 }
@@ -84,18 +84,18 @@
     flex-wrap: wrap;
 }
 
-.Meteo{
+.Meteo {
     width: 18%;
 }
 
-.Meteo img{
+.Meteo img {
     width: 80px;
     margin-left: 55%;
 }
 
 /*******MEDIA QUERIES MEDIUM DEVICE*********/
 @media screen and (max-width: 800px) and (min-width: 481px) {
-    .ui.cards{
+    .ui.cards {
         display: flex;
         justify-content: space-around;
         width: 100%;
@@ -106,7 +106,7 @@
     .ui.card.Meteo {
         background-color: #ffffffdb;
         background-clip: border-box;
-        border: 1px solid rgba(0,0,0,.125);
+        border: 1px solid rgba(0, 0, 0, .125);
         border-radius: .25rem;
         width: 80%;
         margin: 1%;
@@ -119,8 +119,8 @@
 
 
 /*******MEDIA QUERIES SMALL DEVICE*********/
-@media screen and (max-width : 480px){
-    .ui.cards{
+@media screen and (max-width: 480px) {
+    .ui.cards {
         display: flex;
         justify-content: space-around;
         width: 100%;
@@ -130,7 +130,7 @@
     .ui.card.Meteo {
         background-color: #ffffffdb;
         background-clip: border-box;
-        border: 1px solid rgba(0,0,0,.125);
+        border: 1px solid rgba(0, 0, 0, .125);
         border-radius: .25rem;
         width: 100%;
         margin: 1%;
@@ -141,12 +141,12 @@
         margin-left: 60%;
     }
 
-    .content > div  h1,
-    .content > div  h2 {
-        font-size: 26px;    
+    .content > div h1,
+    .content > div h2 {
+        font-size: 26px;
     }
 
-    .content > div >h2 .wi-rain {
+    .content > div > h2 .wi-rain {
         font-size: 60px;
     }
 }
