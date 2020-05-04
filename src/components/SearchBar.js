@@ -1,32 +1,28 @@
 import React from 'react';
 import '../style/search-bar.css';
-import Meteo from './Meteo';
 import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
+import Meteo from './Meteo';
+import Weather from './weather/weather';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
-import Weather from './weather/weather';
+import weatherIcons from '../weatherIcons.json';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
-
-const ApiKey = 'sirfH8T9iACEaL6BCh4lj1lcIRyib9nq';
-/* const ApiKey2 = 'NQVDQY0tgu7YxiI4jwFGl1KbNkm9KYWm';
-/*
-const ApiKey4 = 'o1xPkWaVgHyeSXeWVAFrPulTbebdRtQy'; */
-/* const ApiKey3 = 'AuVbuUjA33sOUpgtpsT4ikQGmaihFztu'; */
+const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
+      city: '',
       lat: 0,
       long: 0,
-      data: undefined,
       meteoByGeo: false,
       meteoBySearch: false,
-      city: '',
       loading: false,
+      country: '',
       suggestions: [],
       text: ''
     };
@@ -53,14 +49,14 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
     }
     return (
       <ul className='autocomplete'>
-        {suggestions.slice(0, 5).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
+        {suggestions.slice(0, 3).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
       </ul>
     );
   } // eslint-disable-line
@@ -72,24 +68,20 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected(value) {
+  handleSuggestionSelected (value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
-      loading: true,
       meteoByGeo: false
-    }));
-
-    this.fetchOnClick(this.state.text);
+    }), () => this.fetchOnClick(this.state.text));
   }
 
   /* fetchOnclick va nous permettre de faire nos requêtes à l'API.
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
   */
-
   fetchOnClick = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey}&q=${city}&language=fr&details=true`;
+    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -101,13 +93,18 @@ class SearchBar extends React.Component {
 
       .then(res => res.data)
       .then(data => {
-        this.setState({ data: data, loading: false });
-
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
-          .then(res => res.json())
-          .then(data => this.setState({ meteoBySearch: data }));
+        this.setState({
+          meteoBySearch: {
+            city: data.city.name.replace('Arrondissement de', ''),
+            country: data.city.country,
+            temperature: Math.round(data.list[0].main.temp - 273.15),
+            tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
+            weatherData: data.list,
+            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+          },
+          loading: false
+        });
       })
-
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
@@ -121,12 +118,13 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
     */
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
+
       const city = event.target.value;
 
-      this.setState({ city: city, meteoByGeo: false, loading: true, suggestions: [] });
+      this.setState({ city: city, meteoByGeo: false });
       this.fetchSearchResults(city);
     }
   }
@@ -136,7 +134,7 @@ class SearchBar extends React.Component {
   */
 
   fetchSearchResults = (city) => {
-    const searchCityUrl = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${ApiKey}&q=${city}&language=fr&details=true`;
+    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
       this.cancel.cancel();
@@ -148,48 +146,87 @@ class SearchBar extends React.Component {
 
       .then(res => res.data)
       .then(data => {
-        this.setState({ data: data, loading: false });
+        this.setState({
+          meteoBySearch: {
+            city: data.city.name.replace('Arrondissement de', ''),
+            country: data.city.country,
+            temperature: Math.round(data.list[0].main.temp - 273.15),
+            tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
+            weatherData: data.list,
+            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+          },
+          loading: false
 
-        fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data[0].Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`)  /* eslint-disable-line */
-          .then(res => res.json())
-          .then(data => this.setState({ meteoBySearch: data }));
+        });
       })
-
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
         }
       });
   }
-
+  /* .city.name. */
   /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
   */
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
-      fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${ApiKey}&q=${this.state.lat}%2C%20${this.state.long}`) /* eslint-disable-line */
+      const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
 
-        .then(res => res.json())
+      if (this.cancel) {
+        this.cancel.cancel();
+      }
+
+      this.cancel = axios.CancelToken.source();
+
+      axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+
+        .then(res => res.data)
         .then(data => {
-          this.setState({ data: data });
+          this.setState({
+            meteoByGeo: {
+              city: data.city.name.replace('Arrondissement de', ''),
+              country: data.city.country,
+              temperature: Math.round(data.list[0].main.temp - 273.15),
+              tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
+              weatherData: data.list,
+              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+            },
+            loading: false
+          });
+        })
 
-          fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${ApiKey}&language=fr-FR&metric=true&details=true`) /* eslint-disable-line */
-            .then(res => res.json())
-            .then(data => this.setState({ meteoByGeo: data }));
+        .catch(error => {
+          if (axios.isCancel(error) || error) {
+            this.setState({ loading: false });
+          }
         });
     });
   }
 
-  render() {
+  render () {
     const { loading } = this.state;
+    function icons (meteo) {
+      const prefix = 'wi wi-';
+      const code = meteo.weather[0].id;
+      let icon = weatherIcons[meteo.weather[0].id].icon;
+
+      // If we are not in the ranges mentioned above, add a day/night prefix.
+      if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+        return (icon = prefix + 'day-' + icon);
+      }
+      // Finally tack on the prefix.
+      return (icon = prefix + icon);
+    }
+
     return (
       <div className='main-search'>
-
+        {this.state.data}
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
             <input
@@ -197,7 +234,6 @@ class SearchBar extends React.Component {
               placeholder='Search for....'
               onKeyDown={this.handleChange}
               onChange={this.handleTextChanged}
-              value={this.state.text}
             />
             {this.renderSuggestions()}
           </label>
@@ -213,49 +249,62 @@ class SearchBar extends React.Component {
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
                 <Header.Content>
-                  <p> {this.state.meteoByGeo ? this.state.data.EnglishName : ''}</p>
-                  <p>{this.state.meteoByGeo ? this.state.data.Country.EnglishName : ''}</p>
+                  <div>
+                    <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
+                    <h2>{this.state.meteoByGeo.temperature}°C</h2>
+                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
+                  </div>
                 </Header.Content>
-              </Header> : ''} { /* eslint-disable-line */}
+              </Header> /*  eslint-disable-line */
 
-            <Header as='h2' className='title'>
-              <Icon name='adjust' />
-              <Header.Content>
-                <p> {this.state.meteoBySearch ? this.state.data[0].EnglishName : ''}</p>
-                <p>{this.state.meteoBySearch ? this.state.data[0].Country.EnglishName : ''}</p>
-              </Header.Content>
-            </Header>
+              : <Header as='h2' className='title'>
+                <Icon name='adjust' />
+                <Header.Content>
+                  {this.state.meteoBySearch &&
+                    <div>
+                      <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
+                      <h2>{this.state.meteoBySearch.temperature}°C</h2>
+                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
+
+                    </div>}
+                </Header.Content>
+              </Header>} {/*  eslint-disable-line */}
 
             <Card.Group className='cards'>
+              {this.state.meteoByGeo &&
+                this.state.meteoByGeo.weatherData
+                  .filter(data => data.dt_txt.includes('12:00:00'))
+                  .map((meteo, index) => {
+                    return <Meteo
+                      key={index}
+                      phrase={meteo.weather[0].description}
+                      date={meteo.dt_txt}
+                      min={Math.floor(meteo.main.temp_min - 273.15)}
+                      max={Math.ceil(meteo.main.temp_max - 273.15)}
+                      icon={icons(meteo)}
+                    />; // eslint-disable-line
+                  })}
 
-              {this.state.meteoByGeo ? this.state.meteoByGeo.DailyForecasts.map((meteo, index) => {
-                return <Meteo
-                  key={index}
-                  phrase={meteo.Day.IconPhrase}
-                  date={meteo.Date}
-                  min={Math.round(meteo.Temperature.Minimum.Value)}
-                  max={Math.round(meteo.Temperature.Maximum.Value)}
-                  icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
-                />; // eslint-disable-line
-              }) : ''}
-
-              {this.state.meteoBySearch ? this.state.meteoBySearch.DailyForecasts.map((meteo, index) => {
-                return <Meteo
-                  key={index}
-                  phrase={meteo.Day.IconPhrase}
-                  date={meteo.Date}
-                  min={Math.round(meteo.Temperature.Minimum.Value)}
-                  max={Math.round(meteo.Temperature.Maximum.Value)}
-                  icon={`https://vortex.accuweather.com/adc2010/images/slate/icons/${meteo.Day.Icon}.svg`}
-                />; // eslint-disable-line
-              }) : ''}
+              {this.state.meteoBySearch &&
+                this.state.meteoBySearch.weatherData
+                  .filter(data => data.dt_txt.includes('12:00:00'))
+                  .map((meteo, index) => {
+                    return <Meteo
+                      key={index}
+                      phrase={meteo.weather[0].description}
+                      date={meteo.dt_txt}
+                      min={Math.floor(meteo.main.temp_min - 273.15)}
+                      max={Math.ceil(meteo.main.temp_max - 273.15)}
+                      icon={icons(meteo)}
+                    />; // eslint-disable-line
+                  })}
             </Card.Group>
-            {this.state.meteoByGeo &&
-              <Weather min={Math.round(this.state.meteoByGeo.DailyForecasts[0].Temperature.Minimum.Value)} />}
-            {this.state.meteoBySearch &&
-              <Weather min={Math.round(this.state.meteoBySearch.DailyForecasts[0].Temperature.Minimum.Value)} />}
-          </div> : ''} { /* eslint-disable-line */}
 
+            {this.state.meteoByGeo &&
+              <Weather min={this.state.meteoByGeo.tempmin} />}
+            {this.state.meteoBySearch &&
+              <Weather min={Math.round(this.state.meteoBySearch.tempmin)} />}
+          </div> : ''} { /* eslint-disable-line */}
       </div>
     );
   }

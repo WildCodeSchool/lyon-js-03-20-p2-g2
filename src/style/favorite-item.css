@@ -1,5 +1,4 @@
 span.empty {
-<<<<<<< HEAD
 color: rgba(173, 173, 173, 0.884);
 top: 15px;
 right: 40px;
@@ -13,18 +12,4 @@ top: 15px;
 right: 40px;
 font-size: 40px;
 position: absolute;
-=======
-    color: rgba(173, 173, 173, 0.884);
-    top: 15px;
-    right: 40px;
-    font-size: 40px;
-    position: absolute;
-}
-span.is-favorite {
-    color: rgba(30, 130, 223, 0.966);
-    top: 15px;
-    right: 40px;
-    font-size: 40px;
-    position: absolute;
->>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
 }

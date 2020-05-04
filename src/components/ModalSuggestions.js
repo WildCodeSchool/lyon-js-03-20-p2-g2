@@ -6,40 +6,22 @@ import '../style/modalsuggestions.css';
 
 const SmileysPopover = (props) => {
   const [clickedSmiley, setClickedSmiley] = useState(null);
-<<<<<<< HEAD
-=======
-  const body = 'bla bla';
->>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
 
   return (
     <div className='smileys-popover'>
       <div>
-<<<<<<< HEAD
         <span className={clickedSmiley === 'angry' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('angry')}><span onClick={props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
-=======
-        <span className={clickedSmiley === 'angry' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('angry')}><span onClick={clickedSmiley === 'angry' ? () => {} : props.onClick}><i className='far fa-angry iconsPopover' /></span></span>
->>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
         <span className={clickedSmiley === 'sad' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('sad')}><span onClick={props.onClick}><i className='far fa-frown iconsPopover' /></span></span>
         <span className={clickedSmiley === 'meh' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('meh')}><span onClick={props.onClick}><i className='far fa-meh iconsPopover' /></span></span>
         <span className={clickedSmiley === 'smile' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('smile')}><span onClick={props.onClick}><i className='far fa-smile iconsPopover' /></span></span>
         <span className={clickedSmiley === 'loving' ? 'icon-clicked' : ''} onClick={() => setClickedSmiley('loving')}><span onClick={props.onClick}><i className='far fa-grin-hearts iconsPopover' /></span></span>
       </div>
-<<<<<<< HEAD
       <form className='text-area' name='suggestions' method='post'>
         <input type='hidden' name='form-name' value='suggestions' />
         <input type='hidden' name='smiley' value={clickedSmiley} />
         <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' />
         <span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span>
       </form>
-=======
-      {props.openTextArea
-        ? // eslint-disable-line
-          <form id='gform' className='text-area'> { /* eslint-disable-line */ }
-            <label htmlFor='message' /> { /* eslint-disable-line */ }
-            <textarea className='input-textarea' placeholder='Tell us about your experience...' id='name' name='message' rows='6' cols='30' /> { /* eslint-disable-line */ }
-            <a href={'mailto:weathersuggest@gmail.com?body=' + encodeURI(body)}><span className='close-textArea'><input type='submit' className='input-textarea' value='Send !' /></span></a> { /* eslint-disable-line */ }
-        </form> : ''} { /* eslint-disable-line */ }
->>>>>>> 92ecec97d80139e7b3141d2fd79f6e19dd4fdc6c
     </div>
   );
 };

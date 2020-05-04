@@ -4,10 +4,21 @@
 }
 
 .welcome-message {
-    text-align: center;
-    color: white;
-    font-family: 'Nunito';
-    padding-top: 15px;
+text-align: center;
+color: white;
+font-family: 'Nunito';
+padding-top: 15px;
+}
+.header{
+display: flex;
+flex-direction: column;
+width: 100%;
+color: #36769b;
+font-weight: 500;
+}
+.header img{
+width: 150px;
+align-self: center;
 }
 
 .header {
@@ -18,7 +29,5 @@
     font-weight: 500;
 }
 
-.header img {
-    width: 150px;
-    align-self: center;
-}
+
+    
