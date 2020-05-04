@@ -7,10 +7,12 @@ import Weather from './weather/weather';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import weatherIcons from '../weatherIcons.json';
+import Pollution from './Pollution';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
+const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 function UnixTimestamp (t) {
   var dt = new Date(t * 1000);
@@ -31,7 +33,9 @@ class SearchBar extends React.Component {
       loading: false,
       country: '',
       suggestions: [],
-      text: ''
+      text: '',
+      AQI: null,
+      pollutionIndex: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -75,8 +79,8 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected (value) {
-    this.setState(() => ({
+  async handleSuggestionSelected (value) {
+    await this.setState(() => ({
       text: value,
       suggestions: [],
       meteoByGeo: false
@@ -87,7 +91,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
   */
-  fetchOnClick = (city) => {
+  async fetchOnClick (city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -96,13 +100,12 @@ class SearchBar extends React.Component {
 
     this.cancel = axios.CancelToken.source();
 
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
+    await axios.get(searchCityUrl, { cancelToken: this.cancel.token })
       .then(res => res.data)
       .then(data => {
         this.setState({
           meteoBySearch: {
-            city: data.city.name.replace('Arrondissement de', ''),
+            city: data.city.name.replace('Arrondissement de ', ''),
             country: data.city.country,
             sunrise: data.city.sunrise,
             sunset: data.city.sunset,
@@ -119,7 +122,22 @@ class SearchBar extends React.Component {
           loading: false,
           suggestions: []
         });
+      });
+
+    await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          test: console.log(data.data),
+          AQI: data.data.aqi,
+          pollutionIndex: {
+            NO2: data.data.iaqi.no2.v,
+            O3: data.data.iaqi.o3.v,
+            PM10: data.data.iaqi.pm10.v
+          }
+        });
       })
+
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
@@ -144,6 +162,48 @@ class SearchBar extends React.Component {
     }
   }
 
+  /* La méthode fetchSearchResults va appeler notre API en fonction de la ville choisie par l'utilisateur.
+    On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
+  */
+
+  async fetchSearchResults (city) {
+    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
+
+    await axios.get(searchCityUrl)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          meteoBySearch: {
+            city: data.city.name.replace('Arrondissement de', ''),
+            country: data.city.country,
+            temperature: Math.round(data.list[0].main.temp - 273.15),
+            weatherData: data.list,
+            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+          },
+          loading: false,
+          suggestions: []
+        });
+      });
+
+    await axios.get(`https://api.waqi.info/feed/${city}/?token=${keyAQI}`)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          test: console.log(data.data.aqi),
+          AQI: data.data.aqi,
+          pollutionIndex: {
+            NO2: data.data.iaqi.no2.v,
+            O3: data.data.iaqi.o3.v,
+            PM10: data.data.iaqi.pm10.v
+          }
+        });
+      })
+      .catch(error => {
+        if (axios.isCancel(error) || error) {
+          this.setState({ loading: false });
+        }
+      });
+  }
   /* .city.name. */
   /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
@@ -151,7 +211,7 @@ class SearchBar extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
-    this.setState({ meteoBySearch: false, loading: true });
+    this.setState({ meteoBySearch: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
@@ -184,6 +244,19 @@ class SearchBar extends React.Component {
               icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
+          });
+        });
+
+      axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
+        .then(res => res.data)
+        .then(data => {
+          this.setState({
+            AQI: data.data.aqi,
+            pollutionIndex: {
+              NO2: data.data.iaqi.no2.v,
+              O3: data.data.iaqi.o3.v,
+              PM10: data.data.iaqi.pm10.v
+            }
           });
         })
 
@@ -326,6 +399,15 @@ class SearchBar extends React.Component {
             {this.state.meteoBySearch &&
               <Weather min={Math.round(this.state.meteoBySearch.tempmin)} />}
           </div> : ''} { /* eslint-disable-line */}
+
+        {this.state.AQI &&
+          <Pollution
+            AQI={this.state.AQI}
+            NO2={this.state.pollutionIndex.NO2}
+            O3={this.state.pollutionIndex.O3}
+            PM10={this.state.pollutionIndex.PM10}
+          />}
+
       </div>
     );
   }
