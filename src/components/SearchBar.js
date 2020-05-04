@@ -155,7 +155,8 @@ class SearchBar extends React.Component {
             weatherData: data.list,
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
-          loading: false
+          loading: false,
+          suggestions: []
 
         });
       })
