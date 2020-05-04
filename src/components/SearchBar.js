@@ -113,8 +113,8 @@ class SearchBar extends React.Component {
             pressure: data.list[0].main.pressure,
             humidity: data.list[0].main.humidity,
             wind: data.list[0].wind.speed,
+            icon: data.list[0].weather[0].icon,
             weatherData: data.list,
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false,
           suggestions: []
@@ -180,8 +180,8 @@ class SearchBar extends React.Component {
               pressure: data.list[0].main.pressure,
               humidity: data.list[0].main.humidity,
               wind: data.list[0].wind.speed,
+              icon: data.list[0].weather[0].icon,
               weatherData: data.list,
-              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
           });
@@ -238,7 +238,7 @@ class SearchBar extends React.Component {
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <h2>{this.state.meteoByGeo.temperature}°C</h2>
-                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
+                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt=""/>
                   </div>
                 </Header.Content>
                 <div className=''>
@@ -268,7 +268,7 @@ class SearchBar extends React.Component {
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
                       <h2>{this.state.meteoBySearch.temperature}°C</h2>
-                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
+                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt=""/>
                     </div>}
                 </Header.Content>
                 <div className=''>
