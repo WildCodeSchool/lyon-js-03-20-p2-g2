@@ -155,8 +155,8 @@ class SearchBar extends React.Component {
             weatherData: data.list,
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
-          loading: false
-
+          loading: false,
+          suggestions: []
         });
       })
       .catch(error => {
@@ -195,7 +195,8 @@ class SearchBar extends React.Component {
               temperature: Math.round(data.list[0].main.temp - 273.15),
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
-              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`,
+              test: console.log(data.list)
             },
             loading: false
           });
@@ -303,7 +304,7 @@ class SearchBar extends React.Component {
             {this.state.meteoByGeo &&
               <Weather min={this.state.meteoByGeo.tempmin} />}
             {this.state.meteoBySearch &&
-              <Weather min={Math.round(this.state.meteoBySearch.tempmin)} />}
+              <Weather min={this.state.meteoBySearch.tempmin} />}
           </div> : ''} { /* eslint-disable-line */}
       </div>
     );
