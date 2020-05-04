@@ -102,7 +102,8 @@ class SearchBar extends React.Component {
             weatherData: data.list,
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
-          loading: false
+          loading: false,
+          suggestions: []
         });
       })
       .catch(error => {
@@ -125,47 +126,10 @@ class SearchBar extends React.Component {
       const city = event.target.value;
 
       this.setState({ city: city, meteoByGeo: false });
-      this.fetchSearchResults(city);
+      this.fetchOnClick(city);
     }
   }
 
-  /* La méthode fetchSearchResults va appeler notre API en fonction de la ville choisie par l'utilisateur.
-    On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
-  */
-
-  fetchSearchResults = (city) => {
-    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
-
-    if (this.cancel) {
-      this.cancel.cancel();
-    }
-
-    this.cancel = axios.CancelToken.source();
-
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
-      .then(res => res.data)
-      .then(data => {
-        this.setState({
-          meteoBySearch: {
-            city: data.city.name.replace('Arrondissement de', ''),
-            country: data.city.country,
-            temperature: Math.round(data.list[0].main.temp - 273.15),
-            tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
-            weatherData: data.list,
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
-          },
-          loading: false,
-          suggestions: []
-
-        });
-      })
-      .catch(error => {
-        if (axios.isCancel(error) || error) {
-          this.setState({ loading: false });
-        }
-      });
-  }
   /* .city.name. */
   /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
