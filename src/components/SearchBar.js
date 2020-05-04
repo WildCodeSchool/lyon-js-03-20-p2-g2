@@ -6,6 +6,7 @@ import Meteo from './Meteo';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import weatherIcons from '../weatherIcons.json';
+import Pollution from './Pollution';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -70,8 +71,8 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected (value) {
-    this.setState(() => ({
+  async handleSuggestionSelected (value) {
+    await this.setState(() => ({
       text: value,
       suggestions: [],
       meteoByGeo: false
@@ -91,13 +92,12 @@ class SearchBar extends React.Component {
 
     this.cancel = axios.CancelToken.source();
 
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
+    await axios.get(searchCityUrl, { cancelToken: this.cancel.token })
       .then(res => res.data)
       .then(data => {
         this.setState({
           meteoBySearch: {
-            city: data.city.name.replace('Arrondissement de', ''),
+            city: data.city.name.replace('Arrondissement de ', ''),
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
             weatherData: data.list,
@@ -107,16 +107,16 @@ class SearchBar extends React.Component {
         });
       });
 
-    axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`)
+    await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`)
       .then(res => res.data)
       .then(data => {
         this.setState({
+          test: console.log(data.data),
           AQI: data.data.aqi,
           pollutionIndex: {
             NO2: data.data.iaqi.no2.v,
             O3: data.data.iaqi.o3.v,
             PM10: data.data.iaqi.pm10.v,
-            test: console.log(data.data.aqi)
           }
         });
       })
@@ -149,17 +149,10 @@ class SearchBar extends React.Component {
     On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
   */
 
-  fetchSearchResults = (city) => {
+  async fetchSearchResults(city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
-    if (this.cancel) {
-      this.cancel.cancel();
-    }
-
-    this.cancel = axios.CancelToken.source();
-
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
+    await axios.get(searchCityUrl)
       .then(res => res.data)
       .then(data => {
         this.setState({
@@ -168,26 +161,26 @@ class SearchBar extends React.Component {
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
             weatherData: data.list,
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`,
           },
           loading: false,
           suggestions: []
         });
       });
 
-    axios.get(`https://api.waqi.info/feed/${city}/?token=${keyAQI}`)
+      await axios.get(`https://api.waqi.info/feed/${city}/?token=${keyAQI}`)
       .then(res => res.data)
       .then(data => {
         this.setState({
+          test: console.log(data.data),
           AQI: data.data.aqi,
           pollutionIndex: {
             NO2: data.data.iaqi.no2.v,
             O3: data.data.iaqi.o3.v,
-            PM10: data.data.iaqi.pm10.v
+            PM10: data.data.iaqi.pm10.v,
           }
         });
       })
-
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
@@ -347,12 +340,13 @@ class SearchBar extends React.Component {
           : ''}
 
         {this.state.AQI &&
-          <div className='display-weather'>
-            <h3>{this.state.AQI} AQI</h3><br />
-            <h4>{this.state.pollutionIndex.NO2} NO2</h4>
-            <h4>{this.state.pollutionIndex.O3} O3</h4>
-            <h4>{this.state.pollutionIndex.PM10} PM10</h4>
-          </div>}
+        <Pollution 
+        AQI={this.state.AQI} 
+        NO2={this.state.pollutionIndex.NO2}
+        O3={this.state.pollutionIndex.O3}
+        PM10={this.state.pollutionIndex.PM10}
+        />}
+
       </div>
     );
   }
