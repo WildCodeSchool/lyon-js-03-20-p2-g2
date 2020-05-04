@@ -5,7 +5,6 @@ span.empty {
     font-size: 40px;
     position: absolute;
 }
-
 span.is-favorite {
     color: rgba(30, 130, 223, 0.966);
     top: 15px;

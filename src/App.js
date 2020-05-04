@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +15,6 @@ class App extends React.Component {
     return (
       <Router>
         <main id='App'>
-
           <Switch>
             <Route exact path='/'>
               <Home />
