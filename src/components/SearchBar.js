@@ -172,7 +172,7 @@ class SearchBar extends React.Component {
       .then(res => res.data)
       .then(data => {
         this.setState({
-          test: console.log(data.data),
+          test: console.log(data.data.aqi),
           AQI: data.data.aqi,
           pollutionIndex: {
             NO2: data.data.iaqi.no2.v,
@@ -194,7 +194,7 @@ class SearchBar extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
-    this.setState({ meteoBySearch: false, loading: true });
+    this.setState({ meteoBySearch: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
