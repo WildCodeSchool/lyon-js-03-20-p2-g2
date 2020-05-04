@@ -12,6 +12,13 @@ import weatherIcons from '../weatherIcons.json';
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
+function UnixTimestamp (t) {
+  var dt = new Date(t * 1000);
+  var hr = dt.getHours();
+  var m = '0' + dt.getMinutes();
+  return hr + ':' + m.substr(-2);
+}
+
 class SearchBar extends React.Component {
   constructor () {
     super();
@@ -97,8 +104,15 @@ class SearchBar extends React.Component {
           meteoBySearch: {
             city: data.city.name.replace('Arrondissement de', ''),
             country: data.city.country,
+            sunrise: data.city.sunrise,
+            sunset: data.city.sunset,
             temperature: Math.round(data.list[0].main.temp - 273.15),
-            tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
+            feelslike: Math.round(data.list[0].main.feels_like - 273.15),
+            tempmin: Math.round(data.list[0].main.temp_min - 273.15),
+            tempmax: Math.round(data.list[0].main.temp_max - 273.15),
+            pressure: data.list[0].main.pressure,
+            humidity: data.list[0].main.humidity,
+            wind: data.list[0].wind.speed,
             weatherData: data.list,
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
@@ -233,6 +247,24 @@ class SearchBar extends React.Component {
 
                     </div>}
                 </Header.Content>
+                <div>
+                  <h2>{this.state.meteoBySearch.feelslike}°C</h2>
+                  <h3>Feeling</h3>
+                  <h2>{this.state.meteoBySearch.tempmin}°C</h2>
+                  <h3>Min Temp</h3>
+                  <h2>{this.state.meteoBySearch.tempmax}°C</h2>
+                  <h3>Max Temp</h3>
+                  <h2>{this.state.meteoBySearch.wind} m/s</h2>
+                  <h3>Wind</h3>
+                  <h2>{this.state.meteoBySearch.pressure} hpa</h2>
+                  <h3>Pressure</h3>
+                  <h2>{this.state.meteoBySearch.humidity} %</h2>
+                  <h3>Humidity</h3>
+                  <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                  <h3>Sunrise</h3>
+                  <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                  <h3>Sunset</h3>
+                </div>
               </Header>} {/*  eslint-disable-line */}
 
             <Card.Group className='cards'>
