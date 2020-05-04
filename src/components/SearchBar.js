@@ -95,7 +95,6 @@ class SearchBar extends React.Component {
       .then(data => {
         this.setState({
           meteoBySearch: {
-
             city: data.city.name.replace('Arrondissement de', ''),
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
@@ -157,8 +156,9 @@ class SearchBar extends React.Component {
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
-            main: data.list.weather[0].main,
             weatherData: data.list,
+            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
+              .map(t => t.weather[0].main),
 
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
@@ -203,6 +203,9 @@ class SearchBar extends React.Component {
               temperature: Math.round(data.list[0].main.temp - 273.15),
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
+              main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
+              .map(t => t.weather[0].main),
+
               icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
