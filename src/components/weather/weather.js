@@ -7,13 +7,13 @@ import Rainy from './rain';
 let clothes = '';
 
 class Weather extends Component {
-  render() {
+  render () {
     const temperature = this.props.min;
     const description = this.props.main;
 
-    if (temperature < 3 && description.includes('Snow')) {
+    if (temperature < 3 || description.includes('Snow')) {
       clothes = <Snowy />;
-    } else if ((temperature > 3 && temperature <= 16) && description.includes('Clouds')) {
+    } else if ((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) {
       clothes = <Cold />;
     } else if ((temperature > 17 && description.includes('Sunny')) || (temperature > 17 && description.includes('Clouds'))) {
       clothes = <Sunny />;
