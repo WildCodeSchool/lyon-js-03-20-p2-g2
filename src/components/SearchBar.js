@@ -314,36 +314,36 @@ class SearchBar extends React.Component {
                 </Header.Content>
                 <div className='moreInfo'>
                   <div className='feelslike'>
-                  <h2>{this.state.meteoBySearch.feelslike}°C</h2>
-                  <h3>Feeling</h3>
+                    <h2>{this.state.meteoBySearch.feelslike}°C</h2>
+                    <h3>Feeling</h3>
                   </div>
                   <div className='tempsmin'>
-                  <h2>{this.state.meteoBySearch.tempmin}°C</h2>
-                  <h3>Min Temp</h3>
+                    <h2>{this.state.meteoBySearch.tempmin}°C</h2>
+                    <h3>Min Temp</h3>
                   </div>
                   <div className='tempsmax'>
-                  <h2>{this.state.meteoBySearch.tempmax}°C</h2>
-                  <h3>Max Temp</h3>
+                    <h2>{this.state.meteoBySearch.tempmax}°C</h2>
+                    <h3>Max Temp</h3>
                   </div>
                   <div className='wind'>
-                  <h2>{this.state.meteoBySearch.wind} m/s</h2>
-                  <h3>Wind</h3>
+                    <h2>{this.state.meteoBySearch.wind} m/s</h2>
+                    <h3>Wind</h3>
                   </div>
                   <div className='pressure'>
-                  <h2>{this.state.meteoBySearch.pressure} hpa</h2>
-                  <h3>Pressure</h3>
+                    <h2>{this.state.meteoBySearch.pressure} hpa</h2>
+                    <h3>Pressure</h3>
                   </div>
                   <div className='humidity'>
-                  <h2>{this.state.meteoBySearch.humidity} %</h2>
-                  <h3>Humidity</h3>
+                    <h2>{this.state.meteoBySearch.humidity} %</h2>
+                    <h3>Humidity</h3>
                   </div>
                   <div className='sunrise'>
-                  <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
-                  <h3>Sunrise</h3>
+                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                    <h3>Sunrise</h3>
                   </div>
                   <div className='sunset'>
-                  <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
-                  <h3>Sunset</h3>
+                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                    <h3>Sunset</h3>
                   </div>
                 </div>
               </Header> /*  eslint-disable-line */
@@ -360,36 +360,36 @@ class SearchBar extends React.Component {
                 </Header.Content>
                 <div className='moreInfo'>
                   <div className='feelslike'>
-                  <h2>{this.state.meteoBySearch.feelslike}°C</h2>
-                  <h3>Feeling</h3>
+                    <h2>{this.state.meteoBySearch.feelslike}°C</h2>
+                    <h3>Feeling</h3>
                   </div>
                   <div className='tempsmin'>
-                  <h2>{this.state.meteoBySearch.tempmin}°C</h2>
-                  <h3>Min Temp</h3>
+                    <h2>{this.state.meteoBySearch.tempmin}°C</h2>
+                    <h3>Min Temp</h3>
                   </div>
                   <div className='tempsmax'>
-                  <h2>{this.state.meteoBySearch.tempmax}°C</h2>
-                  <h3>Max Temp</h3>
+                    <h2>{this.state.meteoBySearch.tempmax}°C</h2>
+                    <h3>Max Temp</h3>
                   </div>
                   <div className='wind'>
-                  <h2>{this.state.meteoBySearch.wind} m/s</h2>
-                  <h3>Wind</h3>
+                    <h2>{this.state.meteoBySearch.wind} m/s</h2>
+                    <h3>Wind</h3>
                   </div>
                   <div className='pressure'>
-                  <h2>{this.state.meteoBySearch.pressure} hpa</h2>
-                  <h3>Pressure</h3>
+                    <h2>{this.state.meteoBySearch.pressure} hpa</h2>
+                    <h3>Pressure</h3>
                   </div>
                   <div className='humidity'>
-                  <h2>{this.state.meteoBySearch.humidity} %</h2>
-                  <h3>Humidity</h3>
+                    <h2>{this.state.meteoBySearch.humidity} %</h2>
+                    <h3>Humidity</h3>
                   </div>
                   <div className='sunrise'>
-                  <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
-                  <h3>Sunrise</h3>
+                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                    <h3>Sunrise</h3>
                   </div>
                   <div className='sunset'>
-                  <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
-                  <h3>Sunset</h3>
+                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                    <h3>Sunset</h3>
                   </div>
                 </div>
               </Header>} {/*  eslint-disable-line */}
