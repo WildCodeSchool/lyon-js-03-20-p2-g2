@@ -1,0 +1,89 @@
+.moreInfo {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 0px;
+    margin: 20px 50px;
+    background-color: rgba(66, 46, 46, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    flex-basis: auto;
+    
+    }
+    .wind { 
+    text-align: center;
+    width: 25%;
+    height:150px;
+    }
+    .feelslike { 
+    text-align: center;
+    width: 25%;
+    height:150px;
+    }
+    .tempsmin { 
+    text-align: center;
+    width: 25%;
+    height:150px;
+    }
+    .tempsmax { 
+    text-align: center;
+    width: 25%;
+    height:150px;
+    }
+    .pressure { 
+    text-align: center; 
+    width: 25%;
+    }
+    .humidity { 
+    text-align: center;
+    width: 25%;
+    }
+    .sunrise { 
+    text-align: center;
+    width: 25%;
+    height:50px;
+    }
+    .sunset { 
+    text-align: center;
+    width: 25%;
+    height:50px;
+    }
+    
+    @media only screen and (max-width: 850px) {
+    .moreInfo {
+    width: 80%;
+    height: 100%;
+    }
+    .wind {
+    width: 50%;
+    }
+    
+    .feelslike {
+    width: 30%;
+    }
+    
+    .tempsmin {
+    width: 30%;
+    
+    }
+    .tempsmax {
+    
+    width: 30%;
+    }
+    .pressure {
+    
+    width: 23%;
+    }
+    .humidity {
+    
+    width: 30%;
+    }
+    .sunrise {
+    
+    width: 30%;
+    }
+    .sunset {
+    
+    width: 30%;
+    }
+    
+    }

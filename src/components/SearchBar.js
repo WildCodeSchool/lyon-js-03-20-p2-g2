@@ -8,6 +8,7 @@ import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import weatherIcons from '../weatherIcons.json';
 import Pollution from './Pollution';
+import '../style/more-information.css';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -116,8 +117,8 @@ class SearchBar extends React.Component {
             pressure: data.list[0].main.pressure,
             humidity: data.list[0].main.humidity,
             wind: data.list[0].wind.speed,
-            weatherData: data.list,
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+            icon: data.list[0].weather[0].icon,
+            weatherData: data.list
           },
           loading: false,
           suggestions: []
@@ -237,8 +238,8 @@ class SearchBar extends React.Component {
               pressure: data.list[0].main.pressure,
               humidity: data.list[0].main.humidity,
               wind: data.list[0].wind.speed,
-              weatherData: data.list,
-              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+              icon: data.list[0].weather[0].icon,
+              weatherData: data.list
             },
             loading: false
           });
@@ -308,26 +309,42 @@ class SearchBar extends React.Component {
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <h2>{this.state.meteoByGeo.temperature}°C</h2>
-                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
+                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='' />
                   </div>
                 </Header.Content>
-                <div className=''>
+                <div className='moreInfo'>
+                  <div className='feelslike'>
                   <h2>{this.state.meteoBySearch.feelslike}°C</h2>
                   <h3>Feeling</h3>
+                  </div>
+                  <div className='tempsmin'>
                   <h2>{this.state.meteoBySearch.tempmin}°C</h2>
                   <h3>Min Temp</h3>
+                  </div>
+                  <div className='tempsmax'>
                   <h2>{this.state.meteoBySearch.tempmax}°C</h2>
                   <h3>Max Temp</h3>
+                  </div>
+                  <div className='wind'>
                   <h2>{this.state.meteoBySearch.wind} m/s</h2>
                   <h3>Wind</h3>
+                  </div>
+                  <div className='pressure'>
                   <h2>{this.state.meteoBySearch.pressure} hpa</h2>
                   <h3>Pressure</h3>
+                  </div>
+                  <div className='humidity'>
                   <h2>{this.state.meteoBySearch.humidity} %</h2>
                   <h3>Humidity</h3>
+                  </div>
+                  <div className='sunrise'>
                   <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
                   <h3>Sunrise</h3>
+                  </div>
+                  <div className='sunset'>
                   <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
                   <h3>Sunset</h3>
+                  </div>
                 </div>
               </Header> /*  eslint-disable-line */
 
@@ -338,26 +355,42 @@ class SearchBar extends React.Component {
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
                       <h2>{this.state.meteoBySearch.temperature}°C</h2>
-                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
+                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='' />
                     </div>}
                 </Header.Content>
-                <div className=''>
+                <div className='moreInfo'>
+                  <div className='feelslike'>
                   <h2>{this.state.meteoBySearch.feelslike}°C</h2>
                   <h3>Feeling</h3>
+                  </div>
+                  <div className='tempsmin'>
                   <h2>{this.state.meteoBySearch.tempmin}°C</h2>
                   <h3>Min Temp</h3>
+                  </div>
+                  <div className='tempsmax'>
                   <h2>{this.state.meteoBySearch.tempmax}°C</h2>
                   <h3>Max Temp</h3>
+                  </div>
+                  <div className='wind'>
                   <h2>{this.state.meteoBySearch.wind} m/s</h2>
                   <h3>Wind</h3>
+                  </div>
+                  <div className='pressure'>
                   <h2>{this.state.meteoBySearch.pressure} hpa</h2>
                   <h3>Pressure</h3>
+                  </div>
+                  <div className='humidity'>
                   <h2>{this.state.meteoBySearch.humidity} %</h2>
                   <h3>Humidity</h3>
+                  </div>
+                  <div className='sunrise'>
                   <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
                   <h3>Sunrise</h3>
+                  </div>
+                  <div className='sunset'>
                   <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
                   <h3>Sunset</h3>
+                  </div>
                 </div>
               </Header>} {/*  eslint-disable-line */}
 
