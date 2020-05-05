@@ -12,7 +12,7 @@
     width: 100%;
     margin-bottom: 0;
     padding: 10px;
-    color: white;
+    color:white;
     border-top: solid #8080807d;
 }
 
@@ -23,8 +23,7 @@
 
 .clothes {
     padding: 15px;
-    display: flex;
-    background-color: #fff;
+    display: flex; 
     justify-content: space-around;
 }
 
