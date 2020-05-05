@@ -13,7 +13,7 @@ const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       city: '',
@@ -49,7 +49,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -68,7 +68,7 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected (value) {
+  handleSuggestionSelected(value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
@@ -95,15 +95,20 @@ class SearchBar extends React.Component {
       .then(data => {
         this.setState({
           meteoBySearch: {
+
             city: data.city.name.replace('Arrondissement de', ''),
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
+            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
+              .map(t => t.weather[0].main),
+
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false
         });
+
       })
       .catch(error => {
         if (axios.isCancel(error) || error) {
@@ -118,7 +123,7 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
     */
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
 
@@ -153,10 +158,14 @@ class SearchBar extends React.Component {
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
+            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
+              .map(t => t.weather[0].main),
+
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false,
           suggestions: []
+
         });
       })
       .catch(error => {
@@ -170,7 +179,7 @@ class SearchBar extends React.Component {
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
   */
 
-  handleClick (e) {
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -195,8 +204,10 @@ class SearchBar extends React.Component {
               temperature: Math.round(data.list[0].main.temp - 273.15),
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
-              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`,
-              test: console.log(data.list)
+              main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
+                .map(t => t.weather[0].main),
+
+              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
           });
@@ -210,9 +221,9 @@ class SearchBar extends React.Component {
     });
   }
 
-  render () {
+  render() {
     const { loading } = this.state;
-    function icons (meteo) {
+    function icons(meteo) {
       const prefix = 'wi wi-';
       const code = meteo.weather[0].id;
       let icon = weatherIcons[meteo.weather[0].id].icon;
@@ -300,12 +311,12 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
             </Card.Group>
-          </div> : ''} { /* eslint-disable-line */}
 
-        {this.state.meteoByGeo &&
-          <Weather min={this.state.meteoByGeo.tempmin} />}
-        {this.state.meteoBySearch &&
-          <Weather min={this.state.meteoBySearch.tempmin} />}
+            {this.state.meteoByGeo &&
+              <Weather min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
+            {this.state.meteoBySearch &&
+              <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main[0]} />}
+          </div> : ''} { /* eslint-disable-line */}
       </div>
     );
   }
