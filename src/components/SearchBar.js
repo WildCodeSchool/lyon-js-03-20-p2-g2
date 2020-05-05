@@ -300,12 +300,12 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
             </Card.Group>
+          </div> : ''} { /* eslint-disable-line */}
 
-            {this.state.meteoByGeo &&
+          {this.state.meteoByGeo &&
               <Weather min={this.state.meteoByGeo.tempmin} />}
             {this.state.meteoBySearch &&
               <Weather min={this.state.meteoBySearch.tempmin} />}
-          </div> : ''} { /* eslint-disable-line */}
       </div>
     );
   }
