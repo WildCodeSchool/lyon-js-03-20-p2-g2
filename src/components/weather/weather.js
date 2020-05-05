@@ -16,9 +16,9 @@ class Weather extends Component {
     const temperature = this.props.min;
     const description = this.props.main;
 
-    if (temperature < 3 || description.includes('Snow')) {
+    if (description.includes('Snow')) {
       clothes = <Snowy />;
-    } else if ((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) {
+    } else if (((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) || (temperature < 3 && description.includs('Sunny')) {
       clothes = <Cold />;
     } else if ((temperature > 17 && description.includes('Sunny')) || (temperature > 17 && description.includes('Clouds'))) {
       clothes = <Sunny />;
