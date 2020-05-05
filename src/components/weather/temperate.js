@@ -12,10 +12,10 @@ class Temperate extends Component {
           <h2 className='textClothes'>Il fait bon</h2>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
-            <Image src={require('../../images/bonnet.jpg')} />
-            <Image src={require('../../images/coat.jpg')} />
-            <Image src={require('../../images/gloves.jpg')} />
-            <Image src={require('../../images/scarf.jpg')} />
+            <Image src={require('../../images/bonnet.png')} />
+            <Image src={require('../../images/coat.png')} />
+            <Image src={require('../../images/gloves.png')} />
+            <Image src={require('../../images/scarf.png')} />
           </div>
         </div>
 
