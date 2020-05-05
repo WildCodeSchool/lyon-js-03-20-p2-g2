@@ -102,7 +102,8 @@ class SearchBar extends React.Component {
             main: data.list[0].weather[0].main
 
           },
-          loading: false
+          loading: false,
+          suggestions: []
         });
       })
       .catch(error => {
