@@ -157,7 +157,6 @@ class SearchBar extends React.Component {
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
-
             weatherData: data.list,
             main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
               .map(t => t.weather[0].main),
