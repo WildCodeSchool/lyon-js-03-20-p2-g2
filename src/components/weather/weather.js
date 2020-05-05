@@ -5,20 +5,27 @@ import Sunny from './sunny';
 import Rainy from './rain';
 
 let clothes = '';
-
+/* "Clouds"
+1: "Snow"
+5: "Rain"
+7: "Clear"
+8: "Clouds"
+"*/
 class Weather extends Component {
-  render () {
+  render() {
     const temperature = this.props.min;
+    const description = this.props.main;
 
-    if (temperature <= 5) {
-      clothes = <Cold />;
-    } else if (temperature <= 3) {
+    if (description.includes('Snow')) {
       clothes = <Snowy />;
-    } else if (temperature >= 4 && temperature <= 15) {
-      clothes = <Rainy />;
-    } else if (temperature >= 20 && temperature <= 35) {
+    } else if (((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) || (temperature < 3 && description.includs('Sunny'))) {
+      clothes = <Cold />;
+    } else if ((temperature > 17 && description.includes('Sunny')) || (temperature > 17 && description.includes('Clouds'))) {
       clothes = <Sunny />;
+    } else if (description.includes('Rain')) {
+      clothes = <Rainy />;
     }
+
     return (
       <div>{clothes}</div>
     );

@@ -16,13 +16,13 @@
 }
 
 @media only screen and (max-width: 800px) {
-.search-bar {
-  width: 90%;
-}
+    .search-bar {
+        width: 90%;
+    }
 
-.search-label .autocomplete {
-  width: 87%;
-}
+    .search-label .autocomplete {
+        width: 87%;
+    }
 }
 
 .search-bar input[type=text] {
@@ -92,8 +92,8 @@
     padding-bottom: 100px;
 }
 
-.main-search{
-padding-bottom: 100px;
+.main-search {
+    padding-bottom: 100px;
 }
 
 .geoLocation-input {
