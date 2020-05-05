@@ -1,14 +1,14 @@
-import React from 'react'
-import '../style/search-bar.css'
-import { Card, Header, Icon } from 'semantic-ui-react'
-import axios from 'axios'
-import Meteo from './Meteo'
-import Weather from './weather/weather'
-import Loader from '../images/loader.gif'
-import citiesList from 'cities.json'
-import weatherIcons from '../weatherIcons.json'
-import Pollution from './Pollution'
-import '../style/more-information.css'
+import React from 'react';
+import '../style/search-bar.css';
+import { Card, Header, Icon } from 'semantic-ui-react';
+import axios from 'axios';
+import Meteo from './Meteo';
+import Weather from './weather/weather';
+import Loader from '../images/loader.gif';
+import citiesList from 'cities.json';
+import weatherIcons from '../weatherIcons.json';
+import Pollution from './Pollution';
+import '../style/more-information.css';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -218,10 +218,10 @@ class SearchBar extends React.Component {
   }
 
   UnixTimestamp (t) {
-    const dt = new Date(t * 1000)
-    const hr = dt.getHours()
-    const m = '0' + dt.getMinutes()
-    return hr + ':' + m.substr(-2)
+    const dt = new Date(t * 1000);
+    const hr = dt.getHours();
+    const m = '0' + dt.getMinutes();
+    return hr + ':' + m.substr(-2);
   }
 
   render () {
