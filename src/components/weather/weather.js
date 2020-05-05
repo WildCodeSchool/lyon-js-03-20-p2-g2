@@ -5,26 +5,27 @@ import Sunny from './sunny';
 import Rainy from './rain';
 
 let clothes = '';
-
+/* "Clouds"
+1: "Snow"
+5: "Rain"
+7: "Clear"
+8: "Clouds"
+"*/
 class Weather extends Component {
   render() {
     const temperature = this.props.min;
     const description = this.props.main;
 
-
-    /*switch (temperature, description) {
-      case 'clear':
-        return 'sunny';
-      default:
-        return '';
-    }*/
-
-    if (temperature < 3 && description.includes('Snow')) {
-
-      clothes = <Cold />;
-    } else if (temperature > 3 && description.includes('Clear')) {
+    if (temperature < 3 || description.includes('Snow')) {
       clothes = <Snowy />;
+    } else if ((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) {
+      clothes = <Cold />;
+    } else if ((temperature > 17 && description.includes('Sunny')) || (temperature > 17 && description.includes('Clouds'))) {
+      clothes = <Sunny />;
+    } else if (description.includes('Rain')) {
+      clothes = <Rainy />;
     }
+
     return (
       <div>{clothes}</div>
     );
