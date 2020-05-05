@@ -258,35 +258,35 @@ class SearchBar extends React.Component {
                 </Header.Content>
                 <div className='moreInfo'>
                   <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.feelslike}°C</h2>
+                    <h2>{this.state.meteoByGeo.feelslike}°C</h2>
                     <h3>Feeling</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.wind} m/s</h2>
+                    <h2>{this.state.meteoByGeo.wind} m/s</h2>
                     <h3>Wind</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.tempmin}°C</h2>
+                    <h2>{this.state.meteoByGeo.tempmin}°C</h2>
                     <h3>Min Temp</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.tempmax}°C</h2>
+                    <h2>{this.state.meteoByGeo.tempmax}°C</h2>
                     <h3>Max Temp</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.pressure} hpa</h2>
+                    <h2>{this.state.meteoByGeo.pressure} hpa</h2>
                     <h3>Pressure</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.humidity} %</h2>
+                    <h2>{this.state.meteoByGeo.humidity} %</h2>
                     <h3>Humidity</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunrise)}</h2>
                     <h3>Sunrise</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunset)}</h2>
                     <h3>Sunset</h3>
                   </div>
                 </div>
