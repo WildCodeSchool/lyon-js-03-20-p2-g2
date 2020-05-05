@@ -95,15 +95,11 @@ class SearchBar extends React.Component {
       .then(data => {
         this.setState({
           meteoBySearch: {
-
             city: data.city.name.replace('Arrondissement de', ''),
             country: data.city.country,
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
-            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
-              .map(t => t.weather[0].main),
-
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false
@@ -157,14 +153,10 @@ class SearchBar extends React.Component {
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
-            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
-              .map(t => t.weather[0].main),
-
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false,
           suggestions: []
-
         });
       })
       .catch(error => {
@@ -203,10 +195,8 @@ class SearchBar extends React.Component {
               temperature: Math.round(data.list[0].main.temp - 273.15),
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
-              main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
-                .map(t => t.weather[0].main),
-
-              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
+              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`,
+              test: console.log(data.list)
             },
             loading: false
           });
@@ -310,12 +300,12 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
             </Card.Group>
-
-            {this.state.meteoByGeo &&
-              <Weather min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
-            {this.state.meteoBySearch &&
-              <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main[0]} />}
           </div> : ''} { /* eslint-disable-line */}
+
+        {this.state.meteoByGeo &&
+          <Weather min={this.state.meteoByGeo.tempmin} />}
+        {this.state.meteoBySearch &&
+          <Weather min={this.state.meteoBySearch.tempmin} />}
       </div>
     );
   }
