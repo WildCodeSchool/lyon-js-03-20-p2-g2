@@ -7,7 +7,7 @@ const Rainy = {
   img1: require('../images/rain-boots.png'),
   img2: require('../images/umbrella.png'),
   img3: require('../images/rain-coat.png'),
-  img4: '',
+  img4: require('../images/bonnet.png'),
   alt: 'rainy-weather'
 };
 const Cold = {

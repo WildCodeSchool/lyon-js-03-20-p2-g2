@@ -6,7 +6,6 @@ import Meteo from './Meteo';
 import Weathers from './Weathers';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
-import weatherIcons from '../weatherIcons.json';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -103,7 +102,6 @@ class SearchBar extends React.Component {
             weatherData: data.list,
             main: data.list[0].weather[0].main,
 
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false
         });
@@ -128,48 +126,10 @@ class SearchBar extends React.Component {
       const city = event.target.value;
 
       this.setState({ city: city, meteoByGeo: false });
-      this.fetchSearchResults(city);
+      this.fetchOnClick(city);
     }
   }
 
-  /* La méthode fetchSearchResults va appeler notre API en fonction de la ville choisie par l'utilisateur.
-    On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
-  */
-
-  fetchSearchResults = (city) => {
-    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
-
-    if (this.cancel) {
-      this.cancel.cancel();
-    }
-
-    this.cancel = axios.CancelToken.source();
-
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
-      .then(res => res.data)
-      .then(data => {
-        this.setState({
-          meteoBySearch: {
-            city: data.city.name.replace('Arrondissement de', ''),
-            country: data.city.country,
-            temperature: Math.round(data.list[0].main.temp - 273.15),
-            tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
-            weatherData: data.list,
-            main: data.list[0].weather[0].main,
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
-          },
-          loading: false,
-          suggestions: []
-
-        });
-      })
-      .catch(error => {
-        if (axios.isCancel(error) || error) {
-          this.setState({ loading: false });
-        }
-      });
-  }
   /* .city.name. */
   /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
@@ -202,7 +162,6 @@ class SearchBar extends React.Component {
               weatherData: data.list,
               main: data.list[0].weather[0].main,
 
-              icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
           });
@@ -218,18 +177,6 @@ class SearchBar extends React.Component {
 
   render () {
     const { loading } = this.state;
-    function icons (meteo) {
-      const prefix = 'wi wi-';
-      const code = meteo.weather[0].id;
-      let icon = weatherIcons[meteo.weather[0].id].icon;
-
-      // If we are not in the ranges mentioned above, add a day/night prefix.
-      if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
-        return (icon = prefix + 'day-' + icon);
-      }
-      // Finally tack on the prefix.
-      return (icon = prefix + icon);
-    }
 
     return (
       <div className='main-search'>
@@ -288,7 +235,6 @@ class SearchBar extends React.Component {
                       date={meteo.dt_txt}
                       min={Math.floor(meteo.main.temp_min - 273.15)}
                       max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={icons(meteo)}
                     />; // eslint-disable-line
                   })}
 
@@ -302,7 +248,6 @@ class SearchBar extends React.Component {
                       date={meteo.dt_txt}
                       min={Math.floor(meteo.main.temp_min - 273.15)}
                       max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={icons(meteo)}
                     />; // eslint-disable-line
                   })}
             </Card.Group>
