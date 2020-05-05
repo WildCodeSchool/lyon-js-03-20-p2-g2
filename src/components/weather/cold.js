@@ -7,7 +7,7 @@ class Cold extends Component {
     return (
       <div className='cold'>
         <div className='weatherCard'>
-          <h1 className='ourSuggest'>Our suggestions</h1>
+          <h3 className='ourSuggest'>Our suggestions</h3>
           <img className='humanoid' src={require('../../images/gif/link-cold.gif')} alt='clothingHuman' />
           <h2 className='textClothes'>The weather will be cloudy and overcast, so don't forget to cover yourself, a jacket, a hat and a scarf will be useful</h2>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
