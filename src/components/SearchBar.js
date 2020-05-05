@@ -16,9 +16,9 @@ const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 function UnixTimestamp (t) {
-  var dt = new Date(t * 1000);
-  var hr = dt.getHours();
-  var m = '0' + dt.getMinutes();
+  const dt = new Date(t * 1000)
+  const hr = dt.getHours()
+  const m = '0' + dt.getMinutes()
   return hr + ':' + m.substr(-2);
 }
 
@@ -160,48 +160,6 @@ class SearchBar extends React.Component {
     }
   }
 
-  /* La méthode fetchSearchResults va appeler notre API en fonction de la ville choisie par l'utilisateur.
-    On va ensuite changer des propriétés de notre afin de permettre l'affichage de la météo (meteoBySearch).
-  */
-
-  async fetchSearchResults (city) {
-    const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
-
-    await axios.get(searchCityUrl)
-      .then(res => res.data)
-      .then(data => {
-        this.setState({
-          meteoBySearch: {
-            city: data.city.name.replace('Arrondissement de', ''),
-            country: data.city.country,
-            temperature: Math.round(data.list[0].main.temp - 273.15),
-            weatherData: data.list,
-            icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
-          },
-          loading: false,
-          suggestions: []
-        });
-      });
-
-    await axios.get(`https://api.waqi.info/feed/${city}/?token=${keyAQI}`)
-      .then(res => res.data)
-      .then(data => {
-        this.setState({
-          test: console.log(data.data.aqi),
-          AQI: data.data.aqi,
-          pollutionIndex: {
-            NO2: data.data.iaqi.no2.v,
-            O3: data.data.iaqi.o3.v,
-            PM10: data.data.iaqi.pm10.v
-          }
-        });
-      })
-      .catch(error => {
-        if (axios.isCancel(error) || error) {
-          this.setState({ loading: false });
-        }
-      });
-  }
   /* .city.name. */
   /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
