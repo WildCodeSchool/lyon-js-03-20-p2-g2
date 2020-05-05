@@ -124,22 +124,22 @@ class SearchBar extends React.Component {
         });
       });
 
-      const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`).then(res => res.data)
+    const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
         }
       });
-  
-      this.setState({
-            test: dataPollution.data,
-            AQI: dataPollution.data.aqi,
-            pollutionIndex: {
-              NO2: dataPollution.data.iaqi.no2.v,
-              O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
-              PM10: dataPollution.data.iaqi.pm10.v
-            }
-          })
+
+    this.setState({
+      test: dataPollution.data,
+      AQI: dataPollution.data.aqi,
+      pollutionIndex: {
+        NO2: dataPollution.data.iaqi.no2.v,
+        O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
+        PM10: dataPollution.data.iaqi.pm10.v
+      }
+    });
   }
 
   /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur
