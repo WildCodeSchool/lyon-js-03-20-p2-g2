@@ -9,7 +9,7 @@ class Temperate extends Component {
         <div className='weatherCard'>
           <h1 className='ourSuggest'>Our suggestions</h1>
           <img className='humanoid' src={require('../../images/image-cold.png')} alt='clothingHuman' />
-          <h2 className='textClothes'>Il fait bon</h2>
+          <h2 className='textClothes'>The weather is fine, not too hot and not too cold enjoy </h2>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
             <Image src={require('../../images/bonnet.png')} />

@@ -9,7 +9,7 @@ class VeryHot extends Component {
         <div className='weatherCard'>
           <h1 className='ourSuggest'>Our suggestions</h1>
           <img className='humanoid' src={require('../../images/image-cold.png')} alt='clothingHuman' />
-          <h2 className='textClothes'>Il fait chaud</h2>
+          <h2 className='textClothes'>The weather is very hot do not cover yourself too much and drink a lot of water. Stay hydrated and cover your head !</h2>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
             <Image src={require('../../images/bonnet.png')} />
