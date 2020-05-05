@@ -253,7 +253,7 @@ class SearchBar extends React.Component {
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <h2>{this.state.meteoByGeo.temperature}°C</h2>
-                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
+                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
                   </div>
                 </Header.Content>
                 <div className='moreInfo'>
