@@ -1,21 +1,24 @@
+
 import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 import '../../style/cardsWeatherWears.css';
 
 class VeryHot extends Component {
-  render () {
+  render() {
     return (
       <div className='veryHot'>
         <div className='weatherCard'>
-          <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src={require('../../images/image-cold.png')} alt='clothingHuman' />
-          <h2 className='textClothes'>The weather is very hot do not cover yourself too much and drink a lot of water. Stay hydrated and cover your head !</h2>
-          <h4 className='dontForget'>Do not forget to wear ...</h4>
+          <h3 className='ourSuggest'>Our suggestions</h3>
+          <img className='humanoid' src={require('../../images//gif/hot1.gif')} alt='clothingHuman' />
+          <p className='textClothes'>It is very hot today, you should go out only if you need to.
+          You must drink a lot of water, cover your head and find cool places if you go outside.
+          </p>
+          <h4 className='dontForget'>Do not forget to bring with you ...</h4>
           <div className='clothes'>
-            <Image src={require('../../images/bonnet.png')} />
-            <Image src={require('../../images/coat.png')} />
-            <Image src={require('../../images/gloves.png')} />
-            <Image src={require('../../images/scarf.png')} />
+            <Image src={require('../../images/bottle.png')} />
+            <Image src={require('../../images/ventilator.png')} />
+            <Image src={require('../../images/swimsuit.png')} />
+            <Image src={require('../../images/sunscreen.png')} />
           </div>
         </div>
 

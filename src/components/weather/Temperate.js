@@ -3,12 +3,12 @@ import { Image } from 'semantic-ui-react';
 import '../../style/cardsWeatherWears.css';
 
 class Temperate extends Component {
-  render () {
+  render() {
     return (
       <div className='temperate'>
         <div className='weatherCard'>
           <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src={require('../../images/image-cold.png')} alt='clothingHuman' />
+          <img className='humanoid' src={require('../../images/gif/temperate1.gif')} alt='clothingHuman' />
           <h2 className='textClothes'>The weather is fine, not too hot and not too cold enjoy </h2>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
