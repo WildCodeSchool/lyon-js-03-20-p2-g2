@@ -13,7 +13,7 @@ class Weather extends Component {
 
     if (description.includes('Snow')) {
       clothes = <Snowy />;
-    } else if (((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) || (temperature < 3 && description.includs('Sunny'))) {
+    } else if (((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) || (temperature < 3 && description.includes('Sunny'))) {
       clothes = <Cold />;
     } else if ((temperature > 17 && description.includes('Sunny')) || (temperature > 17 && description.includes('Clouds'))) {
       clothes = <Sunny />;

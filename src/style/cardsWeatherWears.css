@@ -1,30 +1,41 @@
+@font-face {
+    font-family: 'Raleway';
+    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
 .weatherCard {
-    box-shadow: 0px 70px 40px -50px rgba(0, 0, 0, 0.2), 0px 3px 20px rgba(0, 0, 0, 0.8);
     margin: auto;
-    width: 70%;
+    width: 80%;
     background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
     text-align: center;
     margin-top: 60px;
 }
 
+.weatherCard > h3 {
+    font-family: 'Nunito';
+}
+
+.humanoid {
+    height: 200px;
+}
+
 .dontForget {
+    font-family: 'Nunito';
+    color: #073a54;
     background-color: #ffffff47;
     width: 100%;
     margin-bottom: 0;
     padding: 10px;
-    color: white;
-    border-top: solid #8080807d;
-}
-
-.humanoid {
-    width: 60%;
-    border-radius: 10px;
 }
 
 .clothes {
     padding: 15px;
     display: flex;
-    background-color: #fff;
     justify-content: space-around;
 }
 
@@ -42,6 +53,8 @@
 }
 
 .textClothes {
+    font-family: 'Raleway';
+    font-size: 18px;
     color: #005C89;
 }
 
