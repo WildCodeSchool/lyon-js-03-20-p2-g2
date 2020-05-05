@@ -7,16 +7,15 @@ class Sunny extends Component {
     return (
       <div className='sunny'>
         <div className='weatherCard'>
-
-          <h1 className='ourSuggest'>Our suggestions</h1>
+          <h3 className='ourSuggest'>Our suggestions</h3>
           <img className='humanoid' src={require('../../images/image-sunny.png')} alt='clothingHuman' />
-          <h2 className='textClothes'>The weather will be sunny so don't cover yourself too much but protect you skin and don't forget your glasses</h2>
+          <p className='textClothes'>The weather will be sunny so don't cover yourself too much but protect you skin and don't forget your glasses</p>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
-            <Image src={require('../../images/tee-shirt.jpg')} />
-            <Image src={require('../../images/casquette.jpg')} />
-            <Image src={require('../../images/sunscreen.jpg')} />
-            <Image src={require('../../images/sunglasses.jpg')} />
+            <Image src={require('../../images/tee-shirt.png')} />
+            <Image src={require('../../images/casquette.png')} />
+            <Image src={require('../../images/sunscreen.png')} />
+            <Image src={require('../../images/sunglasses.png')} />
           </div>
         </div>
       </div>

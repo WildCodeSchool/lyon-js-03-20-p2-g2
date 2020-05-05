@@ -305,12 +305,12 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
             </Card.Group>
-
-            {this.state.meteoByGeo &&
-              <Weather min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
-            {this.state.meteoBySearch &&
-              <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
           </div> : ''} { /* eslint-disable-line */}
+
+        {this.state.meteoByGeo &&
+          <Weather min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
+        {this.state.meteoBySearch &&
+          <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
       </div>
     );
   }
