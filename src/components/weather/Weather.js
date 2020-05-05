@@ -38,7 +38,7 @@ class Weather extends Component {
       clothes = <VeryHot />;
     } else if (description.includes('Rain')) {
       clothes = <Rainy />;
-    }
+    } else clothes = <h2 align='center'>no data</h2>
 
     return (
       <div>{clothes}</div>
