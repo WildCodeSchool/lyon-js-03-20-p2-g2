@@ -1,26 +1,19 @@
-import React from 'react';
-import '../style/search-bar.css';
-import { Header, Icon, Card } from 'semantic-ui-react';
-import axios from 'axios';
-import Meteo from './Meteo';
-import Weather from './weather/weather';
-import Loader from '../images/loader.gif';
-import citiesList from 'cities.json';
-import weatherIcons from '../weatherIcons.json';
-import Pollution from './Pollution';
-import '../style/more-information.css';
+import React from 'react'
+import '../style/search-bar.css'
+import { Card, Header, Icon } from 'semantic-ui-react'
+import axios from 'axios'
+import Meteo from './Meteo'
+import Weather from './weather/weather'
+import Loader from '../images/loader.gif'
+import citiesList from 'cities.json'
+import weatherIcons from '../weatherIcons.json'
+import Pollution from './Pollution'
+import '../style/more-information.css'
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
-
-function UnixTimestamp (t) {
-  const dt = new Date(t * 1000)
-  const hr = dt.getHours()
-  const m = '0' + dt.getMinutes()
-  return hr + ':' + m.substr(-2);
-}
 
 class SearchBar extends React.Component {
   constructor () {
@@ -224,6 +217,13 @@ class SearchBar extends React.Component {
     });
   }
 
+  UnixTimestamp (t) {
+    const dt = new Date(t * 1000)
+    const hr = dt.getHours()
+    const m = '0' + dt.getMinutes()
+    return hr + ':' + m.substr(-2)
+  }
+
   render () {
     const { loading } = this.state;
     function icons (meteo) {
@@ -296,11 +296,11 @@ class SearchBar extends React.Component {
                     <h3>Humidity</h3>
                   </div>
                   <div className='sunrise'>
-                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
                     <h3>Sunrise</h3>
                   </div>
                   <div className='sunset'>
-                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
                     <h3>Sunset</h3>
                   </div>
                 </div>
@@ -342,11 +342,11 @@ class SearchBar extends React.Component {
                     <h3>Humidity</h3>
                   </div>
                   <div className='sunrise'>
-                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
                     <h3>Sunrise</h3>
                   </div>
                   <div className='sunset'>
-                    <h2>{UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
                     <h3>Sunset</h3>
                   </div>
                 </div>
