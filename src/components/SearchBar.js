@@ -6,7 +6,6 @@ import Meteo from './Meteo';
 import Weather from './weather/weather';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
-import weatherIcons from '../weatherIcons.json';
 import Pollution from './Pollution';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
@@ -225,19 +224,6 @@ class SearchBar extends React.Component {
 
   render () {
     const { loading } = this.state;
-    function icons (meteo) {
-      const prefix = 'wi wi-';
-      const code = meteo.weather[0].id;
-      let icon = weatherIcons[meteo.weather[0].id].icon;
-
-      // If we are not in the ranges mentioned above, add a day/night prefix.
-      if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
-        return (icon = prefix + 'day-' + icon);
-      }
-      // Finally tack on the prefix.
-      return (icon = prefix + icon);
-    }
-
     return (
       <div className='main-search'>
         {this.state.data}
@@ -266,7 +252,7 @@ class SearchBar extends React.Component {
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <h2>{this.state.meteoByGeo.temperature}°C</h2>
-                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='' />
+                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
                   </div>
                 </Header.Content>
                 <div className='moreInfo'>
@@ -312,7 +298,7 @@ class SearchBar extends React.Component {
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
                       <h2>{this.state.meteoBySearch.temperature}°C</h2>
-                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='' />
+                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
                     </div>}
                 </Header.Content>
                 <div className='moreInfo'>
@@ -362,7 +348,7 @@ class SearchBar extends React.Component {
                       date={meteo.dt_txt}
                       min={Math.floor(meteo.main.temp_min - 273.15)}
                       max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={icons(meteo)}
+                      icon={meteo.weather[0].icon}
                     />; // eslint-disable-line
                   })}
 
@@ -376,7 +362,7 @@ class SearchBar extends React.Component {
                       date={meteo.dt_txt}
                       min={Math.floor(meteo.main.temp_min - 273.15)}
                       max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={icons(meteo)}
+                      icon={meteo.weather[0].icon}
                     />; // eslint-disable-line
                   })}
             </Card.Group>
