@@ -259,7 +259,7 @@ class SearchBar extends React.Component {
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <h2>{this.state.meteoByGeo.temperature}°C </h2>
-                    <h2>{<i className={this.state.meteoByGeo.icon} />}|{this.state.meteoByGeo.main}</h2>
+                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
                   </div>
                 </Header.Content>
               </Header> /*  eslint-disable-line */
@@ -271,7 +271,7 @@ class SearchBar extends React.Component {
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
                       <h2>{this.state.meteoBySearch.temperature}°C </h2>
-                      <h2>{<i className={this.state.meteoBySearch.icon} />}|{this.state.meteoBySearch.main}</h2>
+                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
 
                     </div>}
                 </Header.Content>
