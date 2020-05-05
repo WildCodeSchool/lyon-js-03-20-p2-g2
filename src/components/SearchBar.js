@@ -3,7 +3,7 @@ import '../style/search-bar.css';
 import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
-import Weather from './weather/weather';
+import Weather from './weather/Weather';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import weatherIcons from '../weatherIcons.json';

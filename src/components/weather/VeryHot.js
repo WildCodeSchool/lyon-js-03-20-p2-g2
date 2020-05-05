@@ -10,7 +10,7 @@ class VeryHot extends Component {
           <h3 className='ourSuggest'>Our suggestions</h3>
           <img className='humanoid' src={require('../../images/image-cold.png')} alt='clothingHuman' />
           <p className='textClothes'>It is very hot today, you should go out only if you need to.
-          You must drink a lot of water and find cool places if you go outside.
+          You must drink a lot of water, cover your head and find cool places if you go outside.
           </p>
           <h4 className='dontForget'>Do not forget to bring with you ...</h4>
           <div className='clothes'>

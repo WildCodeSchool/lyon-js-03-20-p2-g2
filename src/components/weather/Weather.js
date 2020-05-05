@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Cold from './cold';
-import Snowy from './snowy';
-import Sunny from './sunny';
-import Rainy from './rain';
-import VeryHot from './veryHot';
-import Temperate from './temperate';
+import Cold from './Cold';
+import Snowy from './Snowy';
+import Sunny from './Sunny';
+import Rainy from './Rain';
+import VeryHot from './VeryHot';
+import Temperate from './Temperate';
 
 let clothes = '';
 class Weather extends Component {
