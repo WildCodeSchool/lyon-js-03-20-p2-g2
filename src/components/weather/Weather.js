@@ -8,7 +8,7 @@ import Temperate from './Temperate';
 
 let clothes = '';
 class Weather extends Component {
-  render() {
+  render () {
     const temperature = this.props.min;
     const description = this.props.main;
 

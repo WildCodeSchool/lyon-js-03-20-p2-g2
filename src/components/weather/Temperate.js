@@ -3,7 +3,7 @@ import { Image } from 'semantic-ui-react';
 import '../../style/cardsWeatherWears.css';
 
 class Temperate extends Component {
-  render() {
+  render () {
     return (
       <div className='temperate'>
         <div className='weatherCard'>
