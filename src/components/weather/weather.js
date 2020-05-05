@@ -4,35 +4,40 @@ import Snowy from './snowy';
 import Sunny from './sunny';
 import Rainy from './rain';
 import VeryHot from './veryHot';
+import Temperate from './temperate';
 
 let clothes = '';
-/* "Clouds"
-1: "Snow"
-5: "Rain"
-7: "Clear"
-8: "Clouds"
-" */
 class Weather extends Component {
   render () {
     const temperature = this.props.min;
     const description = this.props.main;
 
-    if (description.includes('Snow')) {
+    if (temperature < 3 && description.includes('Snow')) {
       clothes = <Snowy />;
-    } else if ((temperature >= 3 && temperature <= 16) && description.includes('Clouds')) {
-      clothes = <Cold />;
+    } else if (description.includes('Snow')) {
+        clothes = <Snowy />;
+    } else if ((temperature >= 3 && temperature <= 7) && description.includes('Clouds')) {
+        clothes = <Cold />;
     } else if (temperature < 3 && description.includs('Sunny')) {
-      clothes = <Cold />;
+        clothes = <Cold />;
     } else if (temperature < 3 && description.includes('Clouds')) {
-      clothes = <Cold />;
-    } else if ((temperature > 17 && temperature <= 38) && description.includes('Sunny')) {
-      clothes = <Sunny />;
-    } else if ((temperature > 17 && temperature <= 38) && description.includes('Clouds')) {
-      clothes = <Sunny />;
-    } else if (temperature >= 39) {
-      clothes = <VeryHot />;
+        clothes = <Cold />;
+    } else if ((temperature > 18 && temperature <= 30) && description.includes('Sunny')) {
+        clothes = <Sunny />;
+    } else if ((temperature > 18 && temperature <= 30) && description.includes('Clouds')) {
+        clothes = <Sunny />;
+    } else if ((temperature >= 8 && temperature <= 18) && description.includes('Clear')) {
+        clothes = <Temperate />;
+    } else if ((temperature >= 8 && temperature <= 18) && description.includes('Clouds')) {
+        clothes = <Temperate />;
+    } else if ((temperature >= 8 && temperature <= 18) && description.includes('Sunny')) {
+        clothes = <Temperate />;
+    } else if (temperature > 18 && temperature <= 30) {
+        clothes = <Sunny />;
+    } else if (temperature >= 31) {
+        clothes = <VeryHot />;
     } else if (description.includes('Rain')) {
-      clothes = <Rainy />;
+        clothes = <Rainy />;
     }
 
     return (
