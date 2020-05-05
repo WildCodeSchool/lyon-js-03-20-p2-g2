@@ -101,8 +101,7 @@ class SearchBar extends React.Component {
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
-            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
-              .map(t => t.weather[0].main),
+            main: data.list[0].weather[0].main,
 
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
@@ -158,9 +157,7 @@ class SearchBar extends React.Component {
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
-            main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
-              .map(t => t.weather[0].main),
-
+            main: data.list[0].weather[0].main,
             icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
           },
           loading: false,
@@ -204,9 +201,7 @@ class SearchBar extends React.Component {
               temperature: Math.round(data.list[0].main.temp - 273.15),
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
-              main: data.list.filter(d => d.dt_txt.includes('12:00:00'))
-                .map(t => t.weather[0].main),
-
+              main: data.list[0].weather[0].main,
               icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
@@ -315,7 +310,7 @@ class SearchBar extends React.Component {
             {this.state.meteoByGeo &&
               <Weather min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
             {this.state.meteoBySearch &&
-              <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main[0]} />}
+              <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
           </div> : ''} { /* eslint-disable-line */}
       </div>
     );
