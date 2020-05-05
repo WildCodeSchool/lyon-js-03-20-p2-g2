@@ -100,7 +100,7 @@ class SearchBar extends React.Component {
             temperature: Math.round(data.list[0].main.temp - 273.15),
             tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
             weatherData: data.list,
-            main: data.list[0].weather[0].main,
+            main: data.list[0].weather[0].main
 
           },
           loading: false
@@ -160,7 +160,7 @@ class SearchBar extends React.Component {
               temperature: Math.round(data.list[0].main.temp - 273.15),
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
-              main: data.list[0].weather[0].main,
+              main: data.list[0].weather[0].main
 
             },
             loading: false

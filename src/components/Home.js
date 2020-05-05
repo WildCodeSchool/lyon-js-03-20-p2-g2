@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SearchBar from '../components/SearchBar';
-import ModalSuggestions from '../components/ModalSuggestions';
-import Header from '../components/Header';
+import SearchBar from './SearchBar';
+import ModalSuggestions from './ModalSuggestions';
+import Header from './Header';
 import '../style/home.css';
 import Footer from '../components/Footer';
 

@@ -7,8 +7,8 @@ import {
   Route
 } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
-import About from './pages/About';
-import Home from './pages/Home';
+import About from './components/About';
+import Home from './components/Home';
 import 'weather-icons/css/weather-icons.css';
 
 class App extends React.Component {
