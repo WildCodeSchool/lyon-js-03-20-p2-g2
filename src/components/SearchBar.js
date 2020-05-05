@@ -13,7 +13,7 @@ const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       city: '',
@@ -49,7 +49,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -68,7 +68,7 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected (value) {
+  handleSuggestionSelected(value) {
     this.setState(() => ({
       text: value,
       suggestions: [],
@@ -121,7 +121,7 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
     */
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
 
@@ -175,7 +175,7 @@ class SearchBar extends React.Component {
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
   */
 
-  handleClick (e) {
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -201,6 +201,7 @@ class SearchBar extends React.Component {
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
               main: data.list[0].weather[0].main,
+
               icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
@@ -215,9 +216,9 @@ class SearchBar extends React.Component {
     });
   }
 
-  render () {
+  render() {
     const { loading } = this.state;
-    function icons (meteo) {
+    function icons(meteo) {
       const prefix = 'wi wi-';
       const code = meteo.weather[0].id;
       let icon = weatherIcons[meteo.weather[0].id].icon;
@@ -257,7 +258,7 @@ class SearchBar extends React.Component {
                 <Header.Content>
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                    <h2>{this.state.meteoByGeo.temperature}°C</h2>
+                    <h2>{this.state.meteoByGeo.temperature}°C </h2>
                     <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
                   </div>
                 </Header.Content>
@@ -269,7 +270,7 @@ class SearchBar extends React.Component {
                   {this.state.meteoBySearch &&
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                      <h2>{this.state.meteoBySearch.temperature}°C</h2>
+                      <h2>{this.state.meteoBySearch.temperature}°C </h2>
                       <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
 
                     </div>}
