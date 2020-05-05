@@ -15,29 +15,29 @@ class Weather extends Component {
     if (temperature < 3 && description.includes('Snow')) {
       clothes = <Snowy />;
     } else if (description.includes('Snow')) {
-        clothes = <Snowy />;
+      clothes = <Snowy />;
     } else if ((temperature >= 3 && temperature <= 7) && description.includes('Clouds')) {
-        clothes = <Cold />;
+      clothes = <Cold />;
     } else if (temperature < 3 && description.includs('Sunny')) {
-        clothes = <Cold />;
+      clothes = <Cold />;
     } else if (temperature < 3 && description.includes('Clouds')) {
-        clothes = <Cold />;
+      clothes = <Cold />;
     } else if ((temperature > 18 && temperature <= 30) && description.includes('Sunny')) {
-        clothes = <Sunny />;
+      clothes = <Sunny />;
     } else if ((temperature > 18 && temperature <= 30) && description.includes('Clouds')) {
-        clothes = <Sunny />;
+      clothes = <Sunny />;
     } else if ((temperature >= 8 && temperature <= 18) && description.includes('Clear')) {
-        clothes = <Temperate />;
+      clothes = <Temperate />;
     } else if ((temperature >= 8 && temperature <= 18) && description.includes('Clouds')) {
-        clothes = <Temperate />;
+      clothes = <Temperate />;
     } else if ((temperature >= 8 && temperature <= 18) && description.includes('Sunny')) {
-        clothes = <Temperate />;
+      clothes = <Temperate />;
     } else if (temperature > 18 && temperature <= 30) {
-        clothes = <Sunny />;
+      clothes = <Sunny />;
     } else if (temperature >= 31) {
-        clothes = <VeryHot />;
+      clothes = <VeryHot />;
     } else if (description.includes('Rain')) {
-        clothes = <Rainy />;
+      clothes = <Rainy />;
     }
 
     return (
