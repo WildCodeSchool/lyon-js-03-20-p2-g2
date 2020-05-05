@@ -201,6 +201,7 @@ class SearchBar extends React.Component {
               tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
               weatherData: data.list,
               main: data.list[0].weather[0].main,
+
               icon: `wi wi-${weatherIcons[data.list[0].weather[0].id].icon}`
             },
             loading: false
@@ -257,8 +258,8 @@ class SearchBar extends React.Component {
                 <Header.Content>
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                    <h2>{this.state.meteoByGeo.temperature}°C</h2>
-                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
+                    <h2>{this.state.meteoByGeo.temperature}°C </h2>
+                    <h2>{<i className={this.state.meteoByGeo.icon} />}|{this.state.meteoByGeo.main}</h2>
                   </div>
                 </Header.Content>
               </Header> /*  eslint-disable-line */
@@ -269,8 +270,8 @@ class SearchBar extends React.Component {
                   {this.state.meteoBySearch &&
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                      <h2>{this.state.meteoBySearch.temperature}°C</h2>
-                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
+                      <h2>{this.state.meteoBySearch.temperature}°C </h2>
+                      <h2>{<i className={this.state.meteoBySearch.icon} />}|{this.state.meteoBySearch.main}</h2>
 
                     </div>}
                 </Header.Content>

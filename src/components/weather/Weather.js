@@ -27,7 +27,8 @@ class Weather extends Component {
       clothes = <Temperate />;
     } else if (temperature >= 31) {
       clothes = <VeryHot />;
-    }
+
+    } else clothes = <h2 align='center'>no data</h2>;
 
     return (
       <div>{clothes}</div>

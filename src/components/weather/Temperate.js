@@ -7,15 +7,17 @@ class Temperate extends Component {
     return (
       <div className='temperate'>
         <div className='weatherCard'>
-          <h1 className='ourSuggest'>Our suggestions</h1>
-          <img className='humanoid' src={require('../../images/gif/temperate1.gif')} alt='clothingHuman' />
-          <h2 className='textClothes'>The weather is fine, not too hot and not too cold enjoy </h2>
+          <h3 className='ourSuggest'>Our suggestions</h3>
+          <img className='humanoid' src={require('../../images//gif/temperate1.gif')} alt='clothingHuman' />
+          <p className='textClothes'>The temperature is moderate today, it is the good moment to go outside if you want to take a walk or practice some sports !
+          Feel free to wear comfortable clothes !
+          </p>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
-            <Image src={require('../../images/bonnet.png')} />
-            <Image src={require('../../images/coat.png')} />
-            <Image src={require('../../images/gloves.png')} />
-            <Image src={require('../../images/scarf.png')} />
+            <Image src={require('../../images/tshirt.png')} />
+            <Image src={require('../../images/jean.png')} />
+            <Image src={require('../../images/sportshoes.png')} />
+            <Image src={require('../../images/dress.png')} />
           </div>
         </div>
 
