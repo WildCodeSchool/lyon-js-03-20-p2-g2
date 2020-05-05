@@ -3,7 +3,7 @@ import '../style/search-bar.css';
 import { Header, Icon, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
-import Weather from './weather/Weather';
+import Weathers from './Weathers';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import weatherIcons from '../weatherIcons.json';
@@ -308,9 +308,9 @@ class SearchBar extends React.Component {
           </div> : ''} { /* eslint-disable-line */}
 
         {this.state.meteoByGeo &&
-          <Weather min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
+          <Weathers min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
         {this.state.meteoBySearch &&
-          <Weather min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
+          <Weathers min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
       </div>
     );
   }
