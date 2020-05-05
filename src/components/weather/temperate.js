@@ -10,7 +10,8 @@ class Temperate extends Component {
           <h3 className='ourSuggest'>Our suggestions</h3>
           <img className='humanoid' src={require('../../images/image-cold.png')} alt='clothingHuman' />
           <p className='textClothes'>The temperature is moderate today, it is the good moment to go outside if you want to take a walk or practice some sports !
-          Feel free to wear comfortable clothes !</p>
+          Feel free to wear comfortable clothes !
+          </p>
           <h4 className='dontForget'>Do not forget to wear ...</h4>
           <div className='clothes'>
             <Image src={require('../../images/tshirt.png')} />
