@@ -10,9 +10,9 @@ let clothes = '';
 5: "Rain"
 7: "Clear"
 8: "Clouds"
-"*/
+" */
 class Weather extends Component {
-  render() {
+  render () {
     const temperature = this.props.min;
     const description = this.props.main;
 
