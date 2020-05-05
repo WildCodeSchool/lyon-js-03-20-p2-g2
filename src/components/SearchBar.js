@@ -124,13 +124,14 @@ class SearchBar extends React.Component {
         }
       });
 
+    dataPollution.data.aqi &&
     this.setState({
       test: dataPollution.data,
       AQI: dataPollution.data.aqi,
       pollutionIndex: {
-        NO2: dataPollution.data.iaqi.no2.v,
+        NO2: (dataPollution.data.iaqi.no2 ? dataPollution.data.iaqi.no2.v : 'no data'),
         O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
-        PM10: dataPollution.data.iaqi.pm10.v
+        PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
       }
     });
   }
@@ -380,11 +381,6 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
             </Card.Group>
-
-            {this.state.meteoByGeo &&
-              <Weather min={this.state.meteoByGeo.tempmin} />}
-            {this.state.meteoBySearch &&
-              <Weather min={Math.round(this.state.meteoBySearch.tempmin)} />}
           </div> : ''} { /* eslint-disable-line */}
 
         {this.state.AQI &&
@@ -394,6 +390,11 @@ class SearchBar extends React.Component {
             O3={this.state.pollutionIndex.O3}
             PM10={this.state.pollutionIndex.PM10}
           />}
+
+        {this.state.meteoByGeo &&
+          <Weather min={this.state.meteoByGeo.tempmin} />}
+        {this.state.meteoBySearch &&
+          <Weather min={Math.round(this.state.meteoBySearch.tempmin)} />}
 
       </div>
     );
