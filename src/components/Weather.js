@@ -11,10 +11,10 @@ function Weather (props) {
         <p className='textClothes'>{props.p}</p>
         <h4 className='dontForget'>Do not forget to wear ...</h4>
         <div className='clothes'>
-          <Image src={props.img1} />
-          <Image src={props.img2} />
-          <Image src={props.img3} />
-          <Image src={props.img4} />
+          <Image src={props.img1} alt={props.alt}/>
+          <Image src={props.img2} alt={props.alt}/>
+          <Image src={props.img3} alt={props.alt}/>
+          <Image src={props.img4} alt={props.alt}/>
         </div>
       </div>
     </div>

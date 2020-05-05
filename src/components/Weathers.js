@@ -7,7 +7,8 @@ const Rainy = {
   img1: require('../images/rain-boots.png'),
   img2: require('../images/umbrella.png'),
   img3: require('../images/rain-coat.png'),
-  img4: ''
+  img4: '',
+  alt: 'rainy-weather'
 };
 const Cold = {
   img: require('../images/gif/cold1.gif'),
@@ -15,7 +16,8 @@ const Cold = {
   img1: require('../images/bonnet.png'),
   img2: require('../images/coat.png'),
   img3: require('../images/gloves.png'),
-  img4: require('../images/scarf.png')
+  img4: require('../images/scarf.png'),
+  alt: 'cold-weather'
 };
 const Sunny = {
   img: require('../images/image-sunny.png'),
@@ -23,7 +25,8 @@ const Sunny = {
   img1: require('../images/tee-shirt.png'),
   img2: require('../images/casquette.png'),
   img3: require('../images/sunscreen.png'),
-  img4: require('../images/sunglasses.png')
+  img4: require('../images/sunglasses.png'),
+  alt: 'sunny-weather'
 };
 const Snowy = {
   img: require('../images/gif/snowy1.gif'),
@@ -31,7 +34,8 @@ const Snowy = {
   img1: require('../images/snow-boots.png'),
   img2: require('../images/gloves.png'),
   img3: require('../images/bonnet.png'),
-  img4: require('../images/coat.png')
+  img4: require('../images/coat.png'),
+  alt: 'snowy-weather'
 };
 const Temperate = {
   img: require('../images/gif/temperate1.gif'),
@@ -40,7 +44,8 @@ const Temperate = {
   img1: require('../images/tshirt.png'),
   img2: require('../images/jean.png'),
   img3: require('../images/sportshoes.png'),
-  img4: require('../images/dress.png')
+  img4: require('../images/dress.png'),
+  alt: 'temperate-weather'
 };
 const VeryHot = {
   img: require('../images/gif/hot1.gif'),
@@ -49,7 +54,8 @@ const VeryHot = {
   img1: require('../images/bottle.png'),
   img2: require('../images/ventilator.png'),
   img3: require('../images/swimsuit.png'),
-  img4: require('../images/sunscreen.png')
+  img4: require('../images/sunscreen.png'),
+  alt: 'very-hot-weather'
 };
 
 let clothes = '';
