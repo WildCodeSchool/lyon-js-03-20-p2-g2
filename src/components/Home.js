@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SearchBar from '../components/SearchBar';
-import ModalSuggestions from '../components/ModalSuggestions';
-import Header from '../components/Header';
+import SearchBar from './SearchBar';
+import ModalSuggestions from './ModalSuggestions';
+import Header from './Header';
 import '../style/home.css';
 import Footer from '../components/Footer';
 
@@ -15,14 +15,13 @@ class Home extends Component {
     };
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.getWeatherClassName();
   }
 
   getWeatherClassName () {
     const today = new Date();
     const time = today.getHours();
-    // let time = 1;
 
     if (time >= 6 && time < 12) {
       className = 'aube';

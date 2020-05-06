@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Burger from './Burger';
 import BurgerButton from './BurgerButton';
-import FavoriteItem from './FavoriteItem';
 
 class Header extends Component {
   constructor (props) {
@@ -24,8 +23,9 @@ class Header extends Component {
   render () {
     return (
       <div className='header'>
-        <FavoriteItem />
-
+        <span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={event => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
+          <i className='fas fa-heart' />
+        </span>
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
         <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
