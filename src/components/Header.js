@@ -20,12 +20,13 @@ class Header extends Component {
     this.setState({ openBurger: false });
   }
 
+  /*<span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={() => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
+    <i className='fas fa-heart' />
+  </span>*/
+
   render () {
     return (
       <div className='header'>
-        <span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={() => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
-          <i className='fas fa-heart' />
-        </span>
         <BurgerButton handleClick={this.openBurgerMenu} />
         <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
         <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
