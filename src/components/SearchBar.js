@@ -190,7 +190,7 @@ class SearchBar extends React.Component {
 
 
 
-          }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }))
+          }, this.setState({ text: data.city.name.replace('Arrondissement de', '') }))
         });
 
       axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
