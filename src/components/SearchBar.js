@@ -36,8 +36,7 @@ class SearchBar extends React.Component {
 
   /* La méthode handleTextChanged me permet de faire apparaître l'autocomplete de la façon suivante:
     Si l'utilisateur commence à entrer une ville (length > 1), je vérifie qu'il a bien rentré des caractères de l'alphabet (regex),
-    si tel est le cas, j'insère ces villes là dans un tableau (suggestions).
-  */
+    si tel est le cas, j'insère ces villes là dans un tableau (suggestions). */
 
   handleTextChanged = (e) => {
     const value = e.target.value;
@@ -62,14 +61,12 @@ class SearchBar extends React.Component {
         {suggestions.slice(0, 3).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
       </ul>
     );
-  } // eslint-disable-line
+  }
 
   /* La méthode handleSuggestionSelected me permet (au click, voir ci-dessous le onClick créé dans la méthode renderSuggestions)
     d'affecter la ville rentrée par l'utilisateur à la propriété 'text' de mon state, et de "vider" ma liste de suggestions.
-
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
-    de l'utilisateur.
-  */
+    de l'utilisateur. */
 
   async handleSuggestionSelected (value) {
     await this.setState(() => ({
@@ -81,8 +78,8 @@ class SearchBar extends React.Component {
 
   /* fetchOnclick va nous permettre de faire nos requêtes à l'API.
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
-    Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
-  */
+    Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
+
   async fetchOnClick (city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -136,11 +133,9 @@ class SearchBar extends React.Component {
     });
   }
 
-  /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur
-    la touche 'Entrée'.
+  /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur la touche 'Entrée'.
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
-    J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
-    */
+    J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
   handleChange (event, city) {
     if (event.key === 'Enter') {
@@ -151,10 +146,8 @@ class SearchBar extends React.Component {
     }
   }
 
-  /* .city.name. */
-  /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
-    Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
-  */
+  /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
+    Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
   handleClick (e) {
     e.preventDefault();
