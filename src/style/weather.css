@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Raleway';
+    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+.weatherCard {
+    width: 80%;
+    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
+    text-align: center;
+    margin: 60px auto auto;
+    overflow-wrap: break-word;
+}
+
+.weatherCard > h3 {
+    font-family: 'Nunito', serif;
+}
+
+.humanoid {
+    height: 200px;
+    border-radius: 20px;
+}
+
+.dontForget {
+    font-family: 'Nunito', serif;
+    color: #073a54;
+    background-color: #ffffff47;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 10px;
+}
+
+.clothes {
+    padding: 15px;
+    display: flex; 
+    justify-content: space-around;
+}
+
+.clothes img {
+    width: 14%;
+}
+
+.ourSuggest, .textClothes {
+    padding: 20px;
+}
+
+.ourSuggest {
+    color: #073a54;
+    font-weight: bold;
+}
+
+.textClothes {
+    font-family: 'Raleway', serif;
+    font-size: 18px;
+    color: #005C89;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .humanoid {
+        width: 40%;
+    }
+
+    .clothes img {
+        width: 20%;
+    }
+
+}

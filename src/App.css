@@ -6,7 +6,7 @@
 .welcome-message {
     text-align: center;
     color: white;
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     padding-top: 15px;
 }
 
@@ -30,6 +30,3 @@
     color: #36769b;
     font-weight: 500;
 }
-
-
-    

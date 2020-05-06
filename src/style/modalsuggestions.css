@@ -12,12 +12,11 @@
     position: absolute;
     bottom: 0;
     right: 5px;
-    padding: 0;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding-bottom: 10px;
+    padding: 0 0 10px;
     z-index: 3000;
 }
 
@@ -55,7 +54,7 @@
     background-color: #99D7F5 !important;
     color: #005C89 !important;
     font-weight: bold !important;
-    font-family: 'Nunito' !important;
+    font-family: 'Nunito', serif !important;
     border: none !important;
     text-align: center !important;
     display: flex;
@@ -101,7 +100,6 @@
 /* Text area suggestions */
 
 .text-area {
-    display: none;
     right: 50px;
     bottom: 150px;
     width: 275px;
@@ -117,7 +115,7 @@
 }
 
 .input-textarea {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     margin: 10px 0;
     font-weight: bold;
     font-size: 14px;

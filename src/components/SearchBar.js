@@ -3,6 +3,7 @@ import '../style/search-bar.css';
 import { Card, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
+import Weathers from './Weathers';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
@@ -35,8 +36,7 @@ class SearchBar extends React.Component {
 
   /* La méthode handleTextChanged me permet de faire apparaître l'autocomplete de la façon suivante:
     Si l'utilisateur commence à entrer une ville (length > 1), je vérifie qu'il a bien rentré des caractères de l'alphabet (regex),
-    si tel est le cas, j'insère ces villes là dans un tableau (suggestions).
-  */
+    si tel est le cas, j'insère ces villes là dans un tableau (suggestions). */
 
   handleTextChanged = (e) => {
     const value = e.target.value;
@@ -61,14 +61,12 @@ class SearchBar extends React.Component {
         {suggestions.slice(0, 3).map((item, index) => <li key={index} onClick={() => this.handleSuggestionSelected(item)}>{item}</li>)}
       </ul>
     );
-  } // eslint-disable-line
+  }
 
   /* La méthode handleSuggestionSelected me permet (au click, voir ci-dessous le onClick créé dans la méthode renderSuggestions)
     d'affecter la ville rentrée par l'utilisateur à la propriété 'text' de mon state, et de "vider" ma liste de suggestions.
-
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
-    de l'utilisateur.
-  */
+    de l'utilisateur. */
 
   async handleSuggestionSelected (value) {
     await this.setState(() => ({
@@ -80,8 +78,8 @@ class SearchBar extends React.Component {
 
   /* fetchOnclick va nous permettre de faire nos requêtes à l'API.
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
-    Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
-  */
+    Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
+
   async fetchOnClick (city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -108,10 +106,12 @@ class SearchBar extends React.Component {
             humidity: data.list[0].main.humidity,
             wind: data.list[0].wind.speed,
             icon: data.list[0].weather[0].icon,
+            main: data.list[0].weather[0].main,
             weatherData: data.list
           },
           loading: false,
           suggestions: []
+
         });
       });
 
@@ -123,38 +123,32 @@ class SearchBar extends React.Component {
       });
 
     dataPollution.data.aqi &&
-    this.setState({
-      test: dataPollution.data,
-      AQI: dataPollution.data.aqi,
-      pollutionIndex: {
-        NO2: (dataPollution.data.iaqi.no2 ? dataPollution.data.iaqi.no2.v : 'no data'),
-        O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
-        PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
-      }
-    });
+      this.setState({
+        test: dataPollution.data,
+        AQI: dataPollution.data.aqi,
+        pollutionIndex: {
+          NO2: (dataPollution.data.iaqi.no2 ? dataPollution.data.iaqi.no2.v : 'no data'),
+          O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
+          PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
+        }
+      });
   }
 
-  /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur
-    la touche 'Entrée'.
+  /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur la touche 'Entrée'.
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
-    J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'.
-    */
+    J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
   handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
-
       const city = event.target.value;
-
-      this.setState({ city: city, meteoByGeo: false });
+      this.setState({ city: city, meteoByGeo: false, AQI: null });
       this.fetchOnClick(city);
     }
   }
 
-  /* .city.name. */
-  /* La méthode handleClick va fonctionner la même façon que fetchSearchResults mais au click cette fois.
-    Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo.
-  */
+  /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
+    Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
   handleClick (e) {
     e.preventDefault();
@@ -188,10 +182,13 @@ class SearchBar extends React.Component {
               humidity: data.list[0].main.humidity,
               wind: data.list[0].wind.speed,
               icon: data.list[0].weather[0].icon,
-              weatherData: data.list
+              weatherData: data.list,
+              main: data.list[0].weather[0].main
+
             },
             loading: false
-          });
+
+          }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }));
         });
 
       axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
@@ -224,6 +221,7 @@ class SearchBar extends React.Component {
 
   render () {
     const { loading } = this.state;
+
     return (
       <div className='main-search'>
         {this.state.data}
@@ -233,6 +231,7 @@ class SearchBar extends React.Component {
               type='text'
               placeholder='Search for....'
               onKeyDown={this.handleChange}
+              value={this.state.text}
               onChange={this.handleTextChanged}
             />
             {this.renderSuggestions()}
@@ -376,6 +375,10 @@ class SearchBar extends React.Component {
             PM10={this.state.pollutionIndex.PM10}
           />}
 
+        {this.state.meteoByGeo &&
+          <Weathers min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
+        {this.state.meteoBySearch &&
+          <Weathers min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
       </div>
     );
   }
