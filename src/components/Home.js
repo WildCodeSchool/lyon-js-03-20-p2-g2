@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar';
-import ModalSuggestions from './ModalSuggestions';
 import Header from './Header';
 import '../style/home.css';
 import Footer from '../components/Footer';
@@ -42,7 +41,6 @@ class Home extends Component {
       <div className={this.state.weatherClassName}>
         <Header />
         <SearchBar />
-        <ModalSuggestions />
         <Footer />
       </div>
     );

@@ -142,7 +142,7 @@ class SearchBar extends React.Component {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
-      this.setState({ city: city, meteoByGeo: false, AQI: null });
+      this.setState({ city: city, meteoByGeo: false, AQI: null, meteoBySearch: false });
       this.fetchOnClick(city);
     }
   }

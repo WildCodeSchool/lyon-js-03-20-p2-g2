@@ -7,6 +7,10 @@ button {
     cursor: pointer;
 }
 
+.welcome-message {
+    padding-top: 150px;
+}
+
 .modal[open] > .modal-trigger::before {
     position: fixed;
     top: 0;
