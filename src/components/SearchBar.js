@@ -111,14 +111,6 @@ class SearchBar extends React.Component {
             icon: data.list[0].weather[0].icon,
             main: data.list[0].weather[0].main,
             weatherData: data.list
-            feelslike: Math.round(data.list[0].main.feels_like - 273.15),
-            tempmin: Math.round(data.list[0].main.temp_min - 273.15),
-            tempmax: Math.round(data.list[0].main.temp_max - 273.15),
-            pressure: data.list[0].main.pressure,
-            humidity: data.list[0].main.humidity,
-            wind: data.list[0].wind.speed,
-            icon: data.list[0].weather[0].icon,
-            weatherData: data.list
           },
           loading: false,
           suggestions: []
@@ -198,14 +190,6 @@ class SearchBar extends React.Component {
               icon: data.list[0].weather[0].icon,
               weatherData: data.list,
               main: data.list[0].weather[0].main
-              feelslike: Math.round(data.list[0].main.feels_like - 273.15),
-              tempmin: Math.round(data.list[0].main.temp_min - 273.15),
-              tempmax: Math.round(data.list[0].main.temp_max - 273.15),
-              pressure: data.list[0].main.pressure,
-              humidity: data.list[0].main.humidity,
-              wind: data.list[0].wind.speed,
-              icon: data.list[0].weather[0].icon,
-              weatherData: data.list
             },
             loading: false
           });
