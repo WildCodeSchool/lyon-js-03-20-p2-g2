@@ -1,15 +1,17 @@
 import React from 'react';
 import '../style/search-bar.css';
-import { Header, Icon, Card } from 'semantic-ui-react';
+import { Card, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
 import Weathers from './Weathers';
 import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
+import Pollution from './Pollution';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
+const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 class SearchBar extends React.Component {
   constructor () {
@@ -23,7 +25,9 @@ class SearchBar extends React.Component {
       loading: false,
       country: '',
       suggestions: [],
-      text: ''
+      text: '',
+      AQI: null,
+      pollutionIndex: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -67,8 +71,8 @@ class SearchBar extends React.Component {
     de l'utilisateur.
   */
 
-  handleSuggestionSelected (value) {
-    this.setState(() => ({
+  async handleSuggestionSelected (value) {
+    await this.setState(() => ({
       text: value,
       suggestions: [],
       meteoByGeo: false
@@ -79,7 +83,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API.
   */
-  fetchOnClick = (city) => {
+  async fetchOnClick (city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -88,29 +92,48 @@ class SearchBar extends React.Component {
 
     this.cancel = axios.CancelToken.source();
 
-    axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
+    await axios.get(searchCityUrl, { cancelToken: this.cancel.token })
       .then(res => res.data)
       .then(data => {
         this.setState({
           meteoBySearch: {
-            city: data.city.name.replace('Arrondissement de', ''),
+            city: data.city.name.replace('Arrondissement de ', ''),
             country: data.city.country,
+            sunrise: data.city.sunrise,
+            sunset: data.city.sunset,
             temperature: Math.round(data.list[0].main.temp - 273.15),
-            tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
-            weatherData: data.list,
-            main: data.list[0].weather[0].main
-
+            feelslike: Math.round(data.list[0].main.feels_like - 273.15),
+            tempmin: Math.round(data.list[0].main.temp_min - 273.15),
+            tempmax: Math.round(data.list[0].main.temp_max - 273.15),
+            pressure: data.list[0].main.pressure,
+            humidity: data.list[0].main.humidity,
+            wind: data.list[0].wind.speed,
+            icon: data.list[0].weather[0].icon,
+            main: data.list[0].weather[0].main,
+            weatherData: data.list
           },
           loading: false,
           suggestions: []
         });
-      })
+      });
+
+    const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
         }
       });
+
+    dataPollution.data.aqi &&
+    this.setState({
+      test: dataPollution.data,
+      AQI: dataPollution.data.aqi,
+      pollutionIndex: {
+        NO2: (dataPollution.data.iaqi.no2 ? dataPollution.data.iaqi.no2.v : 'no data'),
+        O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
+        PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
+      }
+    });
   }
 
   /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur
@@ -135,7 +158,7 @@ class SearchBar extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
-    this.setState({ meteoBySearch: false, loading: true });
+    this.setState({ meteoBySearch: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
@@ -155,13 +178,33 @@ class SearchBar extends React.Component {
             meteoByGeo: {
               city: data.city.name.replace('Arrondissement de', ''),
               country: data.city.country,
+              sunrise: data.city.sunrise,
+              sunset: data.city.sunset,
               temperature: Math.round(data.list[0].main.temp - 273.15),
-              tempmin: Math.floor(data.list[0].main.temp_min - 273.15),
+              feelslike: Math.round(data.list[0].main.feels_like - 273.15),
+              tempmin: Math.round(data.list[0].main.temp_min - 273.15),
+              tempmax: Math.round(data.list[0].main.temp_max - 273.15),
+              pressure: data.list[0].main.pressure,
+              humidity: data.list[0].main.humidity,
+              wind: data.list[0].wind.speed,
+              icon: data.list[0].weather[0].icon,
               weatherData: data.list,
               main: data.list[0].weather[0].main
-
             },
             loading: false
+          });
+        });
+
+      axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
+        .then(res => res.data)
+        .then(data => {
+          this.setState({
+            AQI: data.data.aqi,
+            pollutionIndex: {
+              NO2: data.data.iaqi.no2.v,
+              O3: data.data.iaqi.o3.v,
+              PM10: data.data.iaqi.pm10.v
+            }
           });
         })
 
@@ -171,6 +214,13 @@ class SearchBar extends React.Component {
           }
         });
     });
+  }
+
+  UnixTimestamp (t) {
+    const dt = new Date(t * 1000);
+    const hr = dt.getHours();
+    const m = '0' + dt.getMinutes();
+    return hr + ':' + m.substr(-2);
   }
 
   render () {
@@ -203,10 +253,44 @@ class SearchBar extends React.Component {
                 <Header.Content>
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                    <h2>{this.state.meteoByGeo.temperature}°C </h2>
-                    <h2>{<i className={this.state.meteoByGeo.icon} />}</h2>
+                    <h2>{this.state.meteoByGeo.temperature}°C</h2>
+                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
                   </div>
                 </Header.Content>
+                <div className='moreInfo'>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoByGeo.feelslike}°C</h2>
+                    <h3>Feeling</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoByGeo.wind} m/s</h2>
+                    <h3>Wind</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoByGeo.tempmin}°C</h2>
+                    <h3>Min Temp</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoByGeo.tempmax}°C</h2>
+                    <h3>Max Temp</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoByGeo.pressure} hpa</h2>
+                    <h3>Pressure</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoByGeo.humidity} %</h2>
+                    <h3>Humidity</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunrise)}</h2>
+                    <h3>Sunrise</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunset)}</h2>
+                    <h3>Sunset</h3>
+                  </div>
+                </div>
               </Header> /*  eslint-disable-line */
 
               : <Header as='h2' className='title'>
@@ -215,11 +299,44 @@ class SearchBar extends React.Component {
                   {this.state.meteoBySearch &&
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                      <h2>{this.state.meteoBySearch.temperature}°C </h2>
-                      <h2>{<i className={this.state.meteoBySearch.icon} />}</h2>
-
+                      <h2>{this.state.meteoBySearch.temperature}°C</h2>
+                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
                     </div>}
                 </Header.Content>
+                <div className='moreInfo'>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoBySearch.feelslike}°C</h2>
+                    <h3>Feeling</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoBySearch.wind} m/s</h2>
+                    <h3>Wind</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoBySearch.tempmin}°C</h2>
+                    <h3>Min Temp</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoBySearch.tempmax}°C</h2>
+                    <h3>Max Temp</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoBySearch.pressure} hpa</h2>
+                    <h3>Pressure</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.state.meteoBySearch.humidity} %</h2>
+                    <h3>Humidity</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
+                    <h3>Sunrise</h3>
+                  </div>
+                  <div className='specifics'>
+                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
+                    <h3>Sunset</h3>
+                  </div>
+                </div>
               </Header>} {/*  eslint-disable-line */}
 
             <Card.Group className='cards'>
@@ -233,6 +350,7 @@ class SearchBar extends React.Component {
                       date={meteo.dt_txt}
                       min={Math.floor(meteo.main.temp_min - 273.15)}
                       max={Math.ceil(meteo.main.temp_max - 273.15)}
+                      icon={meteo.weather[0].icon}
                     />; // eslint-disable-line
                   })}
 
@@ -246,10 +364,19 @@ class SearchBar extends React.Component {
                       date={meteo.dt_txt}
                       min={Math.floor(meteo.main.temp_min - 273.15)}
                       max={Math.ceil(meteo.main.temp_max - 273.15)}
+                      icon={meteo.weather[0].icon}
                     />; // eslint-disable-line
                   })}
             </Card.Group>
           </div> : ''} { /* eslint-disable-line */}
+
+        {this.state.AQI &&
+          <Pollution
+            AQI={this.state.AQI}
+            NO2={this.state.pollutionIndex.NO2}
+            O3={this.state.pollutionIndex.O3}
+            PM10={this.state.pollutionIndex.PM10}
+          />}
 
         {this.state.meteoByGeo &&
           <Weathers min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
