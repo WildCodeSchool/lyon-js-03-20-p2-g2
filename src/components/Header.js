@@ -23,7 +23,7 @@ class Header extends Component {
   render () {
     return (
       <div className='header'>
-        <span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={event => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
+        <span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={() => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
           <i className='fas fa-heart' />
         </span>
         <BurgerButton handleClick={this.openBurgerMenu} />

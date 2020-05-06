@@ -15,10 +15,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url('../images/background/background_dawn1.jpg');
-    background-repeat: no-repeat;
+    background: url('../images/background/background_dawn1.jpg') no-repeat;
     background-size: cover;
-
 }
 
 .about > h1 {
@@ -40,12 +38,12 @@
 }
 
 .about > h1 {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-weight: bold;
 }
 
 .our-story > h3, .team > h3 {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     font-size: 32px;
     font-weight: bold;
     color: #005C89;
@@ -54,25 +52,24 @@
 .our-story, .team {
     background: rgba(153, 215, 245, 0.4);
     border-radius: 10px;
-    padding: 20px;
     margin-bottom: 70px;
-    padding-bottom: 0;
+    padding: 20px 20px 0;
 }
 
 
 .our-story > .paragraphs {
-    font-family: 'Raleway';
+    font-family: 'Raleway', serif;
     color: #005C89;
 }
 
 .us {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     color: #005C89;
     margin-top: 20px;
 }
 
 .us ~ p {
-    font-family: 'Raleway';
+    font-family: 'Raleway', serif;
     color: #005C89;
     margin-bottom: 50px;
 }

@@ -33,7 +33,7 @@
 
 .nav-menu .menuItems li a {
     text-decoration: none;
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     color: #99D7F5;
     font-weight: bold;
     font-size: 24px;
@@ -76,4 +76,3 @@ span.is-favorite {
     font-size: 40px;
     position: absolute;
 }
-
