@@ -20,9 +20,9 @@ class Header extends Component {
     this.setState({ openBurger: false });
   }
 
-  /*<span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={() => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
+  /* <span className={this.state.favorite ? 'empty' : 'is-favorite'} onClick={() => { const newFavorite = !this.state.favorite; this.setState({ favorite: newFavorite }); }}>
     <i className='fas fa-heart' />
-  </span>*/
+  </span> */
 
   render () {
     return (
