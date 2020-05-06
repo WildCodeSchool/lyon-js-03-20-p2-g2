@@ -20,9 +20,6 @@ export const Burger = (props) => {
         <li>
           <Link to='/about' onClick={props.handleClick}>About us</Link>
         </li>
-        <li>
-          <Link to='/favorites' onClick={props.handleClick}>Favorite places</Link>
-        </li>
       </ul>
     </nav>
 
