@@ -110,7 +110,7 @@ class SearchBar extends React.Component {
             weatherData: data.list
           },
           loading: false,
-          suggestions: [],
+          suggestions: []
 
         });
       });
