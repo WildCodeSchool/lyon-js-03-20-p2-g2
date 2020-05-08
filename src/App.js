@@ -8,7 +8,7 @@ import SearchBar from './components/SearchBar';
 import Footer from './components/Footer';
 import styled from 'styled-components';
 
-const today = new Date()
+const today = new Date();
 const Background = styled.div`
     background: ${({ time = today.getHours() }) =>
   (time >= 6 && time < 12 && 'url("https://img-weather.netlify.app/background/background_dawn1.jpg")') ||
@@ -20,7 +20,7 @@ const Background = styled.div`
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    background-repeat: no-repeat;`
+    background-repeat: no-repeat;`;
 
 class App extends React.Component {
   render () {
@@ -30,9 +30,9 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/'>
               <Background>
-                <Header/>
-                <SearchBar/>
-                <Footer/>
+                <Header />
+                <SearchBar />
+                <Footer />
               </Background>
             </Route>
             <Route path='/about'>
