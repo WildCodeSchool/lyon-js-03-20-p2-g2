@@ -20,6 +20,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^2.1.8",
     "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.1.0",
     "weather-icons": "git+https://github.com/erikflowers/weather-icons.git"
   },
   "scripts": {

@@ -1,50 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SearchBar from './SearchBar';
 import Header from './Header';
-import '../style/home.css';
 import Footer from '../components/Footer';
+import styled from 'styled-components';
 
-let className = '';
+const today = new Date();
+const Background = styled.div`
+    background: ${({ time = today.getHours() }) =>
+  (time >= 6 && time < 12 && 'url("https://img-weather.netlify.app/background/background_dawn1.jpg")') ||
+  (time >= 12 && time < 18 && 'url("https://img-weather.netlify.app/background/background_day4.jpg")') ||
+  (time >= 18 && time <= 23 && 'url("https://img-weather.netlify.app/background/background_dusk3.jpg")') ||
+  (time >= 0 && time < 6 && 'url("https://img-weather.netlify.app/background/background_night4.jpg")')
+};
+    min-height: 100vh;
+    background-size: cover;`;
 
-class Home extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      weatherClassName: 'day'
-    };
-  }
-
-  componentDidMount () {
-    this.getWeatherClassName();
-  }
-
-  getWeatherClassName () {
-    const today = new Date();
-    const time = today.getHours();
-
-    if (time >= 6 && time < 12) {
-      className = 'aube';
-    } else if (time >= 12 && time < 18) {
-      className = 'day';
-    } else if (time >= 18 && time <= 23) {
-      className = 'dusk';
-    } else if (time >= 0 && time < 6) {
-      className = 'night';
-    }
-    this.setState({
-      weatherClassName: className
-    });
-  }
-
-  render () {
-    return (
-      <div className={this.state.weatherClassName}>
-        <Header />
-        <SearchBar />
-        <Footer />
-      </div>
-    );
-  }
+function Home () {
+  return (
+    <Background>
+      <Header />
+      <SearchBar />
+      <Footer />
+    </Background>
+  );
 }
 
 export default Home;
