@@ -238,7 +238,7 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        {this.state.loading && <div style={{display: 'flex', justifyContent: 'center'}}><CircularProgress style={{width: '100px', height: '100px'}} /></div>}
+        {this.state.loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
@@ -252,7 +252,7 @@ class SearchBar extends React.Component {
                       <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
                       <h3>
                         <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                        <span className='celsius'> | </span>
+                        <span className='separation-bar'> | </span>
                         <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
