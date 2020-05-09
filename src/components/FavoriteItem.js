@@ -10,7 +10,7 @@ class FavoriteItem extends React.Component {
           onClick={() => this.props.addFavorite(this.props.city)}
           className='is-favorite'
         >
-          {this.props.liked ? <i class="fas fa-heart"></i> : <i class="far fa-heart"></i>}
+          {this.props.liked ? <i className='fas fa-heart' /> : <i className='far fa-heart' />}
         </span>
       </div>
 
