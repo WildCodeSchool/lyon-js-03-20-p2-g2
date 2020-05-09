@@ -14,7 +14,7 @@ const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       city: '',
@@ -51,7 +51,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -68,7 +68,7 @@ class SearchBar extends React.Component {
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
     de l'utilisateur. */
 
-  async handleSuggestionSelected (value) {
+  async handleSuggestionSelected(value) {
     await this.setState(() => ({
       text: value,
       suggestions: [],
@@ -80,7 +80,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
-  async fetchOnClick (city) {
+  async fetchOnClick(city) {
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -138,7 +138,7 @@ class SearchBar extends React.Component {
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -150,7 +150,7 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  handleClick (e) {
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -212,14 +212,14 @@ class SearchBar extends React.Component {
     });
   }
 
-  UnixTimestamp (t) {
+  UnixTimestamp(t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
     return hr + ':' + m.substr(-2);
   }
 
-  render () {
+  render() {
     const { loading } = this.state;
 
     return (
@@ -250,13 +250,20 @@ class SearchBar extends React.Component {
                 <Header.Content>
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                    <h2 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>{this.state.temp ? <h2>{this.state.meteoByGeo.temperature}°C</h2> : <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°F</h2>}</h2>
+                    <div className='temp'>
+                      <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
+                      <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
+                        <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                        <span className='celsius'> | </span>
+                        <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                      </h3>
+                    </div>
                     <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
                   </div>
                 </Header.Content>
                 <div className='moreInfo'>
                   <div className='specifics'>
-                    <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.feelslike}°C</h2>}</h2>
+                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.feelslike}°C</h2>}</div>
                     <h3>Feeling</h3>
                   </div>
                   <div className='specifics'>
@@ -264,11 +271,11 @@ class SearchBar extends React.Component {
                     <h3>Wind</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmin}°C</h2>}</h2>
+                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmin}°C</h2>}</div>
                     <h3>Min Temp</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmax}°C</h2>}</h2>
+                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmax}°C</h2>}</div>
                     <h3>Max Temp</h3>
                   </div>
                   <div className='specifics'>
@@ -296,13 +303,20 @@ class SearchBar extends React.Component {
                   {this.state.meteoBySearch &&
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                      <h2 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.temperature}°C</h2>}</h2>
+                      <div className='temp'>
+                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoBySearch.temperature}°</h2>}</div>
+                        <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
+                          <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                          <span className='celsius'> | </span>
+                          <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                        </h3>
+                      </div>
                       <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
                     </div>}
                 </Header.Content>
                 <div className='moreInfo'>
                   <div className='specifics'>
-                    <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.feelslike}°C</h2>}</h2>
+                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.feelslike}°C</h2>}</div>
                     <h3>Feeling</h3>
                   </div>
                   <div className='specifics'>
@@ -310,11 +324,11 @@ class SearchBar extends React.Component {
                     <h3>Wind</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmin}°C</h2>}</h2>
+                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmin}°C</h2>}</div>
                     <h3>Min Temp</h3>
                   </div>
                   <div className='specifics'>
-                    <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmax}°C</h2>}</h2>
+                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmax}°C</h2>}</div>
                     <h3>Max Temp</h3>
                   </div>
                   <div className='specifics'>
