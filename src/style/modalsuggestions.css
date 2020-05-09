@@ -1,28 +1,28 @@
 @font-face {
     font-family: 'Raleway';
     src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Nunito';
     src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
-  }
+}
 
 .modal_Suggestions {
-   position: absolute;
+    position: absolute;
     bottom: 0;
     right: 5px;
-    padding: 0;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
-    width: 100%;
-    padding-bottom: 10px;
+    width: 80%;
+    padding: 0 0 10px;
+    z-index: 3000;
 }
 
 .btn_Suggestions {
     background-color: #005C89 !important;
-    width: 10%!important;
+    width: 10% !important;
     height: 10vh !important;
     font-size: 4vw !important;
     padding: 0 !important;
@@ -54,7 +54,7 @@
     background-color: #99D7F5 !important;
     color: #005C89 !important;
     font-weight: bold !important;
-    font-family: 'Nunito' !important;
+    font-family: 'Nunito', serif !important;
     border: none !important;
     text-align: center !important;
     display: flex;
@@ -77,12 +77,12 @@
 }
 
 .icon-clicked {
-    font-size: 48px;
+    font-size: 45px;
     opacity: 1 !important;
     color: #02A2EF;
 }
 
-.bs-popover-top>.arrow::after, .bs-popover-top>.arrow::before {
+.bs-popover-top > .arrow::after, .bs-popover-top > .arrow::before {
     border-top-color: #99D7F5 !important;
     left: -10px !important;
     bottom: 2px !important;
@@ -97,10 +97,9 @@
     border: none !important;
 }
 
-/* Text area suggestions */ 
+/* Text area suggestions */
 
 .text-area {
-    display: none;
     right: 50px;
     bottom: 150px;
     width: 275px;
@@ -113,10 +112,10 @@
     align-items: center;
     margin-top: 10px;
     min-height: 10vh;
-} 
+}
 
 .input-textarea {
-    font-family: 'Nunito';
+    font-family: 'Nunito', serif;
     margin: 10px 0;
     font-weight: bold;
     font-size: 14px;
@@ -147,8 +146,8 @@ textarea[name='message'], textarea[name='message']::placeholder {
     text-align: center;
 }
 
-input[type='submit'], input[type='submit']:active, input[type='submit']:focus  {
-    background-color:#005C89 !important;
+input[type='submit'], input[type='submit']:active, input[type='submit']:focus {
+    background-color: #005C89 !important;
     color: #99D7F5 !important;
     border: none !important;
     box-shadow: none !important;

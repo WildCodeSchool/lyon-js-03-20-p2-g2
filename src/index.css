@@ -1,15 +1,15 @@
 @font-face {
-  font-family: 'Raleway';
-  src: local('Raleway'), url(./fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+    font-family: 'Raleway';
+    src: local('Raleway'), url(./fonts/Raleway/Raleway-Regular.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'Nunito';
-  src: local('Nunito'), url(./fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+    font-family: 'Nunito';
+    src: local('Nunito'), url(./fonts/Nunito/Nunito-Regular.ttf) format('truetype');
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

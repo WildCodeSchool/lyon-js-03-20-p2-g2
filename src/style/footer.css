@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Nunito';
+    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+footer {
+    font-family: 'Nunito', serif;
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+}
+
+footer > div > a,
+footer > div > a:hover {
+    color: #005C89;
+    text-decoration: none
+}
+
+.link {
+    position: absolute;
+    left: 5px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px;
+}

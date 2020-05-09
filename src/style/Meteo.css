@@ -1,8 +1,31 @@
-.Meteo {
-    background-color: var(--card-color);
-    box-shadow: 0px 70px 40px -50px rgba(0, 0, 0, 0.2), 0px 3px 20px rgba(0, 0, 0, 0.1) !important; 
+@font-face {
+    font-family: 'Raleway';
+    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
 }
-  
+
+@font-face {
+    font-family: 'Nunito';
+    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+/* CUSTOM ICONS */
+.wi-rain, .wi-cloudy {
+    color: gray;
+}
+
+.wi-sunny {
+    color: yellow;
+}
+
+.Meteo {
+    background-color: transparent !important;
+    box-shadow: 0 70px 40px -50px rgba(0, 0, 0, 0.2), 0 3px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card {
+    background: transparent !important;
+}
+
 .display-weather {
     padding: 2rem;
     background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
@@ -10,13 +33,36 @@
     margin: auto;
 }
 
-.display-weather h2{
+.display-weather h2 {
     text-align: center;
+    font-family: 'Nunito', serif;
     color: white;
 }
 
-.display-weather div.card>.content {
-    margin: .875em .5em; 
+.display-weather h2 > i {
+    font-size: 50px;
+}
+
+.card-phrase-weather {
+    font-family: 'Nunito', serif;
+    font-weight: bold;
+    color: #005C89;
+    text-align: center;
+}
+
+.card-date, .card-temperatures {
+    font-family: 'Nunito', serif;
+    color: #005C89;
+    text-align: center;
+}
+
+.card-icons {
+    text-align: center;
+    font-size: 40px;
+}
+
+.display-weather div.card > .content {
+    margin: .875em .5em;
     --title-color: #fff;
     --text-color: #5c5e83;
     --card-color: #fff;
@@ -27,7 +73,7 @@
     margin-left: -5px;
 }
 
-.card:hover{
+.card:hover {
     transform: scale(1.05);
     transition: 0.4s;
 }
@@ -35,15 +81,72 @@
 .cards {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-.Meteo{
+.Meteo {
     width: 18%;
 }
 
-.Meteo img{
+.Meteo img {
     width: 80px;
-    margin-left: 55%;
- }
- 
- 
+}
+
+/*******MEDIA QUERIES MEDIUM DEVICE*********/
+@media screen and (max-width: 900px) and (min-width: 481px) {
+    .ui.cards {
+        display: flex;
+        justify-content: space-around;
+        width: 75%;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    .ui.card.Meteo {
+        background-color: #ffffffdb;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+        width: 80%;
+        margin: 1%;
+    }
+
+    .card-icons {
+        font-size: 75px;
+    }
+}
+
+
+/*******MEDIA QUERIES SMALL DEVICE*********/
+@media screen and (max-width: 480px) {
+    .ui.cards {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .ui.card.Meteo {
+        background-color: #ffffffdb;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+        width: 100%;
+        margin: 1%;
+    }
+
+    .card-icons {
+        font-size: 55px;
+        margin-left: 60%;
+    }
+
+    .content > div h1,
+    .content > div h2 {
+        font-size: 26px;
+    }
+
+    .content > div > h2 .wi-rain {
+        font-size: 60px;
+    }
+}
