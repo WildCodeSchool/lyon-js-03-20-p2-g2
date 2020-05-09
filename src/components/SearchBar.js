@@ -84,6 +84,13 @@ class SearchBar extends React.Component {
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
   async fetchOnClick (city) {
+    const {favorites} = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
+      this.setState({liked: null});
+    } else {
+      this.setState({liked: 'yes'})
+    };
+
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -146,6 +153,7 @@ class SearchBar extends React.Component {
       event.preventDefault();
       const city = event.target.value;
       this.setState({ city: city, meteoByGeo: false, AQI: null, meteoBySearch: false });
+
       this.fetchOnClick(city);
     }
   }
@@ -229,6 +237,8 @@ class SearchBar extends React.Component {
         favorites: [...this.state.favorites, favorite],
         liked: 'yes'
       });
+    } else {
+      this.setState({ favorites: [...this.state.favorites.filter(alreadyFavorite => alreadyFavorite!== favorite)], liked: null });
     }
   };
 
@@ -253,7 +263,7 @@ class SearchBar extends React.Component {
         {/* Loader */}
         {this.state.loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
-        <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li key={index}>{favorite}</li>)}</ul>
+        <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li style={{cursor: 'pointer'}} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>

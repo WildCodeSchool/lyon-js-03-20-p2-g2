@@ -7,7 +7,7 @@ span.empty {
 }
 
 span.is-favorite {
-    color: rgba(30, 130, 223, 0.966);
+    color: rgb(255,0,0);
     font-size: 40px;
     cursor: pointer;
     display: flex;
