@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ModalSuggestions from './ModalSuggestions';
 
 class Footer extends Component {
-  render() {
+  render () {
     return (
       <footer className='page-footer font-small blue'>
         <Link className='link' to='/about'>About us</Link>
