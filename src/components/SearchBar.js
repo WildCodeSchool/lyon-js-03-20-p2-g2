@@ -7,6 +7,7 @@ import Weathers from './Weathers';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FavoriteItem from './FavoriteItem';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -27,7 +28,9 @@ class SearchBar extends React.Component {
       suggestions: [],
       text: '',
       AQI: null,
-      pollutionIndex: null
+      pollutionIndex: null,
+      favorites: [],
+      liked: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -80,7 +83,14 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
-  async fetchOnClick(city) {
+  async fetchOnClick (city) {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
+
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -219,6 +229,28 @@ class SearchBar extends React.Component {
     return hr + ':' + m.substr(-2);
   }
 
+  addToFavorite = (favorite) => {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite === favorite)) {
+      this.setState({
+        favorites: [...this.state.favorites, favorite],
+        liked: 'yes'
+      });
+    } else {
+      this.setState({ favorites: [...this.state.favorites.filter(alreadyFavorite => alreadyFavorite !== favorite)], liked: null });
+    }
+  };
+
+  componentDidMount () {
+    localStorage.getItem('favorites') /* eslint-disable-line */
+      ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
+      : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
+  }
+
+  componentDidUpdate (prevState) {
+    localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
+  }
+
   render () {
     return (
       <div className='main-search'>
@@ -238,10 +270,18 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        {this.state.loading && <div style={{display: 'flex', justifyContent: 'center'}}><CircularProgress style={{width: '100px', height: '100px'}} /></div>}
+        {this.state.loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+
+        {this.state.favorites &&
+          <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
+            <FavoriteItem
+              addFavorite={this.addToFavorite}
+              city={this.state.meteoBySearch.city ? this.state.meteoBySearch.city : this.state.meteoByGeo.city}
+              liked={this.state.liked}
+            />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
@@ -252,7 +292,7 @@ class SearchBar extends React.Component {
                       <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
                       <h3>
                         <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                        <span className='celsius'> | </span>
+                        <span className='separation-bar'> | </span>
                         <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
