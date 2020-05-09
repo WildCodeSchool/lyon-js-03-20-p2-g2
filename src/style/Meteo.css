@@ -28,7 +28,7 @@
 
 .display-weather {
     padding: 2rem;
-    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
+    background-image: linear-gradient(135deg, #f1f1f1fc 0%, #95d0e2b0 100%);
     width: 80%;
     margin: auto;
 }

@@ -28,11 +28,11 @@
 .search-bar input[type=text] {
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #005C89;
-    border-radius: 12px;
+    border: 1px solid #ffffff;
+    border-radius: 30px;
     font-size: 16px;
     background-color: white;
-    background-image: url('../images/searchicon-blue.png');
+    background-image: url(/static/media/searchicon-blue.ee07e7a4.png);
     background-position: 10px 15px;
     background-repeat: no-repeat;
     padding: 15px 20px 10px 40px;
@@ -40,7 +40,16 @@
     background-size: 24px;
     color: #005C89;
     font-family: 'Nunito', serif;
+    box-shadow: 0 8px 16px rgba(181, 180, 170, 0.4);
+    letter-spacing: 1px;
+    font-weight: bolder;
 }
+.search-bar input[type=text]:focus{
+  transform: scale(1.025);  
+  transition: 0.4s;
+}
+
+ 
 
 .search-bar input[type=text]::placeholder {
     color: rgba(0, 92, 137, 0.4);

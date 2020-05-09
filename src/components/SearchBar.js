@@ -328,6 +328,7 @@ class SearchBar extends React.Component {
                     <h3>Min Temp</h3>
                   </div>
                   <div className='specifics'>
+
                     <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmax}°C</h2>}</div>
                     <h3>Max Temp</h3>
                   </div>
