@@ -173,3 +173,22 @@ img.search-loding {
         width: 50%;
     }
 }
+
+/* Favoris */
+.list-favorites {
+    margin: 0 auto;
+    list-style: none;
+    width: 30%;
+    margin-bottom: 10px;
+    font-family: 'Nunito';
+  }
+  
+  .list-favorites li {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #005C89;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  
