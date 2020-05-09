@@ -27,7 +27,6 @@ class App extends React.Component {
     return (
       <Router>
         <main id='App'>
-
           <Switch>
             <Route exact path='/'>
               <Background>
@@ -44,8 +43,6 @@ class App extends React.Component {
       </Router>
     );
   }
-
- l
 }
 
 export default App;
