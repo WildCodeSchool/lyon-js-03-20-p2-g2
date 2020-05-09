@@ -278,7 +278,10 @@ class SearchBar extends React.Component {
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
-            <FavoriteItem addFavorite={this.addToFavorite} city={this.state.meteoBySearch.city} liked={this.state.liked} />
+            <FavoriteItem 
+            addFavorite={this.addToFavorite} 
+            city={this.state.meteoBySearch.city ? this.state.meteoBySearch.city : this.state.meteoByGeo.city} 
+            liked={this.state.liked} />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
