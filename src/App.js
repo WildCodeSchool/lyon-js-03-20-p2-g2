@@ -23,7 +23,7 @@ const Background = styled.div`
     background-repeat: no-repeat;`;
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <Router>
         <main id='App'>
