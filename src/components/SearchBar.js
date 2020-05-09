@@ -29,7 +29,7 @@ class SearchBar extends React.Component {
       text: '',
       AQI: null,
       pollutionIndex: null,
-      favorites: JSON.parse(localStorage.getItem('favorites')),  /* eslint-disable-line */
+      favorites: [],
       liked: null
     };
     this.handleClick = this.handleClick.bind(this);
@@ -242,13 +242,14 @@ class SearchBar extends React.Component {
     }
   };
 
-  componentDidMount () {
-    localStorage.getItem('favorites') && { /* eslint-disable-line */}
-    this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) });  /* eslint-disable-line */
+  componentWillMount () {
+    this.state.favorites ? /* eslint-disable-line */
+      this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
+      : localStorage.setItem('favorites', JSON.stringify([])); /* eslint-disable-line */
   }
 
   componentDidUpdate (prevState) {
-      localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); { /* eslint-disable-line */}
+    localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); { /* eslint-disable-line */}
   }
 
   render () {
