@@ -7,8 +7,6 @@ import SearchBar from './components/SearchBar';
 import Footer from './components/Footer';
 import styled from 'styled-components';
 
-
-
 const today = new Date();
 const Background = styled.div`
     background: ${({ time = today.getHours() }) =>
@@ -25,7 +23,7 @@ const Background = styled.div`
     background-repeat: no-repeat;`;
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <Router>
         <main id='App'>
