@@ -29,7 +29,7 @@ class SearchBar extends React.Component {
       text: '',
       AQI: null,
       pollutionIndex: null,
-      favorites: [],
+      favorites: []
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -225,11 +225,10 @@ class SearchBar extends React.Component {
     const { favorites } = this.state;
     if (!favorites.some(alreadyFavorite => alreadyFavorite === favorite)) {
       this.setState({
-        favorites: [...this.state.favorites, favorite],
+        favorites: [...this.state.favorites, favorite]
       });
     }
   };
-
 
   render () {
     return (
@@ -254,7 +253,7 @@ class SearchBar extends React.Component {
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
-            <FavoriteItem  addFavorite={this.addToFavorite} city={this.state.city} />
+            <FavoriteItem addFavorite={this.addToFavorite} city={this.state.city} />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
