@@ -4,9 +4,9 @@ import { Card, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
 import Weathers from './Weathers';
-import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -219,10 +219,7 @@ class SearchBar extends React.Component {
     return hr + ':' + m.substr(-2);
   }
 
-
   render () {
-    const { loading } = this.state;
-
     return (
       <div className='main-search'>
         {this.state.data}
@@ -241,7 +238,7 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        {loading && <img src={Loader} className='search-loding' alt='loader' />}
+        {this.state.loading && <div style={{display: 'flex', justifyContent: 'center'}}><CircularProgress style={{width: '100px', height: '100px'}} /></div>}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
@@ -254,9 +251,9 @@ class SearchBar extends React.Component {
                     <div className='temp'>
                       <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
                       <h3>
-                        <span onClick={() => {(this.state.temp) && this.setState({temp: null})}} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                        <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
                         <span className='celsius'> | </span>
-                        <span onClick={() => {(!this.state.temp) && this.setState({temp: 'farenheit'})}} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                        <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
                     <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
@@ -307,9 +304,9 @@ class SearchBar extends React.Component {
                       <div className='temp'>
                         <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°  </h2> : <h2>{this.state.meteoBySearch.temperature}°  </h2>}</div>
                         <h3>
-                          <span onClick={() => {(this.state.temp) && this.setState({temp: null})}} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                          <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
                           <span className='separation-bar'> | </span>
-                          <span onClick={() => {(!this.state.temp) && this.setState({temp: 'farenheit'})}} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                          <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                         </h3>
                       </div>
                       <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
