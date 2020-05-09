@@ -242,7 +242,7 @@ class SearchBar extends React.Component {
     }
   };
 
-  componentWillMount () {
+  componentDidMount () {
     localStorage.getItem('favorites') /* eslint-disable-line */
       ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
       : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
@@ -250,7 +250,6 @@ class SearchBar extends React.Component {
 
   componentDidUpdate (prevState) {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
-    console.log(this.state.favorites) /* eslint-disable-line */
   }
 
   render () {
