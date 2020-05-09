@@ -146,9 +146,21 @@ img.search-loding {
     cursor: pointer;
 }
 
+.fahrenheit {
+    cursor: pointer;
+}
+
+.separation-bar {
+    color: grey;
+}
+
 .temp {
     display: flex;
     justify-content: center;
+}
+
+.temp > div {
+    margin-right: 5px;
 }
 
 @media only screen and (max-width: 900px) {

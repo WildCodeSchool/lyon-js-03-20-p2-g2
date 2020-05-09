@@ -219,6 +219,7 @@ class SearchBar extends React.Component {
     return hr + ':' + m.substr(-2);
   }
 
+
   render () {
     const { loading } = this.state;
 
@@ -252,10 +253,10 @@ class SearchBar extends React.Component {
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <div className='temp'>
                       <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
-                      <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
-                        <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                      <h3>
+                        <span onClick={() => {(this.state.temp) && this.setState({temp: null})}} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
                         <span className='celsius'> | </span>
-                        <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                        <span onClick={() => {(!this.state.temp) && this.setState({temp: 'farenheit'})}} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
                     <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
@@ -304,11 +305,11 @@ class SearchBar extends React.Component {
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
                       <div className='temp'>
-                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoBySearch.temperature}°</h2>}</div>
-                        <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
-                          <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                          <span className='celsius'> | </span>
-                          <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°  </h2> : <h2>{this.state.meteoBySearch.temperature}°  </h2>}</div>
+                        <h3>
+                          <span onClick={() => {(this.state.temp) && this.setState({temp: null})}} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                          <span className='separation-bar'> | </span>
+                          <span onClick={() => {(!this.state.temp) && this.setState({temp: 'farenheit'})}} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                         </h3>
                       </div>
                       <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
