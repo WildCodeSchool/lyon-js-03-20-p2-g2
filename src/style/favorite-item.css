@@ -1,10 +1,16 @@
 span.empty {
-    color: rgba(173, 173, 173, 0.884);
     font-size: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 span.is-favorite {
     color: rgba(30, 130, 223, 0.966);
     font-size: 40px;
     cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
 }

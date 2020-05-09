@@ -7,6 +7,7 @@ import Weathers from './Weathers';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FavoriteItem from './FavoriteItem';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -27,7 +28,8 @@ class SearchBar extends React.Component {
       suggestions: [],
       text: '',
       AQI: null,
-      pollutionIndex: null
+      pollutionIndex: null,
+      favorites: [],
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -219,6 +221,16 @@ class SearchBar extends React.Component {
     return hr + ':' + m.substr(-2);
   }
 
+  addToFavorite = (favorite) => {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite === favorite)) {
+      this.setState({
+        favorites: [...this.state.favorites, favorite],
+      });
+    }
+  };
+
+
   render () {
     return (
       <div className='main-search'>
@@ -242,6 +254,7 @@ class SearchBar extends React.Component {
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
+            <FavoriteItem  addFavorite={this.addToFavorite} city={this.state.city} />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
