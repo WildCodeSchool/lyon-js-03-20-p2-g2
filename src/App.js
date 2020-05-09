@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import About from './components/About';
-import 'weather-icons/css/weather-icons.css';
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import Footer from './components/Footer';
