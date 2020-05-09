@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'Raleway';
+    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+}
+
+.div-pollution {
+    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
+    width: 80%;
+    margin: 20px auto;
+    font-family: 'Nunito', serif;
+}
+
+.title-pollution {
+    color: #005C89;
+    padding-top: 10px;
+    text-align: center;
+
+}
+
+.AQI-indice > h3 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.div-pollution-index {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.div-pollution > hr {
+    width: 80%;
+    margin: auto;
+    border-top: 1px solid #005C89;
+    border-radius: 10px;
+}
+
+.NO2, .O3, .PM10 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #005C89;
+}
+
+.bold-indice {
+    font-weight: 600;
+}
+
+.pollution-index {
+    border-left: 4px black solid;
+    width: 70%;
+    margin: auto;
+}
+
+.div-AQI {
+    display: flex;
+    justify-content: center;
+    font-size: 72px;
+    width: 30%;
+    margin: auto;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.div-AQI > div {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.div-AQI > div > i {
+    font-size: 72px;
+}
+
+.div-AQI > div > p {
+    font-size: 24px;
+}
+
+/* GOOD AQI */
+.div-good-AQI > div {
+    background-color: rgba(6, 98, 59, 0.3);
+}
+
+.div-good-AQI > div > i,
+.green {
+    color: #06623b;
+}
+
+.green-border {
+    border-left: 4px #06623b solid;
+    color: #06623b;
+}
+
+/* MODERATE AQI */
+.div-moderate-AQI > div {
+    background-color: rgba(246, 215, 67, 0.3);
+}
+
+.div-moderate-AQI > div > i,
+.yellow {
+    color: #f6d743;
+}
+
+.yellow-border {
+    border-left: 4px #f6d743 solid;
+    color: #f6d743;
+}
+
+/* UNHEALTHY AQI */
+.div-unhealthy-AQI > div {
+    background-color: rgba(221, 44, 0, 0.3);
+}
+
+.div-unhealthy-AQI > div > i,
+.red {
+    color: #dd2c00;
+}
+
+.red-border {
+    border-left: 4px #dd2c00 solid;
+    color: #dd2c00;
+}
+
+/* MEDIA QUERY SMALL DEVICES */
+@media screen and (max-width: 480px) {
+    .div-AQI > div > p {
+        font-size: 16px;
+    }
+
+    .div-pollution-index > div > p {
+        width: 50%;
+    }
+
+}
