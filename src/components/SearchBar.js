@@ -250,14 +250,14 @@ class SearchBar extends React.Component {
                 <Header.Content>
                   <div>
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                      <div className='temp'>
-                        <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</h2>
-                        <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
-                        <span className={this.state.temp ? "celsius" : "fahrenheit"}>C</span>
-                        <span className="celsius"> | </span>
-                        <span className={this.state.temp ? "fahrenheit" : "celsius"}>F</span>
-                        </h3>
-                      </div>
+                    <div className='temp'>
+                      <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</h2>
+                      <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
+                        <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                        <span className='celsius'> | </span>
+                        <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                      </h3>
+                    </div>
                     <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
                   </div>
                 </Header.Content>
@@ -306,9 +306,9 @@ class SearchBar extends React.Component {
                       <div className='temp'>
                         <h2>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoBySearch.temperature}°</h2>}</h2>
                         <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
-                        <span className={this.state.temp ? "celsius" : "fahrenheit"}>C</span>
-                        <span className="celsius"> | </span>
-                        <span className={this.state.temp ? "fahrenheit" : "celsius"}>F</span>
+                          <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                          <span className='celsius'> | </span>
+                          <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                         </h3>
                       </div>
                       <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
