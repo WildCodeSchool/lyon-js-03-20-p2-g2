@@ -29,7 +29,7 @@ class SearchBar extends React.Component {
       text: '',
       AQI: null,
       pollutionIndex: null,
-      favorites: [],
+      favorites: JSON.parse(localStorage.getItem('favorites')),  /* eslint-disable-line */
       liked: null
     };
     this.handleClick = this.handleClick.bind(this);
@@ -84,12 +84,12 @@ class SearchBar extends React.Component {
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
   async fetchOnClick (city) {
-    const {favorites} = this.state;
+    const { favorites } = this.state;
     if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
-      this.setState({liked: null});
+      this.setState({ liked: null });
     } else {
-      this.setState({liked: 'yes'})
-    };
+      this.setState({ liked: 'yes' });
+    }
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -238,9 +238,18 @@ class SearchBar extends React.Component {
         liked: 'yes'
       });
     } else {
-      this.setState({ favorites: [...this.state.favorites.filter(alreadyFavorite => alreadyFavorite!== favorite)], liked: null });
+      this.setState({ favorites: [...this.state.favorites.filter(alreadyFavorite => alreadyFavorite !== favorite)], liked: null });
     }
   };
+
+  componentDidMount () {
+    localStorage.getItem('favorites') && { /* eslint-disable-line */}
+    this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) });  /* eslint-disable-line */
+  }
+
+  componentDidUpdate (prevState) {
+      localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); { /* eslint-disable-line */}
+  }
 
   render () {
     return (
@@ -263,7 +272,8 @@ class SearchBar extends React.Component {
         {/* Loader */}
         {this.state.loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
-        <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li style={{cursor: 'pointer'}} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>
+        {this.state.favorites &&
+          <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
