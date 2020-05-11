@@ -10,11 +10,11 @@ import Header from '../components/Header';
 import { Button } from 'react-bootstrap';
 
 class About extends Component {
-  render() {
+  render () {
     return (
       <>
         <section className='about'>
-          <Link to='/'><Button variant="light" className="back-home">Home</Button></Link>
+          <Link to='/'><Button variant='light' className='back-home'>Home</Button></Link>
           <Header />
           <h1>About us</h1>
           <div className='our-story'>

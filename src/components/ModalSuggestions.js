@@ -26,7 +26,7 @@ const SmileysPopover = (props) => {
   );
 };
 
-function ModalSuggestions() {
+function ModalSuggestions () {
   const [secondModal, setSecondModal] = useState(false);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
@@ -43,7 +43,7 @@ function ModalSuggestions() {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className="btn-sugg" onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
+      <Button className='btn-sugg' onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
 
       <Overlay
         show={show}

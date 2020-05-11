@@ -15,7 +15,7 @@ const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 class SearchBar extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       city: '',
@@ -54,7 +54,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -71,7 +71,7 @@ class SearchBar extends React.Component {
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
     de l'utilisateur. */
 
-  async handleSuggestionSelected(value) {
+  async handleSuggestionSelected (value) {
     await this.setState(() => ({
       text: value,
       suggestions: [],
@@ -83,7 +83,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
-  async fetchOnClick(city) {
+  async fetchOnClick (city) {
     const { favorites } = this.state;
     if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
       this.setState({ liked: null });
@@ -148,7 +148,7 @@ class SearchBar extends React.Component {
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
-  handleChange(event, city) {
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -160,7 +160,7 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  handleClick(e) {
+  handleClick (e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -222,7 +222,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  UnixTimestamp(t) {
+  UnixTimestamp (t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
@@ -241,17 +241,17 @@ class SearchBar extends React.Component {
     }
   };
 
-  componentDidMount() {
+  componentDidMount () {
     localStorage.getItem('favorites') /* eslint-disable-line */
       ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
       : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate (prevState) {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
-  render() {
+  render () {
     return (
       <div className='main-search'>
         {this.state.data}
