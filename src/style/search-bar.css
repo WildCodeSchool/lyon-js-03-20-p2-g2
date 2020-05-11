@@ -1,12 +1,4 @@
-@font-face {
-    font-family: 'Raleway';
-    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
-}
 
-@font-face {
-    font-family: 'Nunito';
-    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
-}
 
 .search-bar {
     width: 40%;
@@ -32,7 +24,7 @@
     border-radius: 30px;
     font-size: 16px;
     background-color: white;
-    background-image: url(/static/media/searchicon-blue.ee07e7a4.png);
+    background-image: url("../images/searchicon-blue.png");
     background-position: 10px 15px;
     background-repeat: no-repeat;
     padding: 15px 20px 10px 40px;
