@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Overlay from 'react-bootstrap/Overlay';
 import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
-import '../style/modalsuggestions.css';
+import '../style/footer.css';
 
 const SmileysPopover = (props) => {
   const [clickedSmiley, setClickedSmiley] = useState(null);
@@ -26,7 +26,7 @@ const SmileysPopover = (props) => {
   );
 };
 
-function ModalSuggestions () {
+function ModalSuggestions() {
   const [secondModal, setSecondModal] = useState(false);
   const [show, setShow] = useState(false);
   const [target, setTarget] = useState(null);
@@ -43,7 +43,7 @@ function ModalSuggestions () {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</div></Button>
+      <Button className="btn-sugg" onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
 
       <Overlay
         show={show}

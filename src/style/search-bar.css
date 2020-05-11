@@ -155,9 +155,21 @@ img.search-loding {
     cursor: pointer;
 }
 
+.fahrenheit {
+    cursor: pointer;
+}
+
+.separation-bar {
+    color: grey;
+}
+
 .temp {
     display: flex;
     justify-content: center;
+}
+
+.temp > div {
+    margin-right: 5px;
 }
 
 @media only screen and (max-width: 900px) {
@@ -169,4 +181,21 @@ img.search-loding {
     .specifics {
         width: 50%;
     }
+}
+
+/* Favoris */
+.list-favorites {
+    list-style: none;
+    width: 30%;
+    margin: 0 auto 10px;
+    font-family: 'Nunito', serif;
+}
+
+.list-favorites li {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #005C89;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 10px;
 }

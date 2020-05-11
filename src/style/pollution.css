@@ -9,10 +9,11 @@
 }
 
 .div-pollution {
-    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
+ 
     width: 80%;
     margin: 20px auto;
     font-family: 'Nunito', serif;
+    background-color: #88959de8;
 }
 
 .title-pollution {
@@ -138,5 +139,4 @@
     .div-pollution-index > div > p {
         width: 50%;
     }
-
 }

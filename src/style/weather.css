@@ -10,10 +10,9 @@
 
 .weatherCard {
     width: 80%;
-    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
     text-align: center;
-    margin: 60px auto auto;
-    overflow-wrap: break-word;
+    background-color: #88959de8;
+    margin: auto;
 }
 
 .weatherCard > h3 {

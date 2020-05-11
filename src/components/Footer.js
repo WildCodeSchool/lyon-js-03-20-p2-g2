@@ -4,14 +4,12 @@ import { Link } from 'react-router-dom';
 import ModalSuggestions from './ModalSuggestions';
 
 class Footer extends Component {
-  render () {
+  render() {
     return (
-      <footer className='page-footer font-small blue'>
-        <div><Link className='link' to='/about'>About us</Link></div>
-        <div className='footer-copyright text-center py-3 footer-style'>© 2020 Copyright: By Wilders <i className='fas fa-heart coeur' />
-          <a href='/'> WeatherSuggest</a>
-        </div>
-        <div><ModalSuggestions /></div>
+      <footer className='footer'>
+        <div className='link-about-us' >  <Link to='/about'>About us</Link></div>
+        <div className='wilders'><Link to='/about'>© 2020 | Weather Suggest By Wilders <i className='fas fa-heart coeur' /></Link></div>
+        <div className="suggest"> <ModalSuggestions /></div>
       </footer>
     );
   }

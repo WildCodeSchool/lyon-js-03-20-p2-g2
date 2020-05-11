@@ -4,9 +4,10 @@ import { Card, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
 import Weathers from './Weathers';
-import Loader from '../images/loader.gif';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import FavoriteItem from './FavoriteItem';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -14,7 +15,7 @@ const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 class SearchBar extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       city: '',
@@ -27,7 +28,9 @@ class SearchBar extends React.Component {
       suggestions: [],
       text: '',
       AQI: null,
-      pollutionIndex: null
+      pollutionIndex: null,
+      favorites: [],
+      liked: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -51,7 +54,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -68,7 +71,7 @@ class SearchBar extends React.Component {
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
     de l'utilisateur. */
 
-  async handleSuggestionSelected (value) {
+  async handleSuggestionSelected(value) {
     await this.setState(() => ({
       text: value,
       suggestions: [],
@@ -80,7 +83,14 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
-  async fetchOnClick (city) {
+  async fetchOnClick(city) {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
+
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
     if (this.cancel) {
@@ -138,7 +148,7 @@ class SearchBar extends React.Component {
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -150,7 +160,7 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  handleClick (e) {
+  handleClick(e) {
     e.preventDefault();
     this.setState({ meteoBySearch: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
@@ -212,16 +222,36 @@ class SearchBar extends React.Component {
     });
   }
 
-  UnixTimestamp (t) {
+  UnixTimestamp(t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
     return hr + ':' + m.substr(-2);
   }
 
-  render () {
-    const { loading } = this.state;
+  addToFavorite = (favorite) => {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite === favorite)) {
+      this.setState({
+        favorites: [...this.state.favorites, favorite],
+        liked: 'yes'
+      });
+    } else {
+      this.setState({ favorites: [...this.state.favorites.filter(alreadyFavorite => alreadyFavorite !== favorite)], liked: null });
+    }
+  };
 
+  componentDidMount() {
+    localStorage.getItem('favorites') /* eslint-disable-line */
+      ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
+      : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
+  }
+
+  componentDidUpdate(prevState) {
+    localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
+  }
+
+  render() {
     return (
       <div className='main-search'>
         {this.state.data}
@@ -240,10 +270,18 @@ class SearchBar extends React.Component {
         </form>
 
         {/* Loader */}
-        {loading && <img src={Loader} className='search-loding' alt='loader' />}
+        {this.state.loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+
+        {this.state.favorites &&
+          <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
 
         {(this.state.meteoByGeo || this.state.meteoBySearch)
           ? <div className='display-weather'>
+            <FavoriteItem
+              addFavorite={this.addToFavorite}
+              city={this.state.meteoBySearch.city ? this.state.meteoBySearch.city : this.state.meteoByGeo.city}
+              liked={this.state.liked}
+            />
             {this.state.meteoByGeo
               ? <Header as='h2' className='title'>
                 <Icon name='adjust' />
@@ -252,10 +290,10 @@ class SearchBar extends React.Component {
                     <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
                     <div className='temp'>
                       <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
-                      <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
-                        <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                        <span className='celsius'> | </span>
-                        <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                      <h3>
+                        <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                        <span className='separation-bar'> | </span>
+                        <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
                     <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
@@ -304,11 +342,11 @@ class SearchBar extends React.Component {
                     <div>
                       <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
                       <div className='temp'>
-                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoBySearch.temperature}°</h2>}</div>
-                        <h3 onClick={() => { const newTemp = !this.state.temp; this.setState({ temp: newTemp }); }}>
-                          <span className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                          <span className='celsius'> | </span>
-                          <span className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°  </h2> : <h2>{this.state.meteoBySearch.temperature}°  </h2>}</div>
+                        <h3>
+                          <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
+                          <span className='separation-bar'> | </span>
+                          <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
                         </h3>
                       </div>
                       <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
