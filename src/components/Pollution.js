@@ -41,15 +41,15 @@ function UnhealthyAQI () {
 const Pollution = (props) => {
   const AQI = props.AQI;
 
-  if (AQI < 30) {
+  if (AQI < 60) {
     icone = <GoodAQI />;
     classIndex = 'green-border';
     classAQIIndice = 'green';
-  } else if (AQI >= 30 && AQI <= 60) {
+  } else if (AQI >= 50 && AQI <= 120) {
     icone = <ModerateAQI />;
     classIndex = 'yellow-border';
     classAQIIndice = 'yellow';
-  } else if (AQI > 60) {
+  } else if (AQI > 120) {
     icone = <UnhealthyAQI />;
     classIndex = 'red-border';
     classAQIIndice = 'red';
