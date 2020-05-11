@@ -1,5 +1,3 @@
-
-
 /* CUSTOM ICONS */
 .wi-rain, .wi-cloudy {
     color: gray;
@@ -15,10 +13,9 @@
 }
 
 
-
 .display-weather {
     padding: 2rem;
-    background-color:#728e9f9e;;
+    background-color: #728e9f9e;;
     width: 80%;
     margin: auto;
 }

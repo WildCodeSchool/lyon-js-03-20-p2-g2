@@ -16,8 +16,8 @@ const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 
 class SearchBar extends React.Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
       city: '',
       lat: 0,
@@ -258,13 +258,7 @@ class SearchBar extends React.Component {
       <div className='main-search'>
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
-            <input
-              type='text'
-              placeholder='Search for....'
-              onKeyDown={this.handleChange}
-              value={this.state.text}
-              onChange={this.handleTextChanged}
-            />
+            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged}/>
             {this.renderSuggestions()}
           </label>
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
@@ -277,11 +271,7 @@ class SearchBar extends React.Component {
 
         {weatherForecast &&
           <div className='display-weather'>
-            <FavoriteItem
-              addFavorite={this.addToFavorite}
-              city={weatherForecast.city}
-              liked={liked}
-            />
+            <FavoriteItem addFavorite={this.addToFavorite} city={weatherForecast.city} liked={liked}/>
             {weatherForecast &&
               <Header className='title'>
                 <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
@@ -296,11 +286,7 @@ class SearchBar extends React.Component {
                   </div>
                   <img src={`https://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} alt='icon' />
                 </Header.Content>
-                <WeatherDetails
-                  weatherForecast={weatherForecast}
-                  unixTimestamp={this.unixTimestamp}
-                  temp={temp}
-                />
+                <WeatherDetails weatherForecast={weatherForecast} unixTimestamp={this.unixTimestamp} temp={temp}/>
               </Header>}
 
             <Card.Group className='cards'>
@@ -320,17 +306,8 @@ class SearchBar extends React.Component {
                   })}
             </Card.Group>
           </div>}
-
-        {AQI &&
-          <Pollution
-            AQI={AQI}
-            NO2={pollutionIndex.NO2}
-            O3={pollutionIndex.O3}
-            PM10={pollutionIndex.PM10}
-          />}
-
-        {weatherForecast &&
-          <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
+        {AQI && <Pollution AQI={AQI} NO2={pollutionIndex.NO2} O3={pollutionIndex.O3} PM10={pollutionIndex.PM10}/>}
+        {weatherForecast && <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
       </div>
     );
   }

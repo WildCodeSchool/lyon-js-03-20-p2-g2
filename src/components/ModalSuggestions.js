@@ -44,14 +44,7 @@ function ModalSuggestions () {
   return (
     <div className='modal_Suggestions' ref={ref}>
       <Button className='btn-sugg' style={{ backgroundColor: '#005C89' }} onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
-
-      <Overlay
-        show={show}
-        target={target}
-        placement='top'
-        container={ref.current}
-        containerPadding={20}
-      >
+      <Overlay show={show} target={target} placement='top' container={ref.current} containerPadding={20}>
         <Popover id='popover-contained' className='popover_Container'>
           <Popover.Title as='h3' className='title_Popover'>How would you rate your experience ?</Popover.Title>
           <Popover.Content className='paragraph_Popover'>
