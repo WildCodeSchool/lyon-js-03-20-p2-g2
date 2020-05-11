@@ -173,3 +173,38 @@ img.search-loding {
         width: 50%;
     }
 }
+
+/* Favoris */
+.list-favorites {
+    list-style: none;
+    width: 30%;
+    margin: 0 auto 10px;
+    font-family: 'Nunito', serif;
+}
+
+.list-favorites li {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #005C89;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 300px) {
+
+  .moreInfo {
+    width: 100%;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .specifics {
+    margin-bottom: 30px;
+  }
+
+  .specifics h2, .specifics h3 {
+    margin-bottom: 3px;
+  }
+}

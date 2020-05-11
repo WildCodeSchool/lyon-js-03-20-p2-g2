@@ -1,32 +1,24 @@
 import React from 'react';
-import '../style/favorite-item.css';
+import styled from 'styled-components';
+
+const Favorite = styled.span`
+    color: rgb(255,0,0);
+    font-size: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;`;
 
 class FavoriteItem extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      favorite: true
-    };
-  }
-
   render () {
     return (
       <div>
-
-        <span
-          className={this.state.favorite ? 'is-favorite' : 'empty'}
-          onClick={event => {
-            const newFavorite = !this.state.favorite;
-
-            this.setState({ favorite: newFavorite });
-          }}
-        >
-          <i className='fas fa-heart' />
-
-        </span>
+        <Favorite onClick={() => this.props.addFavorite(this.props.city)}>
+          {this.props.liked ? <i className='fas fa-heart' /> : <i className='far fa-heart' />}
+        </Favorite>
       </div>
-
     );
   }
 }
+
 export default FavoriteItem;
