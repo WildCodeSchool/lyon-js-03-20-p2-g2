@@ -299,6 +299,7 @@ class SearchBar extends React.Component {
                 <WeatherDetails
                   weatherForecast={weatherForecast}
                   unixTimestamp={this.unixTimestamp}
+                  temp={temp}
                 />
               </Header>}
 
