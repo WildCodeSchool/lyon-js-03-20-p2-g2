@@ -1,11 +1,9 @@
-
-
 .footer {
 font-family: 'Nunito', serif;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-align-content: start;
+align-content: flex-start;
 position: absolute;
 left: 0;
 bottom: 0;

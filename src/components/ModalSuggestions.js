@@ -43,7 +43,7 @@ function ModalSuggestions () {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className='btn-sugg' onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
+      <Button className='btn-sugg' style={{backgroundColor: '#005C89'}} onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
 
       <Overlay
         show={show}

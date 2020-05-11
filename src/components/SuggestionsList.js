@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Weather from './Weather';
+import SuggestionsCard from './SuggestionsCard';
 
 const Rainy = {
   img: require('../images/suggestions/rainy1.gif'),
@@ -60,25 +60,25 @@ const VeryHot = {
 
 let clothes = '';
 
-class Weathers extends Component {
+class SuggestionsList extends Component {
   render () {
     const temperature = this.props.min;
     const description = this.props.main;
 
     if (description.includes('Rain')) {
-      clothes = <Weather {...Rainy} />;
+      clothes = <SuggestionsCard {...Rainy} />;
     } else if (description.includes('Snow')) {
-      clothes = <Weather {...Snowy} />;
+      clothes = <SuggestionsCard {...Snowy} />;
     } else if (temperature <= 10) {
-      clothes = <Weather {...Cold} />;
+      clothes = <SuggestionsCard {...Cold} />;
     } else if ((temperature >= 10 && temperature <= 18)) {
-      clothes = <Weather {...Temperate} />;
+      clothes = <SuggestionsCard {...Temperate} />;
     } else if ((temperature > 18 && temperature <= 30 && description.includes('Clouds'))) {
-      clothes = <Weather {...Sunny} />;
+      clothes = <SuggestionsCard {...Sunny} />;
     } else if (temperature > 18 && temperature <= 30) {
-      clothes = <Weather {...Temperate} />;
+      clothes = <SuggestionsCard {...Temperate} />;
     } else if (temperature >= 31) {
-      clothes = <Weather {...VeryHot} />;
+      clothes = <SuggestionsCard {...VeryHot} />;
     } else clothes = <h2 align='center'>no data</h2>;
 
     return (
@@ -87,4 +87,4 @@ class Weathers extends Component {
   }
 }
 
-export default Weathers;
+export default SuggestionsList;
