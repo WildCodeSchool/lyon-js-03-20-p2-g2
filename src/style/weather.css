@@ -3,7 +3,7 @@
 .weatherCard {
     width: 80%;
     text-align: center;
-    background-color: #88959de8;
+    background-color: #728e9f9e;
     margin: auto;
 }
 
@@ -47,7 +47,7 @@
 .textClothes {
     font-family: 'Raleway', serif;
     font-size: 18px;
-    color: #005C89;
+    color: rgb(17, 17, 17);
 }
 
 @media only screen and (max-width: 800px) {
