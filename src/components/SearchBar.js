@@ -257,8 +257,8 @@ class SearchBar extends React.Component {
 
         {errorMessage &&
           <div className='error-message'>
-            <p>We are sorry but we could not retrieve your city. <br />
-            Please type again to get weather forecasts and suggestions for your place.
+            <p>Sorry, the specified city was not found. <br />
+            Please Try searching with a valid city name!
             </p>
           </div>}
 

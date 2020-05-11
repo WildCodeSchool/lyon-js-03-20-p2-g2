@@ -135,22 +135,13 @@ img.search-loding {
 
 /* Error message */
 .error-message {
-    background-color: rgba(255, 255, 255, 0.4);
-    color: #6f0000;
-    border-radius: 10px;
-    border: 1px #6f0000 solid;
-    text-align: center;
-    font-weight: 600;
-    margin-top: 10px;
-    width: 50%;
-    margin: auto;
-    background: rgba(255,255,255,0.5);
-    margin-bottom: 40px;
-}
-
-.error-message > p {
-    font-family: 'Nunito';
-    width: 80%;
-    margin: auto;
-    padding: 10px 20px;
+    font-family: 'Nunito', serif;
+    display: block;
+    width: fit-content;
+    margin: -20px auto 20px auto;
+    background-color: rgba(146, 27, 27, 0.7);
+    border-radius: 6px;
+    padding: 10px 30px;
+    color: white;
+    font-weight: 500;
 }
