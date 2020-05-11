@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from 'semantic-ui-react';
 import '../style/weather.css';
 
-function Weather (props) {
+function SuggestionsCard (props) {
   return (
     <div className='Weather'>
       <div className='weatherCard'>
@@ -21,4 +21,4 @@ function Weather (props) {
   );
 }
 
-export default Weather;
+export default SuggestionsCard;

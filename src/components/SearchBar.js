@@ -1,13 +1,14 @@
 import React from 'react';
 import '../style/search-bar.css';
-import { Card, Header, Icon } from 'semantic-ui-react';
+import { Card, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
-import Weathers from './Weathers';
+import SuggestionsList from './SuggestionsList';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FavoriteItem from './FavoriteItem';
+import WeatherDetails from './WeatherDetails';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -21,8 +22,7 @@ class SearchBar extends React.Component {
       city: '',
       lat: 0,
       long: 0,
-      meteoByGeo: false,
-      meteoBySearch: false,
+      weatherForecast: false,
       loading: false,
       country: '',
       suggestions: [],
@@ -75,7 +75,7 @@ class SearchBar extends React.Component {
     await this.setState(() => ({
       text: value,
       suggestions: [],
-      meteoByGeo: false
+      forecast: false
     }), () => this.fetchOnClick(this.state.text));
   }
 
@@ -103,7 +103,7 @@ class SearchBar extends React.Component {
       .then(res => res.data)
       .then(data => {
         this.setState({
-          meteoBySearch: {
+          weatherForecast: {
             city: data.city.name.replace('Arrondissement de ', ''),
             country: data.city.country,
             sunrise: data.city.sunrise,
@@ -125,7 +125,7 @@ class SearchBar extends React.Component {
         });
       });
 
-    const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`).then(res => res.data)
+    const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => {
         if (axios.isCancel(error) || error) {
           this.setState({ loading: false });
@@ -152,8 +152,7 @@ class SearchBar extends React.Component {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
-      this.setState({ city: city, meteoByGeo: false, AQI: null, meteoBySearch: false });
-
+      this.setState({ city: city, weatherForecast: false, AQI: null, forecast: false });
       this.fetchOnClick(city);
     }
   }
@@ -163,7 +162,7 @@ class SearchBar extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
-    this.setState({ meteoBySearch: false, AQI: null, loading: true });
+    this.setState({ weatherForecast: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
@@ -180,7 +179,7 @@ class SearchBar extends React.Component {
         .then(res => res.data)
         .then(data => {
           this.setState({
-            meteoByGeo: {
+            weatherForecast: {
               city: data.city.name.replace('Arrondissement de', ''),
               country: data.city.country,
               sunrise: data.city.sunrise,
@@ -223,7 +222,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  UnixTimestamp (t) {
+  unixTimestamp (t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
@@ -253,9 +252,10 @@ class SearchBar extends React.Component {
   }
 
   render () {
+    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex } = this.state;
+
     return (
       <div className='main-search'>
-        {this.state.data}
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
             <input
@@ -270,143 +270,42 @@ class SearchBar extends React.Component {
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
         </form>
 
-        {/* Loader */}
-        {this.state.loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+        {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
-        {this.state.favorites &&
-          <ul className='list-favorites'>{this.state.favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
+        {favorites &&
+          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
 
-        {(this.state.meteoByGeo || this.state.meteoBySearch)
-          ? <div className='display-weather'>
+        {weatherForecast &&
+          <div className='display-weather'>
             <FavoriteItem
               addFavorite={this.addToFavorite}
-              city={this.state.meteoBySearch.city ? this.state.meteoBySearch.city : this.state.meteoByGeo.city}
-              liked={this.state.liked}
+              city={weatherForecast.city}
+              liked={liked}
             />
-            {this.state.meteoByGeo
-              ? <Header as='h2' className='title'>
-                <Icon name='adjust' />
-                <Header.Content>
-                  <div>
-                    <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
-                    <div className='temp'>
-                      <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
-                      <h3>
-                        <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                        <span className='separation-bar'> | </span>
-                        <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
-                      </h3>
-                    </div>
-                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
+            {weatherForecast &&
+              <Header className='title'>
+                <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
+                  <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
+                  <div className='temp'>
+                    <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
+                    <h3>
+                      <span onClick={() => { temp && this.setState({ temp: null }); }} className={temp ? 'celsius' : 'fahrenheit'}>C</span>
+                      <span className='separation-bar'> | </span>
+                      <span onClick={() => { !temp && this.setState({ temp: 'farenheit' }); }} className={temp ? 'fahrenheit' : 'celsius'}>F</span>
+                    </h3>
                   </div>
+                  <img src={`https://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} alt='icon' />
                 </Header.Content>
-                <div className='moreInfo'>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.feelslike}°C</h2>}</div>
-                    <h3>Feeling</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoByGeo.wind} m/s</h2>
-                    <h3>Wind</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmin}°C</h2>}</div>
-                    <h3>Min Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmax}°C</h2>}</div>
-                    <h3>Max Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoByGeo.pressure} hpa</h2>
-                    <h3>Pressure</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoByGeo.humidity} %</h2>
-                    <h3>Humidity</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunrise)}</h2>
-                    <h3>Sunrise</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunset)}</h2>
-                    <h3>Sunset</h3>
-                  </div>
-                </div>
-              </Header> /*  eslint-disable-line */
-
-              : <Header as='h2' className='title'>
-                <Icon name='adjust' />
-                <Header.Content>
-                  {this.state.meteoBySearch &&
-                    <div>
-                      <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                      <div className='temp'>
-                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°  </h2> : <h2>{this.state.meteoBySearch.temperature}°  </h2>}</div>
-                        <h3>
-                          <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                          <span className='separation-bar'> | </span>
-                          <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
-                        </h3>
-                      </div>
-                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
-                    </div>}
-                </Header.Content>
-                <div className='moreInfo'>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.feelslike}°C</h2>}</div>
-                    <h3>Feeling</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.wind} m/s</h2>
-                    <h3>Wind</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmin}°C</h2>}</div>
-                    <h3>Min Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmax}°C</h2>}</div>
-                    <h3>Max Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.pressure} hpa</h2>
-                    <h3>Pressure</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.humidity} %</h2>
-                    <h3>Humidity</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
-                    <h3>Sunrise</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
-                    <h3>Sunset</h3>
-                  </div>
-                </div>
-              </Header>} {/*  eslint-disable-line */}
+                <WeatherDetails
+                  weatherForecast={weatherForecast}
+                  unixTimestamp={this.unixTimestamp}
+                  temp={temp}
+                />
+              </Header>}
 
             <Card.Group className='cards'>
-              {this.state.meteoByGeo &&
-                this.state.meteoByGeo.weatherData
-                  .filter(data => data.dt_txt.includes('12:00:00'))
-                  .map((meteo, index) => {
-                    return <Meteo
-                      key={index}
-                      phrase={meteo.weather[0].description}
-                      date={meteo.dt_txt}
-                      min={Math.floor(meteo.main.temp_min - 273.15)}
-                      max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={meteo.weather[0].icon}
-                      switch={this.state.temp}
-                    />; // eslint-disable-line
-                  })}
-
-              {this.state.meteoBySearch &&
-                this.state.meteoBySearch.weatherData
+              {weatherForecast &&
+                weatherForecast.weatherData
                   .filter(data => data.dt_txt.includes('12:00:00'))
                   .map((meteo, index) => {
                     return <Meteo
@@ -420,20 +319,18 @@ class SearchBar extends React.Component {
                     />; // eslint-disable-line
                   })}
             </Card.Group>
-          </div> : ''} { /* eslint-disable-line */}
+          </div>}
 
-        {this.state.AQI &&
+        {AQI &&
           <Pollution
-            AQI={this.state.AQI}
-            NO2={this.state.pollutionIndex.NO2}
-            O3={this.state.pollutionIndex.O3}
-            PM10={this.state.pollutionIndex.PM10}
+            AQI={AQI}
+            NO2={pollutionIndex.NO2}
+            O3={pollutionIndex.O3}
+            PM10={pollutionIndex.PM10}
           />}
 
-        {this.state.meteoByGeo &&
-          <Weathers min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
-        {this.state.meteoBySearch &&
-          <Weathers min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
+        {weatherForecast &&
+          <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
       </div>
     );
   }

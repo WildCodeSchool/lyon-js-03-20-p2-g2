@@ -6,10 +6,10 @@ import ModalSuggestions from './ModalSuggestions';
 class Footer extends Component {
   render () {
     return (
-      <footer className='page-footer font-small blue'>
-        <Link className='link' to='/about'>About us</Link>
-        <div className='footer-copyright text-center py-3 footer-style'>© 2020<Link className='' to='/'> Weather Suggest <i className='fas fa-heart coeur' /></Link></div>
-        <ModalSuggestions />
+      <footer className='footer'>
+        <div className='link-about-us'>  <Link to='/about'>About us</Link></div>
+        <div className='wilders'><Link to='/about'>© 2020 | Weather Suggest By Wilders <i className='fas fa-heart coeur' /></Link></div>
+        <div className='suggest'> <ModalSuggestions /></div>
       </footer>
     );
   }

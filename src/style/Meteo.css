@@ -1,12 +1,4 @@
-@font-face {
-    font-family: 'Raleway';
-    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
-}
 
-@font-face {
-    font-family: 'Nunito';
-    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
-}
 
 /* CUSTOM ICONS */
 .wi-rain, .wi-cloudy {
@@ -18,17 +10,15 @@
 }
 
 .Meteo {
-    background-color: transparent !important;
+    background-color: #ffffff8f !important;
     box-shadow: 0 70px 40px -50px rgba(0, 0, 0, 0.2), 0 3px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-.card {
-    background: transparent !important;
-}
+
 
 .display-weather {
     padding: 2rem;
-    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
+    background-color:#728e9f9e;;
     width: 80%;
     margin: auto;
 }
@@ -97,7 +87,7 @@
     .ui.cards {
         display: flex;
         justify-content: space-around;
-        width: 75%;
+        width: 80%;
         flex-direction: column;
         align-items: center;
         margin: auto;
@@ -123,8 +113,10 @@
     .ui.cards {
         display: flex;
         justify-content: space-around;
-        width: 100%;
+        width: 80%;
         flex-direction: column;
+        align-items: center;
+        margin: auto;
     }
 
     .ui.card.Meteo {
@@ -132,13 +124,12 @@
         background-clip: border-box;
         border: 1px solid rgba(0, 0, 0, .125);
         border-radius: .25rem;
-        width: 100%;
+        width: 80%;
         margin: 1%;
     }
 
     .card-icons {
         font-size: 55px;
-        margin-left: 60%;
     }
 
     .content > div h1,
