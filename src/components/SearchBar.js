@@ -30,7 +30,8 @@ class SearchBar extends React.Component {
       AQI: null,
       pollutionIndex: null,
       favorites: [],
-      liked: null
+      liked: null,
+      errorMessage: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -93,12 +94,6 @@ class SearchBar extends React.Component {
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
-    if (this.cancel) {
-      this.cancel.cancel();
-    }
-
-    this.cancel = axios.CancelToken.source();
-
     await axios.get(searchCityUrl, { cancelToken: this.cancel.token })
       .then(res => res.data)
       .then(data => {
@@ -123,14 +118,14 @@ class SearchBar extends React.Component {
           suggestions: []
 
         });
+      })
+      .catch(error => {   /* eslint-disable-line */
+        console.log('Please search again...');
+        this.setState({ errorMessage: true });
       });
 
     const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
-      .catch(error => {
-        if (axios.isCancel(error) || error) {
-          this.setState({ loading: false });
-        }
-      });
+      .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
 
     dataPollution.data.aqi &&
       this.setState({
@@ -168,14 +163,7 @@ class SearchBar extends React.Component {
 
       const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
 
-      if (this.cancel) {
-        this.cancel.cancel();
-      }
-
-      this.cancel = axios.CancelToken.source();
-
-      axios.get(searchCityUrl, { cancelToken: this.cancel.token })
-
+      axios.get(searchCityUrl)
         .then(res => res.data)
         .then(data => {
           this.setState({
@@ -199,6 +187,10 @@ class SearchBar extends React.Component {
             loading: false
 
           }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }));
+        })
+        .catch(error => { /* eslint-disable-line */
+          console.log('Please search again...');
+          this.setState({ errorMessage: true });
         });
 
       axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
@@ -214,10 +206,9 @@ class SearchBar extends React.Component {
           });
         })
 
-        .catch(error => {
-          if (axios.isCancel(error) || error) {
-            this.setState({ loading: false });
-          }
+        .catch(error => {   /* eslint-disable-line */
+          console.log('Please search again...');
+          this.setState({ errorMessage: true });
         });
     });
   }
@@ -252,7 +243,7 @@ class SearchBar extends React.Component {
   }
 
   render () {
-    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex } = this.state;
+    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage } = this.state;
 
     return (
       <div className='main-search'>
@@ -269,6 +260,13 @@ class SearchBar extends React.Component {
           </label>
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
         </form>
+
+        {errorMessage &&
+          <div className='error-message'>
+            <p>We are sorry but we could not retrieve your city. <br />
+            Please type again to get weather forecasts and suggestions for your place.
+            </p>
+          </div>}
 
         {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
