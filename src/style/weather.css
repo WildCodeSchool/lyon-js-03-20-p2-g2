@@ -5,6 +5,7 @@
     text-align: center;
     background-color: #728e9f9e;
     margin: auto;
+    margin-top: 25px;
 }
 
 .weatherCard > h3 {
