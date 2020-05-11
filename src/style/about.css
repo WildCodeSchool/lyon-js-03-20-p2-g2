@@ -1,96 +1,100 @@
-
-.back-home{
+.back-home {
     left: 10px;
-text-align: 0;
-top: 10px;
-position: fixed;
+    top: 10px;
+    position: fixed;
 }
 
 .about {
-text-align: center;
-word-wrap: break-word;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-background: url("../images/background/background_dawn2.jpg") no-repeat;
-background-size: cover;
-background-attachment: fixed;
-background-position: center;
-background-repeat: no-repeat;
-padding-bottom: 20px;
+    text-align: center;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background: url("../images/background/background_dawn2.jpg") no-repeat fixed center;
+    padding-bottom: 20px;
 }
 
 .about > h1 {
-color: #005C89;
+    color: #005C89;
 }
 
 .our-story {
-width: 70%;
-text-align: center;
-margin: 50px 0;
+    width: 70%;
+    text-align: center;
+    margin: 50px 0;
 }
 
 .our-story p {
-text-align: justify;
+    text-align: justify;
 }
 
 .paragraphs {
-margin-top: 20px;
+    margin-top: 20px;
 }
 
 .about > h1 {
-font-family: 'Nunito', serif;
-font-weight: bold;
+    font-family: 'Nunito', serif;
+    font-weight: bold;
 }
 
 .our-story > h3, .team > h3 {
-font-family: 'Nunito', serif;
-font-size: 32px;
-font-weight: bold;
-color: #005C89;
+    font-family: 'Nunito', serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #005C89;
 }
 
 .our-story, .team {
-background: rgba(153, 215, 245, 0.4);
-border-radius: 10px;
-margin-bottom: 70px;
-padding: 20px 20px 0;
+    background: rgba(153, 215, 245, 0.4);
+    border-radius: 10px;
+    margin-bottom: 70px;
+    padding: 20px 20px 0;
 }
 
 
 .our-story > .paragraphs {
-font-family: 'Raleway', serif;
-color: #005C89;
+    font-family: 'Raleway', serif;
+    color: #005C89;
 }
 
 .us {
-font-family: 'Nunito', serif;
-color: #005C89;
-margin-top: 20px;
+    font-family: 'Nunito', serif;
+    color: #005C89;
+    margin-top: 20px;
 }
 
 .us ~ p {
-font-family: 'Raleway', serif;
-color: #005C89;
-margin-bottom: 50px;
+    font-family: 'Raleway', serif;
+    color: #005C89;
+    margin-bottom: 50px;
 }
 
 .container-about {
-margin-top: 50px;
+    margin-top: 50px;
 }
 
 .our_pics {
-box-shadow: 5px 5px 5px #99D7F5;
-width: 80%;
+    box-shadow: 5px 5px 5px #99D7F5;
+    width: 80%;
 }
 
 .footer-style {
-width: 100%;
-margin: auto;
-color: white;
+    width: 100%;
+    margin: auto;
+    color: white;
 }
 
 .coeur {
-color: red;
+    color: red;
+}
+
+@media only screen and (max-width: 300px) {
+    .footer-style {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
 }
