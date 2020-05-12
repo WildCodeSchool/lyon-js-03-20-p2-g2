@@ -181,7 +181,7 @@ class SearchBar extends React.Component {
               wind: data.list[0].wind.speed,
               icon: data.list[0].weather[0].icon,
               weatherData: data.list,
-              main: data.list[0].weather[0].main,
+              main: data.list[0].weather[0].main
             },
             loading: false,
             errorMessage: false
