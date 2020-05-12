@@ -136,6 +136,7 @@ img.search-loding {
 
 .list-favorites li .city-favorite {
     margin: auto;
+    width: 100%;
 }
 
 .deleting-city {
