@@ -19,6 +19,10 @@
     width: 80%;
     margin: auto;
 }
+.display-weather h1 {
+    text-align: center;
+    color: black;
+}
 
 .display-weather h2 {
     text-align: center;

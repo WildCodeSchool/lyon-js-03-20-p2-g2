@@ -9,6 +9,7 @@ import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FavoriteItem from './FavoriteItem';
 import WeatherDetails from './WeatherDetails';
+import moment from 'moment';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -31,6 +32,7 @@ class SearchBar extends React.Component {
       pollutionIndex: null,
       favorites: [],
       liked: null,
+      todayDate: moment().format(' dddd MMM DD'),
       errorMessage: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -281,6 +283,7 @@ class SearchBar extends React.Component {
             {weatherForecast &&
               <Header className='title'>
                 <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
+                  <h1>{moment().format('dddd MMM DD')}</h1>
                   <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
                   <div className='temp'>
                     <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
