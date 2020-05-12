@@ -2,7 +2,6 @@
     width: 40%;
     margin: auto;
     display: flex;
-    padding-bottom: 50px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -23,9 +22,9 @@
     font-size: 16px;
     background-color: white;
     background-image: url("../images/searchicon-blue.png");
-    background-position: 10px 15px;
+    background-position: 15px 15px;
     background-repeat: no-repeat;
-    padding: 15px 20px 10px 40px;
+    padding: 15px 20px 10px 50px;
     outline: none;
     background-size: 24px;
     color: #005C89;
@@ -122,7 +121,7 @@ img.search-loding {
     width: 30%;
     margin: 0 auto;
     font-family: 'Nunito', serif;
-    padding: 0;
+    padding: 50px 0;
 }
 
 .list-favorites li {
