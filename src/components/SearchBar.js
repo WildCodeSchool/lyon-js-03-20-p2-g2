@@ -258,11 +258,12 @@ class SearchBar extends React.Component {
       <div className='main-search'>
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
-            <input type='text' placeholder='Search for....'
-            onKeyDown={this.handleChange}
-            value={this.state.text}
-            onChange={this.handleTextChanged}
-            onFocus={this.handleFocus}
+            <input
+              type='text' placeholder='Search for....'
+              onKeyDown={this.handleChange}
+              value={this.state.text}
+              onChange={this.handleTextChanged}
+              onFocus={this.handleFocus}
             />
             {this.renderSuggestions()}
           </label>
