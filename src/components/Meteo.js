@@ -14,15 +14,15 @@ class Meteo extends Component {
     return (
       <Card className='Meteo'>
         <Card.Content>
-          <Card.Header className='card-phrase-weather'>{capitalize(this.props.phrase)}</Card.Header>
+          <Card.Header className='card-phrase-weather'>{moment(this.props.date).format('dddd')}</Card.Header>
           <div className='card-icons'><img src={`https://openweathermap.org/img/wn/${this.props.icon}@2x.png`} alt='icon' /></div>
-          <Card.Meta className='card-date'>{moment(this.props.date).format('dddd')}</Card.Meta>
+          <Card.Meta className='card-date'>{capitalize(this.props.phrase)}</Card.Meta>
           {this.props.switch
             ? <Card.Description className='card-temperatures'>
               {Math.round(this.props.min * 9 / 5) + 32}°F | {Math.round(this.props.max * 9 / 5) + 32}°F
               </Card.Description> /*  eslint-disable-line */
             : <Card.Description className='card-temperatures'>
-              {this.props.min}°C | {this.props.max}°C
+              <span title='Minimal temperature'>{this.props.min}°C</span> | <span title='Maximal temperature'>{this.props.max}°C</span>
               </Card.Description>} {/*  eslint-disable-line */}
         </Card.Content>
       </Card>
