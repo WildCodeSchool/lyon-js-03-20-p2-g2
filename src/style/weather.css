@@ -48,7 +48,7 @@
     color: #005C89;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 580px) {
 
     .humanoid {
         width: 70%;
