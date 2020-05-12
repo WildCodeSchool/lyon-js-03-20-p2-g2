@@ -18,6 +18,7 @@
     background-size: cover;
 }
 
+
 .about > h1 {
     color: #005C89;
 }
@@ -90,7 +91,9 @@
 
 .coeur {
     color: red;
+
 }
+
 
 @media only screen and (max-width: 300px) {
     .footer-style {

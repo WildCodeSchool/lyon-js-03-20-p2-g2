@@ -77,6 +77,11 @@
 
 /* GOOD AQI */
 
+.div-good-AQI > div > i,
+.green {
+    color: #06623b;
+}
+
 .green-border {
     border-left: 4px #06623b solid;
     color: #06623b;
