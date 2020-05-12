@@ -1,7 +1,7 @@
 .weatherCard {
     width: 80%;
     text-align: center;
-    background-color: #728e9f9e;
+    background-color: rgba(255, 255, 255, 0.45);
     margin: 25px auto auto;
 }
 
@@ -16,8 +16,8 @@
 
 .dontForget {
     font-family: 'Nunito', serif;
-    color: #073a54;
-    background-color: #ffffff47;
+    color: #005C89;
+    background-color: rgba(255, 255, 255, 0.45);
     width: 100%;
     margin-bottom: 0;
     padding: 10px;
@@ -38,14 +38,14 @@
 }
 
 .ourSuggest {
-    color: #073a54;
+    color: #005C89;
     font-weight: bold;
 }
 
 .textClothes {
     font-family: 'Raleway', serif;
     font-size: 18px;
-    color: rgb(17, 17, 17);
+    color: #005C89;
 }
 
 @media only screen and (max-width: 800px) {
