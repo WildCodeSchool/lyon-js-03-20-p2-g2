@@ -17,7 +17,8 @@ td {
 }
 
 .details-figures {
-    color: white;
+    margin-bottom: 0;
+    color: #005C89;
 }
 
 .details-titles {
@@ -87,4 +88,12 @@ td {
 
 .temp > div {
     margin-right: 5px;
+}
+
+.img-icon {
+    width: 30px !important;
+}
+
+.sunrise {
+    width: 35px !important;
 }

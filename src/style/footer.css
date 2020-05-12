@@ -13,10 +13,12 @@
 .link-about-us {
     padding: 10px;
     align-self: center;
+    color: #02A2EF;
 }
 
 .link-about-us a {
-    color: #02A2EF;}
+    color: #02A2EF;
+}
 
 .link-about-us a:hover {
     text-decoration: none;

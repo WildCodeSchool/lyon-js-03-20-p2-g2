@@ -9,6 +9,7 @@ import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FavoriteItem from './FavoriteItem';
 import WeatherDetails from './WeatherDetails';
+import moment from 'moment';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -31,6 +32,7 @@ class SearchBar extends React.Component {
       pollutionIndex: null,
       favorites: [],
       liked: null,
+      todayDate: moment().format(' dddd MMM DD'),
       errorMessage: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -117,7 +119,7 @@ class SearchBar extends React.Component {
           loading: false,
           suggestions: [],
           errorMessage: false
-        });
+        }, () => this.setState({ text: this.state.weatherForecast.city }));
       })
       .catch(error => {   /* eslint-disable-line */
         console.log('Please search again...');
@@ -234,7 +236,7 @@ class SearchBar extends React.Component {
 
   deleteFavorite = (favoriteCity) => {
     const { favorites } = this.state;
-    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] });
+    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] }, () => this.setState({ liked: null }));
   }
 
   componentDidMount () {
@@ -277,10 +279,10 @@ class SearchBar extends React.Component {
             </p>
           </div>}
 
-        {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+        {loading && <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '50px' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {favorites &&
-          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}><span className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times' /></span></li>)}</ul>}
+          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} key={index}><span onClick={() => this.fetchOnClick(favorite)} className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
 
         {weatherForecast &&
           <div className='display-weather'>
@@ -288,6 +290,7 @@ class SearchBar extends React.Component {
             {weatherForecast &&
               <Header className='title'>
                 <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
+                  <h2>{moment().format('dddd, MMM DD')}</h2>
                   <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
                   <div className='temp'>
                     <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>

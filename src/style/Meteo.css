@@ -20,6 +20,11 @@
     margin: auto;
 }
 
+.display-weather h1 {
+    text-align: center;
+    color: white;
+}
+
 .display-weather h2 {
     text-align: center;
     font-family: 'Nunito', serif;
