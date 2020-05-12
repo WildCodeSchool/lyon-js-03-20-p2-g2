@@ -88,6 +88,11 @@ class SearchBar extends React.Component {
 
   async fetchOnClick (city) {
     const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -120,12 +125,6 @@ class SearchBar extends React.Component {
         console.log('Please search again...');
         this.setState({ errorMessage: true });
       });
-
-    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.weatherForecast.city.toLowerCase())) {
-      this.setState({ liked: null });
-    } else {
-      this.setState({ liked: 'yes' });
-    }
 
     const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
