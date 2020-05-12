@@ -231,6 +231,11 @@ class SearchBar extends React.Component {
     }
   };
 
+  deleteFavorite = (favoriteCity) => {
+    const { favorites } = this.state;
+    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] });
+  }
+
   componentDidMount () {
     localStorage.getItem('favorites') /* eslint-disable-line */
       ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
@@ -241,6 +246,10 @@ class SearchBar extends React.Component {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
+  handleFocus = (event) => {
+    event.target.select();
+  }
+
   render () {
     const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage } = this.state;
 
@@ -248,7 +257,7 @@ class SearchBar extends React.Component {
       <div className='main-search'>
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
-            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} />
+            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} onFocus={this.handleFocus} />
             {this.renderSuggestions()}
           </label>
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
@@ -264,7 +273,7 @@ class SearchBar extends React.Component {
         {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {favorites &&
-          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
+          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}><span className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
 
         {weatherForecast &&
           <div className='display-weather'>
