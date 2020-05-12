@@ -131,6 +131,15 @@ img.search-loding {
     text-align: center;
     font-weight: 600;
     margin-top: 10px;
+    display: flex
+}
+
+.list-favorites li .city-favorite {
+    margin: auto;
+}
+
+.fa-times {
+    font-size: 15px;
 }
 
 /* Error message */
