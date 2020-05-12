@@ -258,7 +258,7 @@ class SearchBar extends React.Component {
         {errorMessage &&
           <div className='error-message'>
             <p>Sorry, the specified city was not found. <br />
-            Please Try searching with a valid city name!
+            Please try searching with a valid city name!
             </p>
           </div>}
 
