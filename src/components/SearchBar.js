@@ -115,8 +115,8 @@ class SearchBar extends React.Component {
             weatherData: data.list
           },
           loading: false,
-          suggestions: []
-
+          suggestions: [],
+          errorMessage: false
         });
       })
       .catch(error => {   /* eslint-disable-line */
@@ -181,11 +181,10 @@ class SearchBar extends React.Component {
               wind: data.list[0].wind.speed,
               icon: data.list[0].weather[0].icon,
               weatherData: data.list,
-              main: data.list[0].weather[0].main
-
+              main: data.list[0].weather[0].main,
             },
-            loading: false
-
+            loading: false,
+            errorMessage: false
           }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }));
         })
         .catch(error => { /* eslint-disable-line */
