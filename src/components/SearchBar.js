@@ -232,9 +232,8 @@ class SearchBar extends React.Component {
   };
 
   deleteFavorite = (favoriteCity) => {
-    const {favorites} = this.state;
-    console.log(favoriteCity.favorite);
-    this.setState({favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] })
+    const { favorites } = this.state;
+    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] });
   }
 
   componentDidMount () {
@@ -270,7 +269,7 @@ class SearchBar extends React.Component {
         {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {favorites &&
-          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}><span className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({favorite})}><i className='fas fa-times' /></span></li>)}</ul>}
+          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}><span className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times' /></span></li>)}</ul>}
 
         {weatherForecast &&
           <div className='display-weather'>
