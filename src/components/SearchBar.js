@@ -283,7 +283,7 @@ class SearchBar extends React.Component {
             {weatherForecast &&
               <Header className='title'>
                 <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
-                  <h1>{moment().format('dddd MMM DD')}</h1>
+                  <h2>{moment().format('dddd MMM DD')}</h2>
                   <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
                   <div className='temp'>
                     <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
