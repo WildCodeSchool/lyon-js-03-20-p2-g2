@@ -113,20 +113,19 @@ class SearchBar extends React.Component {
           },
           loading: false,
           suggestions: [],
-          errorMessage: false,
-        }, () => this.setState({text: this.state.weatherForecast.city}));
+          errorMessage: false
+        }, () => this.setState({ text: this.state.weatherForecast.city }));
       })
       .catch(error => {   /* eslint-disable-line */
         console.log('Please search again...');
         this.setState({ errorMessage: true });
       });
 
-      if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.weatherForecast.city.toLowerCase())) {
-        this.setState({ liked: null });
-      } else {
-        this.setState({ liked: 'yes' });
-      }
-  
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.weatherForecast.city.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
 
     const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
