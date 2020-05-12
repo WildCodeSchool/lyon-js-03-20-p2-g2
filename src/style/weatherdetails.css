@@ -47,6 +47,7 @@ td {
     text-align: center;
     flex-basis: auto;
     box-shadow: 0 70px 40px -50px rgba(0, 0, 0, 0.2), 0 3px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.45);
 }
 
 .specifics {
@@ -63,7 +64,7 @@ td {
 
 
 .celsius {
-    color: grey;
+    color: #48484a;
     cursor: pointer;
     font-family: 'Nunito', serif;
 }
@@ -75,7 +76,7 @@ td {
 }
 
 .separation-bar {
-    color: grey;
+    color: #48484a;
     font-family: 'Nunito', serif;
 }
 
