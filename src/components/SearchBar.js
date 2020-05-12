@@ -246,6 +246,10 @@ class SearchBar extends React.Component {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
+  handleFocus = (event) => {
+    event.target.select();
+  }
+
   render () {
     const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage } = this.state;
 
@@ -253,7 +257,7 @@ class SearchBar extends React.Component {
       <div className='main-search'>
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
-            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} />
+            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} onFocus={this.handleFocus} />
             {this.renderSuggestions()}
           </label>
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
