@@ -9,6 +9,7 @@ import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FavoriteItem from './FavoriteItem';
 import WeatherDetails from './WeatherDetails';
+import moment from 'moment';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -31,6 +32,7 @@ class SearchBar extends React.Component {
       pollutionIndex: null,
       favorites: [],
       liked: null,
+      todayDate: moment().format(' dddd MMM DD'),
       errorMessage: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -86,11 +88,6 @@ class SearchBar extends React.Component {
 
   async fetchOnClick(city) {
     const { favorites } = this.state;
-    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
-      this.setState({ liked: null });
-    } else {
-      this.setState({ liked: 'yes' });
-    }
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -115,14 +112,20 @@ class SearchBar extends React.Component {
             weatherData: data.list
           },
           loading: false,
-          suggestions: []
-
-        });
+          suggestions: [],
+          errorMessage: false
+        }, () => this.setState({ text: this.state.weatherForecast.city }));
       })
       .catch(error => {   /* eslint-disable-line */
         console.log('Please search again...');
         this.setState({ errorMessage: true });
       });
+
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.weatherForecast.city.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
 
     const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
@@ -162,14 +165,12 @@ class SearchBar extends React.Component {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
       const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
-      // let forecastArray = [];
+
       axios.get(searchCityUrl)
         .then(res => res.data)
         .then(data => {
           this.setState({
             weatherForecast: {
-
-
               city: data.city.name.replace('Arrondissement de', ''),
               country: data.city.country,
               sunrise: data.city.sunrise,
@@ -184,10 +185,9 @@ class SearchBar extends React.Component {
               icon: data.list[0].weather[0].icon,
               weatherData: data.list,
               main: data.list[0].weather[0].main
-
             },
-            loading: false
-
+            loading: false,
+            errorMessage: false
           }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }));
         })
         .catch(error => { /* eslint-disable-line */
@@ -234,6 +234,11 @@ class SearchBar extends React.Component {
     }
   };
 
+  deleteFavorite = (favoriteCity) => {
+    const { favorites } = this.state;
+    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] }, () => this.setState({ liked: null }));
+  }
+
   componentDidMount() {
     localStorage.getItem('favorites') /* eslint-disable-line */
       ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
@@ -244,6 +249,10 @@ class SearchBar extends React.Component {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
+  handleFocus = (event) => {
+    event.target.select();
+  }
+
   render() {
     const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage } = this.state;
 
@@ -251,7 +260,7 @@ class SearchBar extends React.Component {
       <div className='main-search'>
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
-            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} />
+            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} onFocus={this.handleFocus} />
             {this.renderSuggestions()}
           </label>
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
@@ -260,15 +269,14 @@ class SearchBar extends React.Component {
         {errorMessage &&
           <div className='error-message'>
             <p>Sorry, the specified city was not found. <br />
-            Please Try searching with a valid city name!
+            Please try searching with a valid city name!
             </p>
           </div>}
 
         {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {favorites &&
-          <ul className='list-favorites'>{favorites.map((favorite, index) =>
-            <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}>{favorite}</li>)}</ul>}
+          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}><span className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
 
         {weatherForecast &&
           <div className='display-weather'>
@@ -276,7 +284,8 @@ class SearchBar extends React.Component {
             {weatherForecast &&
               <Header className='title'>
                 <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
-                  <h2>{weatherForecast.city}, {weatherForecast.country} </h2>
+                  <h2>{moment().format('dddd, MMM DD')}</h2>
+                  <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
                   <div className='temp'>
                     <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
                     <h3>
@@ -293,7 +302,7 @@ class SearchBar extends React.Component {
             <Card.Group className='cards'>
               {weatherForecast &&
                 weatherForecast.weatherData
-                  .filter(data => data.dt_txt.includes('12:00:00' && '21:00:00'))
+                  .filter(data => data.dt_txt.includes('12:00:00'))
                   .map((meteo, index) => {
                     return <Meteo
                       key={index}
