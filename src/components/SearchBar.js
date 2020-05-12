@@ -272,7 +272,7 @@ class SearchBar extends React.Component {
             </p>
           </div>}
 
-        {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+        {loading && <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '50px'}}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {favorites &&
           <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} key={index}><span onClick={() => this.fetchOnClick(favorite)} className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}

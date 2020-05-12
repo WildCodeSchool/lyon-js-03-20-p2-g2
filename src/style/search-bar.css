@@ -108,13 +108,6 @@
     outline: none;
 }
 
-/* Loader */
-img.search-loding {
-    display: flex;
-    margin: 0 auto;
-}
-
-
 /* Favoris */
 .list-favorites {
     list-style: none;
