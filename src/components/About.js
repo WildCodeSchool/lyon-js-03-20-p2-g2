@@ -7,16 +7,13 @@ import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-//import { Button } from 'react-bootstrap';
 
 class About extends Component {
   render () {
     return (
       <>
         <section className='about'>
-        
-          <Link to='/'><i class="fas fa-chevron-circle-left fa-3x"></i></Link>
-
+          <Link className='back-home' to='/'><i class="fas fa-chevron-circle-left fa-3x"/></Link>
           <Header />
           <h1>About us</h1>
           <div className='our-story'>
