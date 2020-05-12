@@ -76,14 +76,6 @@
 }
 
 /* GOOD AQI */
-.div-good-AQI > div {
-    background-color: rgba(6, 98, 59, 0.3);
-}
-
-.div-good-AQI > div > i,
-.green {
-    color: #06623b;
-}
 
 .green-border {
     border-left: 4px #06623b solid;
@@ -91,9 +83,7 @@
 }
 
 /* MODERATE AQI */
-.div-moderate-AQI > div {
-    background-color: rgba(246, 215, 67, 0.3);
-}
+
 
 .div-moderate-AQI > div > i,
 .yellow {
@@ -106,9 +96,7 @@
 }
 
 /* UNHEALTHY AQI */
-.div-unhealthy-AQI > div {
-    background-color: rgba(221, 44, 0, 0.3);
-}
+
 
 .div-unhealthy-AQI > div > i,
 .red {
