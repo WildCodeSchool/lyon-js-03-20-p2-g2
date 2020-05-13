@@ -157,6 +157,7 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
+
   handleClick(e) {
     e.preventDefault();
     this.setState({ weatherForecast: false, AQI: null, loading: true });

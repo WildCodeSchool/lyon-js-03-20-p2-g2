@@ -4,15 +4,7 @@
     display: flex;
 }
 
-@media only screen and (max-width: 800px) {
-    .search-bar {
-        width: 90%;
-    }
 
-    .search-label .autocomplete {
-        width: 87%;
-    }
-}
 
 .search-bar input[type=text] {
     width: 100%;
@@ -147,4 +139,15 @@
     padding: 10px 30px;
     color: white;
     font-weight: 500;
+}
+
+@media only screen and (max-width: 800px) {
+    .search-bar {
+        width: 90%;
+        margin-left: 15px;
+    }
+
+    .search-label .autocomplete {
+        width: 87%;
+    }
 }

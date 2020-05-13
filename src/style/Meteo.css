@@ -129,6 +129,12 @@
         width: 100%;
         margin: 1%;
     }
+    .display-weather {
+    padding: 2rem;
+    background-color: #728e9f9e;
+    width: 100%; 
+    margin: auto;
+}
 
     .card-icons {
         font-size: 55px;
