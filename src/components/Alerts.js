@@ -15,7 +15,7 @@ const Alerts = ({ title, description, regions, severity, url }) => {
       }
       )}
       </p>
-      <span className='details-alerts'><a href={url} target="_blank" rel="noopener noreferrer">View details</a></span>
+      <span className='details-alerts'><a href={url} target='_blank' rel='noopener noreferrer'>View details</a></span>
     </div>
   );
 };

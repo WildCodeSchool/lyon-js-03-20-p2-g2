@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .modal-trigger {
     cursor: pointer;
     display: inline-block;
