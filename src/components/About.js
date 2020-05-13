@@ -13,7 +13,7 @@ class About extends Component {
     return (
       <>
         <section className='about'>
-          <Link className='back-home' to='/'><i class='fas fa-chevron-circle-left fa-3x' /></Link>
+          <Link className='back-home' id='ancre' to='/' style={{ outline: 'none' }}><i class='fas fa-chevron-circle-left fa-3x' /></Link>
           <Header />
           <h1>About us</h1>
           <div className='our-story'>

@@ -103,3 +103,11 @@
         align-items: center;
     }
 }
+
+.fa-3x {
+    color: white;
+}
+
+.fa-3x:hover {
+    color:#D3D3D3;
+}
