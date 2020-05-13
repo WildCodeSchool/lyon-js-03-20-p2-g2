@@ -98,6 +98,7 @@ class SearchBar extends React.Component {
       .then(res => res.data)
       .then(data => {
         this.setState({
+          alerts: null,
           weatherForecast: {
             city: data.city.name.replace('Arrondissement de ', ''),
             country: data.city.country,
@@ -182,9 +183,13 @@ class SearchBar extends React.Component {
   async handleClick (e) {
     e.preventDefault();
     const { favorites } = this.state;
-    this.setState({ weatherForecast: false, AQI: null, loading: true, alerts: null });
+    this.setState({ weatherForecast: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
-      this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
+      this.setState({  loading: false },
+        () => {
+          this.setState({lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3))})
+        }  
+        );
 
       const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
 
@@ -192,6 +197,7 @@ class SearchBar extends React.Component {
         .then(res => res.data)
         .then(data => {
           this.setState({
+            alerts: null,
             weatherForecast: {
               city: data.city.name.replace('Arrondissement de', ''),
               country: data.city.country,
@@ -212,7 +218,6 @@ class SearchBar extends React.Component {
             },
             loading: false,
             errorMessage: false,
-            test: console.log(this.state.lat)
           },
           () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
             () => {
@@ -221,12 +226,14 @@ class SearchBar extends React.Component {
               } else {
                 this.setState({ liked: 'yes' });
               }
-            }));
+            }),
+            this.fetchAlertsData(this.state.lat, this.state.lon)
+            );
         })
         .catch(error => { /* eslint-disable-line */
           console.log('Please search again...');
           this.setState({ errorMessage: true });
-        });
+        })
 
       axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
         .then(res => res.data)
@@ -246,21 +253,24 @@ class SearchBar extends React.Component {
           this.setState({ errorMessage: true });
         });
     });
+  }
 
-    axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
-      .then(res => res.data)
-      .then(data => {
-        data.alerts &&
-      this.setState({
-        alerts: {
-          title: data.alerts[0].title,
-          description: data.alerts[0].description,
-          regions: data.alerts[0].regions,
-          severity: data.alerts[0].severity,
-          url: data.alerts[0].uri
-        }
-      });
-      });
+  async fetchAlertsData(lat, long) {
+    console.log(lat)
+    await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
+    .then(res => res.data)
+    .then(data => {
+      data.alerts &&
+    this.setState({
+      alerts: {
+        title: data.alerts[0].title,
+        description: data.alerts[0].description,
+        regions: data.alerts[0].regions,
+        severity: data.alerts[0].severity,
+        url: data.alerts[0].uri
+      }
+    });
+    });
   }
 
   unixTimestamp (t) {
