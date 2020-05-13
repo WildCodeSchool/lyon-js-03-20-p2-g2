@@ -100,6 +100,13 @@
     outline: none;
 }
 
+.content > h5 {
+    font-family: 'Nunito';
+    color: #005C89;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 /* Favoris */
 .list-favorites {
     list-style: none;

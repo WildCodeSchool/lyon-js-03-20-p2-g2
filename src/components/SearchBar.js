@@ -9,12 +9,14 @@ import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FavoriteItem from './FavoriteItem';
 import WeatherDetails from './WeatherDetails';
+import Alerts from './Alerts';
 import moment from 'moment';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
+const keyDarkSky = 'cfeed98eb60dc557187a9ea2c357cd52';
 
 class SearchBar extends React.Component {
   constructor (props) {
@@ -32,7 +34,8 @@ class SearchBar extends React.Component {
       pollutionIndex: null,
       favorites: [],
       liked: null,
-      errorMessage: false
+      errorMessage: false,
+      alerts: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -77,7 +80,8 @@ class SearchBar extends React.Component {
     await this.setState(() => ({
       text: value,
       suggestions: [],
-      forecast: false
+      forecast: false,
+      alerts: null
     }), () => this.fetchOnClick(this.state.text));
   }
 
@@ -108,7 +112,9 @@ class SearchBar extends React.Component {
             wind: data.list[0].wind.speed,
             icon: data.list[0].weather[0].icon,
             main: data.list[0].weather[0].main,
-            weatherData: data.list
+            weatherData: data.list,
+            lat: data.city.coord.lat,
+            lon: data.city.coord.lon
           },
           loading: false,
           suggestions: [],
@@ -139,6 +145,21 @@ class SearchBar extends React.Component {
           PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
         }
       });
+
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.weatherForecast.lat},${this.state.weatherForecast.lon}`)
+      .then(res => res.data)
+      .then(data => {
+        data.alerts &&
+      this.setState({
+        alerts: {
+          title: data.alerts[0].title,
+          description: data.alerts[0].description,
+          regions: data.alerts[0].regions,
+          severity: data.alerts[0].severity,
+          url: data.alerts[0].uri
+        }
+      });
+      });
   }
 
   /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur la touche 'Entrée'.
@@ -158,10 +179,10 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  handleClick (e) {
+  async handleClick (e) {
     e.preventDefault();
     const { favorites } = this.state;
-    this.setState({ weatherForecast: false, AQI: null, loading: true });
+    this.setState({ weatherForecast: false, AQI: null, loading: true, alerts: null });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
 
@@ -185,11 +206,15 @@ class SearchBar extends React.Component {
               wind: data.list[0].wind.speed,
               icon: data.list[0].weather[0].icon,
               weatherData: data.list,
-              main: data.list[0].weather[0].main
+              main: data.list[0].weather[0].main,
+              lat: data.city.coord.lat,
+              lon: data.city.coord.lon
             },
             loading: false,
-            errorMessage: false
-          }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
+            errorMessage: false,
+            test: console.log(this.state.lat)
+          },
+          () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
             () => {
               if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
                 this.setState({ liked: null });
@@ -221,6 +246,21 @@ class SearchBar extends React.Component {
           this.setState({ errorMessage: true });
         });
     });
+
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
+      .then(res => res.data)
+      .then(data => {
+        data.alerts &&
+      this.setState({
+        alerts: {
+          title: data.alerts[0].title,
+          description: data.alerts[0].description,
+          regions: data.alerts[0].regions,
+          severity: data.alerts[0].severity,
+          url: data.alerts[0].uri
+        }
+      });
+      });
   }
 
   unixTimestamp (t) {
@@ -244,8 +284,7 @@ class SearchBar extends React.Component {
 
   deleteFavorite = (favoriteCity) => {
     const { favorites } = this.state;
-    this.setState({ 
-      favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] },
+    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] },
       () => {
         if (favoriteCity.favorite === this.state.text) {
           this.setState({ liked: null });
@@ -253,9 +292,7 @@ class SearchBar extends React.Component {
           this.setState({ liked: 'yes' });
         }
       }
-      );
-
-
+    );
   }
 
   componentDidMount () {
@@ -273,7 +310,7 @@ class SearchBar extends React.Component {
   }
 
   render () {
-    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage } = this.state;
+    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage, alerts } = this.state;
 
     return (
       <div className='main-search'>
@@ -309,7 +346,7 @@ class SearchBar extends React.Component {
             {weatherForecast &&
               <Header className='title'>
                 <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
-                  <h2>{moment().format('dddd, MMM DD')}</h2>
+                  <h5>{moment().format('dddd, MMM DD')}</h5>
                   <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
                   <div className='temp'>
                     <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
@@ -343,6 +380,15 @@ class SearchBar extends React.Component {
           </div>}
         {AQI && <Pollution AQI={AQI} NO2={pollutionIndex.NO2} O3={pollutionIndex.O3} PM10={pollutionIndex.PM10} />}
         {weatherForecast && <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
+
+        {alerts &&
+          <Alerts
+            title={alerts.title}
+            description={alerts.description}
+            regions={alerts.regions}
+            severity={alerts.severity}
+            url={alerts.url}
+          />}
       </div>
     );
   }
