@@ -9,11 +9,11 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 class About extends Component {
-  render () {
+  render() {
     return (
       <>
         <section className='about'>
-          <Link className='back-home' id='ancre' to='/'><i class='fas fa-chevron-circle-left fa-3x' /></Link>
+          <Link className='back-home' id='ancre' to='/' style={{ outline: 'none' }}><i class='fas fa-chevron-circle-left fa-3x' /></Link>
           <Header />
           <h1>About us</h1>
           <div className='our-story'>
