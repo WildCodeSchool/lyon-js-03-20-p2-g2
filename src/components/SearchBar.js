@@ -32,7 +32,6 @@ class SearchBar extends React.Component {
       pollutionIndex: null,
       favorites: [],
       liked: null,
-      todayDate: moment().format(' dddd MMM DD'),
       errorMessage: false
     };
     this.handleClick = this.handleClick.bind(this);
