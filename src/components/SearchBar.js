@@ -244,7 +244,18 @@ class SearchBar extends React.Component {
 
   deleteFavorite = (favoriteCity) => {
     const { favorites } = this.state;
-    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] }, () => this.setState({ liked: null }));
+    this.setState({ 
+      favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] },
+      () => {
+        if (favoriteCity.favorite === this.state.text) {
+          this.setState({ liked: null });
+        } else {
+          this.setState({ liked: 'yes' });
+        }
+      }
+      );
+
+
   }
 
   componentDidMount () {
