@@ -88,6 +88,11 @@ class SearchBar extends React.Component {
 
   async fetchOnClick (city) {
     const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -121,12 +126,6 @@ class SearchBar extends React.Component {
         this.setState({ errorMessage: true });
       });
 
-    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.weatherForecast.city.toLowerCase())) {
-      this.setState({ liked: null });
-    } else {
-      this.setState({ liked: 'yes' });
-    }
-
     const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
 
@@ -152,6 +151,7 @@ class SearchBar extends React.Component {
       const city = event.target.value;
       this.setState({ city: city, weatherForecast: false, AQI: null, forecast: false });
       this.fetchOnClick(city);
+      event.target.blur();
     }
   }
 
@@ -260,7 +260,13 @@ class SearchBar extends React.Component {
       <div className='main-search'>
         <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
           <label className='search-label' htmlFor='search-input'>
-            <input type='text' placeholder='Search for....' onKeyDown={this.handleChange} value={this.state.text} onChange={this.handleTextChanged} onFocus={this.handleFocus} />
+            <input
+              type='text' placeholder='Search for....'
+              onKeyDown={this.handleChange}
+              value={this.state.text}
+              onChange={this.handleTextChanged}
+              onFocus={this.handleFocus}
+            />
             {this.renderSuggestions()}
           </label>
           <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
@@ -273,10 +279,10 @@ class SearchBar extends React.Component {
             </p>
           </div>}
 
-        {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+        {loading && <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '50px' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
         {favorites &&
-          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} onClick={() => this.fetchOnClick(favorite)} key={index}><span className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
+          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} key={index}><span onClick={() => this.fetchOnClick(favorite)} className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
 
         {weatherForecast &&
           <div className='display-weather'>
