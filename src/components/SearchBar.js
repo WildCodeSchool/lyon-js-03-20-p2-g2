@@ -88,11 +88,6 @@ class SearchBar extends React.Component {
 
   async fetchOnClick (city) {
     const { favorites } = this.state;
-    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === city.toLowerCase())) {
-      this.setState({ liked: null });
-    } else {
-      this.setState({ liked: 'yes' });
-    }
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
 
@@ -125,6 +120,12 @@ class SearchBar extends React.Component {
         console.log('Please search again...');
         this.setState({ errorMessage: true });
       });
+
+      if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
+        this.setState({ liked: null });
+      } else {
+        this.setState({ liked: 'yes' });
+      }
 
     const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
       .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
@@ -160,6 +161,7 @@ class SearchBar extends React.Component {
 
   handleClick (e) {
     e.preventDefault();
+    const {favorites} = this.state;
     this.setState({ weatherForecast: false, AQI: null, loading: true });
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
@@ -188,7 +190,14 @@ class SearchBar extends React.Component {
             },
             loading: false,
             errorMessage: false
-          }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }));
+          }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
+          () => {
+            if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
+              this.setState({ liked: null });
+            } else {
+              this.setState({ liked: 'yes' });
+            }
+          }));
         })
         .catch(error => { /* eslint-disable-line */
           console.log('Please search again...');
