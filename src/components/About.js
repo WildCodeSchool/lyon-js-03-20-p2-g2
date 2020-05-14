@@ -46,7 +46,7 @@ class About extends Component {
             <Container className='container-about'>
               <Row>
                 <Col xs={6} md={4} className='team-card'>
-                  <Image className='our_pics' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
+                  <Image className='our_pics' src={require('../images/abdel.jpeg')} roundedCircle />
                   <h2 className='us'>Abdel</h2>
                   <p><strong>Abdel</strong> our Mister Weather is always ready to introduce the forecasts to come !</p>
                 </Col>
@@ -56,17 +56,17 @@ class About extends Component {
                   <p><strong>Nathan</strong> is our special correspondent for our special forecasts !</p>
                 </Col>
                 <Col xs={6} md={4} className='team-card'>
-                  <Image className='our_pics' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
+                  <Image className='our_pics' src={require('../images/ikram.jpeg')} roundedCircle />
                   <h2 className='us'>Ikram</h2>
                   <p><strong>Ikram</strong> will offer clothing suggestions and advice if you are willing to !</p>
                 </Col>
                 <Col xs={6} md={4} className='team-card'>
-                  <Image className='our_pics' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
+                  <Image className='our_pics' src='https://img.armins.dev/imgP2.png' roundedCircle />
                   <h2 className='us'>Armin</h2>
                   <p><strong>Armin</strong> is here tor receive all your suggestions and to work in order to improve the service we offer.</p>
                 </Col>
                 <Col xs={6} md={4} className='team-card'>
-                  <Image className='our_pics' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' roundedCircle />
+                  <Image className='our_pics' src={require('../images/camille.jpeg')} roundedCircle />
                   <h2 className='us'>Camille</h2>
                   <p><strong>Camille</strong> will inform you about the air polution information and more to come.</p>
                 </Col>
