@@ -7,7 +7,7 @@ class Footer extends Component {
   render() {
     return (
       <footer className='footer'>
-        <div className='link-about-us'><Link to='/about#ancre'>About us</Link>  </div>
+        <div className='link-about-us'><Link to='/about'>About us</Link><a href="#ancre" ></a>  </div>
         <div className='link-ws'>© 2020 <Link to='/'>Weather Suggest</Link> <i className='fas fa-heart coeur' /> By Wilders </div>
         <div className='suggest'> <ModalSuggestions /></div>
       </footer>
