@@ -189,7 +189,6 @@ class SearchBar extends React.Component {
     const { favorites } = this.state;
     this.setState({ loading: true });
     setTimeout(() => {
-
       this.setState({ weatherForecast: false, AQI: null, alerts: null, Pollution: null });
 
       navigator.geolocation.getCurrentPosition(pos => {
@@ -284,10 +283,7 @@ class SearchBar extends React.Component {
             }
           });
       });
-
-
   }
-
 
   unixTimestamp(t) {
     const dt = new Date(t * 1000);
