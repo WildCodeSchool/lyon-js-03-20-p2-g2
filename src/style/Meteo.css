@@ -18,6 +18,17 @@
     background-color: #728e9f9e;;
     width: 80%;
     margin: auto;
+    animation-name:displayWeather;
+    animation-duration:0.3s;
+    animation-direction: auto;
+}
+@keyframes displayWeather {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
 }
 
 .display-weather h1 {
@@ -64,10 +75,11 @@
     margin-top: 12px;
     margin-left: -5px;
 }
-
+.card {
+    transition:all 0.2s ease-in-out;
+}
 .card:hover {
     transform: scale(1.05);
-    transition: 0.4s;
 }
 
 .cards {

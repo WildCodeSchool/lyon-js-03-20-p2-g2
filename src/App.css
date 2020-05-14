@@ -12,7 +12,6 @@ button {
 }
 
 .welcome-message {
-    padding-top: 120px;
     text-align: center;
     color: white;
     font-family: 'Nunito', serif;
@@ -49,29 +48,48 @@ button {
 }
 
 #noteDates {
-    text-align: center;
+text-align: center;
 }
 
 
 .modal-trigger::-webkit-details-marker {
-    display: none;
+display: none;
 }
-
-
-.header {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    color: #36769b;
-    font-weight: 500;
-}
-
-.header img {
-    width: 150px;
-    align-self: center;
-}
-
 #App {
-    position: relative;
-    width: auto;
+position: relative;
+width: auto;
+}
+
+.header1 {
+display: flex;
+width: 50%;
+margin: auto;
+flex-flow: column;
+align-items: center;
+margin-bottom: 50px;
+opacity:1;
+transition: all 0.5s ease-in-out;
+padding-top: 120px;
+}
+
+.header1 img {
+    animation: all 0.4s ease-in-out;
+    opacity:1;
+    width:150px;
+    max-width:150px;
+}
+.header1.up{
+display: flex;
+width: 50%;
+margin: auto;
+flex-flow: inherit;
+align-items: center;
+opacity:0;
+transition: all 0.5s ease-in-out;
+padding-top: 0;
+
+}
+.up>img{
+   max-width:150px;
+   width:150px;
 }

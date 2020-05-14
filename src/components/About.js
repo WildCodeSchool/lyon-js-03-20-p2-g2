@@ -6,7 +6,8 @@ import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import '../App.css'
+
 
 class About extends Component {
   render() {
@@ -14,7 +15,10 @@ class About extends Component {
       <>
         <section className='about'>
           <Link className='back-home' id='ancre' to='/' style={{ outline: 'none' }}><i className='fas fa-chevron-circle-left fa-3x' /></Link>
-          <Header />
+          <div className='header1'>
+            <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
+            <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
+          </div>
           <h1>About us</h1>
           <div className='our-story'>
             <h3>Our story</h3>

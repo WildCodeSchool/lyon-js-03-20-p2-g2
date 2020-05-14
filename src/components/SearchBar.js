@@ -12,6 +12,9 @@ import WeatherDetails from './WeatherDetails';
 import Alerts from './Alerts';
 import ScrollButton from './ScrollButton';
 import moment from 'moment';
+import '../App.css';
+
+
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
@@ -23,6 +26,7 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      up: true,
       city: '',
       lat: 0,
       long: 0,
@@ -32,7 +36,6 @@ class SearchBar extends React.Component {
       suggestions: [],
       text: '',
       AQI: null,
-      collapse: null,
       pollutionIndex: null,
       favorites: [],
       liked: null,
@@ -122,7 +125,8 @@ class SearchBar extends React.Component {
           },
           loading: false,
           suggestions: [],
-          errorMessage: false
+          errorMessage: false,
+          up: false
         }, () => this.setState({ text: this.state.weatherForecast.city }));
       })
       .catch(error => {   /* eslint-disable-line */
@@ -171,16 +175,15 @@ class SearchBar extends React.Component {
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
   handleChange(event, city) {
+
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
-      this.setState({ city: city, weatherForecast: false, AQI: null, forecast: false, collapse: true });
+      this.setState({ city: city, weatherForecast: false, AQI: null, forecast: false, alerts: null });
       this.fetchOnClick(city);
       event.target.blur();
     }
   }
-
-
 
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
@@ -188,7 +191,10 @@ class SearchBar extends React.Component {
   async handleClick(e) {
     e.preventDefault();
     const { favorites } = this.state;
-    this.setState({ weatherForecast: false, AQI: null, loading: true });
+
+
+    this.setState({ weatherForecast: false, AQI: null, alerts: null, loading: true });
+
     navigator.geolocation.getCurrentPosition(pos => {
       this.setState({ loading: false },
         () => {
@@ -202,7 +208,7 @@ class SearchBar extends React.Component {
         .then(res => res.data)
         .then(data => {
           this.setState({
-            alerts: null,
+
             weatherForecast: {
               city: data.city.name.replace('Arrondissement de', ''),
               country: data.city.country,
@@ -221,17 +227,22 @@ class SearchBar extends React.Component {
               lat: data.city.coord.lat,
               lon: data.city.coord.lon
             },
+
             loading: false,
-            errorMessage: false
+            errorMessage: false,
+            up: false
+
+
           },
-            () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
+            () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }, () => this.setState({ up: false }),
               () => {
                 if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
                   this.setState({ liked: null });
                 } else {
                   this.setState({ liked: 'yes' });
                 }
-              }),
+              }, () => this.setState({ up: false })),
+
             this.fetchAlertsData(this.state.lat, this.state.lon)
           );
         })
@@ -250,6 +261,7 @@ class SearchBar extends React.Component {
               O3: data.data.iaqi.o3.v,
               PM10: data.data.iaqi.pm10.v
             }
+
           });
         })
 
@@ -258,10 +270,10 @@ class SearchBar extends React.Component {
           this.setState({ errorMessage: true });
         });
     });
+
   }
 
   async fetchAlertsData(lat, long) {
-
     await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
       .then(res => res.data)
       .then(data => {
@@ -325,88 +337,99 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage, alerts } = this.state;
+    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage, alerts, up } = this.state;
 
     return (
-      <div className='main-search'>
-        <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
-          <label className='search-label' htmlFor='search-input'>
-            <input
-              type='text' placeholder='Search for....'
-              onKeyDown={this.handleChange}
-              value={this.state.text}
-              onChange={this.handleTextChanged}
-              onFocus={this.handleFocus}
-            />
-            {this.renderSuggestions()}
-          </label>
-          <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
-        </form>
 
-        {errorMessage &&
-          <div className='error-message'>
-            <p>Sorry, the specified city was not found. <br />
+
+      <div>
+        <div className={up ? 'header1' : 'header1 up'}>
+          <h2 className='welcome-message' >Welcome to <strong>Weather Suggest</strong></h2>
+          <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
+        </div>
+
+
+        <div className={up ? 'main-search' : 'main-search up'} >
+          <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
+            <label className='search-label' htmlFor='search-input'>
+              <input
+                type='text' placeholder='Search for....'
+                onKeyDown={this.handleChange}
+                value={this.state.text}
+
+                onChange={this.handleTextChanged}
+                onFocus={this.handleFocus}
+              />
+              {this.renderSuggestions()}
+            </label>
+            <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
+          </form>
+
+          {errorMessage &&
+            <div className='error-message'>
+              <p>Sorry, the specified city was not found. <br />
             Please try searching with a valid city name!
             </p>
-          </div>}
+            </div>}
 
-        {loading && <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '50px' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+          {loading && <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
 
-        {favorites &&
-          <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} key={index}><span onClick={() => this.fetchOnClick(favorite)} className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
+          {favorites &&
+            <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} key={index}><span onClick={() => this.fetchOnClick(favorite)} className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
 
-        {weatherForecast &&
-          <div className='display-weather'>
-            <FavoriteItem addFavorite={this.addToFavorite} city={weatherForecast.city} liked={liked} />
-            {weatherForecast &&
-              <Header className='title'>
-                <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
-                  <h5>{moment().format('dddd, MMM DD')}</h5>
-                  <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
-                  <div className='temp'>
-                    <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
-                    <h3>
-                      <span onClick={() => { temp && this.setState({ temp: null }); }} className={temp ? 'celsius' : 'fahrenheit'}>C</span>
-                      <span className='separation-bar'> | </span>
-                      <span onClick={() => { !temp && this.setState({ temp: 'farenheit' }); }} className={temp ? 'fahrenheit' : 'celsius'}>F</span>
-                    </h3>
-                  </div>
-                  <img src={`https://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} alt='icon' />
-                </Header.Content>
-                <WeatherDetails weatherForecast={weatherForecast} unixTimestamp={this.unixTimestamp} temp={temp} />
-              </Header>}
-
-            <Card.Group className='cards'>
+          {weatherForecast &&
+            <div className='display-weather'>
+              <FavoriteItem addFavorite={this.addToFavorite} city={weatherForecast.city} liked={liked} />
               {weatherForecast &&
-                weatherForecast.weatherData
-                  .filter(data => data.dt_txt.includes('12:00:00'))
-                  .map((meteo, index) => {
-                    return <Meteo
-                      key={index}
-                      phrase={meteo.weather[0].description}
-                      date={meteo.dt_txt}
-                      min={Math.floor(meteo.main.temp_min - 273.15)}
-                      max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={meteo.weather[0].icon}
-                      switch={this.state.temp}
-                    />; // eslint-disable-line
-                  })}
-            </Card.Group>
-          </div>}
-        {AQI && <Pollution AQI={AQI} NO2={pollutionIndex.NO2} O3={pollutionIndex.O3} PM10={pollutionIndex.PM10} />}
-        {weatherForecast && <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
+                <Header className='title'>
+                  <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
+                    <h5>{moment().format('dddd, MMM DD')}</h5>
+                    <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
+                    <div className='temp'>
+                      <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
+                      <h3>
+                        <span onClick={() => { temp && this.setState({ temp: null }); }} className={temp ? 'celsius' : 'fahrenheit'}>C</span>
+                        <span className='separation-bar'> | </span>
+                        <span onClick={() => { !temp && this.setState({ temp: 'farenheit' }); }} className={temp ? 'fahrenheit' : 'celsius'}>F</span>
+                      </h3>
+                    </div>
+                    <img src={`https://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} alt='icon' />
+                  </Header.Content>
+                  <WeatherDetails weatherForecast={weatherForecast} unixTimestamp={this.unixTimestamp} temp={temp} />
+                </Header>}
 
-        {alerts &&
-          <Alerts
-            title={alerts.title}
-            description={alerts.description}
-            regions={alerts.regions}
-            severity={alerts.severity}
-            url={alerts.url}
-          />}
+              <Card.Group className='cards'>
+                {weatherForecast &&
+                  weatherForecast.weatherData
+                    .filter(data => data.dt_txt.includes('12:00:00'))
+                    .map((meteo, index) => {
+                      return <Meteo
+                        key={index}
+                        phrase={meteo.weather[0].description}
+                        date={meteo.dt_txt}
+                        min={Math.floor(meteo.main.temp_min - 273.15)}
+                        max={Math.ceil(meteo.main.temp_max - 273.15)}
+                        icon={meteo.weather[0].icon}
+                        switch={this.state.temp}
+                      />; // eslint-disable-line
+                    })}
+              </Card.Group>
+            </div>}
+          {AQI && <Pollution AQI={AQI} NO2={pollutionIndex.NO2} O3={pollutionIndex.O3} PM10={pollutionIndex.PM10} />}
+          {weatherForecast && <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
 
-        {weatherForecast && <ScrollButton />}
-      </div>
+          {alerts &&
+            <Alerts
+              title={alerts.title}
+              description={alerts.description}
+              regions={alerts.regions}
+              severity={alerts.severity}
+              url={alerts.url}
+            />}
+
+          {weatherForecast && <ScrollButton />}
+        </div>
+      </div >
     );
   }
 }

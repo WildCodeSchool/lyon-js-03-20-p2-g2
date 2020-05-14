@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import About from './components/About';
-import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import Footer from './components/Footer';
 import styled from 'styled-components';
@@ -17,17 +16,17 @@ const Background = styled.div`
     (time >= 0 && time < 6 && 'url("https://img-weather.netlify.app/background/background_night7.jpg")')
   } no-repeat fixed center;
     min-height: 100vh;
-    background-size: cover;`;
+    background-size: cover;`
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <Router>
         <main id='App'>
           <Switch>
             <Route exact path='/'>
               <Background>
-                <Header />
+
                 <SearchBar />
                 <Footer />
               </Background>

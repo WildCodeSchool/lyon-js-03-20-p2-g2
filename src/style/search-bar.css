@@ -82,10 +82,6 @@
     padding-bottom: 100px;
 }
 
-.main-search {
-    padding-bottom: 100px;
-}
-
 .geoLocation-input {
     position: relative;
     right: 50px;
@@ -147,6 +143,7 @@
     color: white;
     font-weight: 500;
 }
+
 
 @media only screen and (max-width: 800px) {
     .search-bar {

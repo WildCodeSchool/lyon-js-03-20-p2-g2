@@ -7,7 +7,7 @@ import '../style/Meteo.css';
 moment.locale('en-US');
 
 class Meteo extends Component {
-  render () {
+  render() {
     const capitalize = (a) => {
       return (a + '').charAt(0).toUpperCase() + a.substr(1);
     };
@@ -23,7 +23,7 @@ class Meteo extends Component {
               </Card.Description> /*  eslint-disable-line */
             : <Card.Description className='card-temperatures'>
               <span title='Minimal temperature'>{this.props.min}°C</span> | <span title='Maximal temperature'>{this.props.max}°C</span>
-              </Card.Description>} {/*  eslint-disable-line */}
+            </Card.Description>} {/*  eslint-disable-line */}
         </Card.Content>
       </Card>
     );
