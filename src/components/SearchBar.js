@@ -256,7 +256,6 @@ class SearchBar extends React.Component {
   }
 
   async fetchAlertsData (lat, long) {
-    console.log(lat);
     await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
       .then(res => res.data)
       .then(data => {
@@ -298,8 +297,8 @@ class SearchBar extends React.Component {
       () => {
         if (favoriteCity.favorite === this.state.text) {
           this.setState({ liked: null });
-        } else {
-          this.setState({ liked: 'yes' });
+        } else if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === favoriteCity.favorite.toLowerCase())) {
+          this.setState({ liked: null });
         }
       }
     );
