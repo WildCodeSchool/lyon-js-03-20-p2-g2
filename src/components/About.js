@@ -6,13 +6,16 @@ import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Footer from '../components/Footer';
+import ScrollToTop from '../components/ScrollToTop'
 import '../App.css';
 
 class About extends Component {
-  render () {
+  render() {
+
     return (
       <>
         <section className='about'>
+          <ScrollToTop />
           <Link className='back-home' id='ancre' to='/' style={{ outline: 'none' }}><i className='fas fa-chevron-circle-left fa-3x' /></Link>
           <div className='header1'>
             <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
