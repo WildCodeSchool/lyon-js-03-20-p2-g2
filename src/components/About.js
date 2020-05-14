@@ -6,12 +6,11 @@ import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Footer from '../components/Footer';
-import ScrollToTop from '../components/ScrollToTop'
+import ScrollToTop from '../components/ScrollToTop';
 import '../App.css';
 
 class About extends Component {
-  render() {
-
+  render () {
     return (
       <>
         <section className='about'>
