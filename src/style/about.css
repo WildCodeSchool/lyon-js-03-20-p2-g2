@@ -1,132 +1,111 @@
 
-.back-home
-{
-	left: 10px;
-	top: 10px;
-	position: fixed;
+.back-home {
+    left: 10px;
+    top: 10px;
+    position: fixed;
 }
 
-.about
-{
-	text-align: center;
-	word-wrap: break-word;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-size: cover;
-	background: url("../images/background/background_dawn2.jpg") no-repeat fixed center;
-	padding-bottom: 20px;
-	min-height: 100vh;
-	background-size: cover;
+.about {
+    text-align: center;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background: url("../images/background/background_dawn2.jpg") no-repeat fixed center;
+    padding-bottom: 20px;
+    min-height: 100vh;
+    background-size: cover;
 }
 
-.about > h1
-{
-	color: #005C89;
+.about > h1 {
+    color: #005C89;
 }
 
-.our-story
-{
-	width: 70%;
-	text-align: center;
-	margin: 50px 0;
+.our-story {
+    width: 70%;
+    text-align: center;
+    margin: 50px 0;
 }
 
-.our-story p
-{
-	text-align: justify;
+.our-story p {
+    text-align: justify;
 }
 
-.paragraphs
-{
-	margin-top: 20px;
+.paragraphs {
+    margin-top: 20px;
 }
 
-.about > h1
-{
-	font-family: 'Nunito', serif;
-	font-weight: bold;
+.about > h1 {
+    font-family: 'Nunito', serif;
+    font-weight: bold;
 }
 
-.our-story > h3, .team > h3
-{
-	font-family: 'Nunito', serif;
-	font-size: 32px;
-	font-weight: bold;
-	color: #005C89;
+.our-story > h3, .team > h3 {
+    font-family: 'Nunito', serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #005C89;
 }
 
-.our-story, .team
-{
-	background: rgba(153, 215, 245, 0.4);
-	border-radius: 10px;
-	margin-bottom: 70px;
-	padding: 20px 20px 0;
+.our-story, .team {
+    background: rgba(153, 215, 245, 0.4);
+    border-radius: 10px;
+    margin-bottom: 70px;
+    padding: 20px 20px 0;
 }
 
-.our-story > .paragraphs
-{
-	font-family: 'Raleway', serif;
-	color: #005C89;
+.our-story > .paragraphs {
+    font-family: 'Raleway', serif;
+    color: #005C89;
 }
 
-.us
-{
-	font-family: 'Nunito', serif;
-	color: #005C89;
-	margin-top: 20px;
+.us {
+    font-family: 'Nunito', serif;
+    color: #005C89;
+    margin-top: 20px;
 }
 
-.us ~ p
-{
-	font-family: 'Raleway', serif;
-	color: #005C89;
-	margin-bottom: 50px;
+.us ~ p {
+    font-family: 'Raleway', serif;
+    color: #005C89;
+    margin-bottom: 50px;
 }
 
-.container-about
-{
-	margin-top: 50px;
+.container-about {
+    margin-top: 50px;
 }
 
-.our_pics
-{
-	box-shadow: 5px 5px 5px #99D7F5;
-	width: 80%;
+.our_pics {
+    box-shadow: 5px 5px 5px #99D7F5;
+    width: 80%;
 }
 
-.footer-style
-{
-	width: 100%;
-	margin: auto;
-	color: white;
+.footer-style {
+    width: 100%;
+    margin: auto;
+    color: white;
 }
 
-.coeur
-{
-	color: red;
+.coeur {
+    color: red;
 }
 
 
-
-.fa-3x
-{
-	color: white;
+.fa-3x {
+    color: white;
 }
 
-.fa-3x:hover
-{
-	color:#D3D3D3;
+.fa-3x:hover {
+    color: #D3D3D3;
 }
 
-@media only screen and (max-width: 300px)
-{
-	.footer-style
-	{
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		align-items: center;
-	}
+@media only screen and (max-width: 300px) {
+    .footer-style {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
 }
