@@ -10,7 +10,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FavoriteItem from './FavoriteItem';
 import WeatherDetails from './WeatherDetails';
 import Alerts from './Alerts';
-import ScrollButton from './ScrollButton';
 import moment from 'moment';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
@@ -400,8 +399,6 @@ class SearchBar extends React.Component {
             severity={alerts.severity}
             url={alerts.url}
           />}
-
-        {weatherForecast && <ScrollButton />}
       </div>
     );
   }
