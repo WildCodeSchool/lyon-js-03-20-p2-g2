@@ -5,6 +5,7 @@ import About from './components/About';
 import SearchBar from './components/SearchBar';
 import Footer from './components/Footer';
 import styled from 'styled-components';
+import ScrollButton from './components/ScrollButton';
 
 const today = new Date();
 const Background = styled.div`
@@ -19,10 +20,43 @@ const Background = styled.div`
     background-size: cover;`;
 
 class App extends React.Component {
-  render () {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+    this.state = {
+      scrollButton: false
+    };
+  }
+
+  componentDidMount() {
+    const scrollComponent = this;
+    document.addEventListener('scroll', function (e) {
+      scrollComponent.toggleVisibility();
+    });
+  }
+
+  toggleVisibility = () => {
+    if (window.pageYOffset > 300) {
+      this.setState({ scrollButton: true });
+    } else {
+      this.setState({ scrollButton: false });
+    }
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  render() {
     return (
       <Router>
-        <main id='App'>
+        <main
+          ref={this.myRef}
+          onScroll={this.handleScroll} id='App'
+        >
           <Switch>
             <Route exact path='/'>
               <Background>
@@ -35,6 +69,7 @@ class App extends React.Component {
               <About />
             </Route>
           </Switch>
+          {this.state.scrollButton && <ScrollButton onClick={() => this.scrollToTop()} />}
         </main>
       </Router>
     );

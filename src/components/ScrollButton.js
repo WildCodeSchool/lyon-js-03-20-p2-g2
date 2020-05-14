@@ -1,17 +1,18 @@
 import React from 'react';
+import '../App.css';
 
-function ScrollButton () {
+function ScrollButton(props) {
   return (
     <>
-      <a href='#' className='btnScrollToTop' style={styleBtn}>
+      <div className='btnScrollToTop' onClick={props.onClick} style={styleBtn}>
         <i style={styleIcon} className='fas fa-arrow-up' />
-      </a>
+      </div>
     </>
   );
 }
 
 const styleBtn = {
-  position: 'absolute',
+  position: 'fixed',
   right: '10px',
   bottom: '150px',
   width: '50px',
@@ -20,7 +21,10 @@ const styleBtn = {
   color: '#99D7F5',
   borderRadius: '50%',
   display: 'flex',
-  textDecoration: 'none'
+  textDecoration: 'none',
+  cursor: 'pointer',
+  transition: 'all 0.5s ease-in-out',
+
 };
 
 const styleIcon = {

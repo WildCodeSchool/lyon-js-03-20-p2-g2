@@ -16,7 +16,9 @@ button {
     color: white;
     font-family: 'Nunito', serif;
 }
-
+.btnScrollToTop:hover{
+background-color: khaki;
+}
 .modal[open] > .modal-trigger::before {
     position: fixed;
     top: 0;
