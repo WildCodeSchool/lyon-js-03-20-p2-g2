@@ -268,7 +268,6 @@ class SearchBar extends React.Component {
     }, 1000);
   }
 
-
   async fetchAlertsData (lat, long) {
     await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
       .then(res => res.data)
@@ -286,7 +285,6 @@ class SearchBar extends React.Component {
           });
       });
   }
-
 
   unixTimestamp (t) {
     const dt = new Date(t * 1000);
