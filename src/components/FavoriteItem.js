@@ -7,7 +7,11 @@ const Favorite = styled.span`
     cursor: pointer;
     display: flex;
     justify-content: flex-end;
-    width: 100%;`;
+    width: 100%;
+    @media (max-width: 500px) {
+    justify-content: center;
+    margin-bottom: 20px;
+  }`;
 
 class FavoriteItem extends React.Component {
   render () {

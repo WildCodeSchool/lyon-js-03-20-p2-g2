@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Weather from './Weather';
+import SuggestionsCard from './SuggestionsCard';
 
 const Rainy = {
   img: require('../images/suggestions/rainy1.gif'),
@@ -19,15 +19,6 @@ const Cold = {
   img4: require('../images/suggestions/scarf.png'),
   alt: 'cold-weather'
 };
-const Sunny = {
-  img: require('../images/suggestions/image-sunny.png'),
-  p: 'The weather will be sunny so don\'t cover yourself too much but protect you skin and don\'t forget your glasses',
-  img1: require('../images/suggestions/tee-shirt.png'),
-  img2: require('../images/suggestions/casquette.png'),
-  img3: require('../images/suggestions/sunscreen.png'),
-  img4: require('../images/suggestions/sunglasses.png'),
-  alt: 'sunny-weather'
-};
 const Snowy = {
   img: require('../images/suggestions/snowy1.gif'),
   p: 'The weather will be snowy and cold, so don\'t forget to cover yourself with a jacket, a hat and a scarf.Let it snow!',
@@ -41,10 +32,10 @@ const Temperate = {
   img: require('../images/suggestions/temperate1.gif'),
   p: 'The temperature is moderate today, it is the good moment to go outside if you want to take a walk or practice some sports !\n' +
     '  Feel free to wear comfortable clothes !',
-  img1: require('../images/suggestions/tshirt.png'),
+  img1: require('../images/suggestions/tee-shirt.png'),
   img2: require('../images/suggestions/jean.png'),
   img3: require('../images/suggestions/sportshoes.png'),
-  img4: require('../images/suggestions/dress.png'),
+  img4: require('../images/suggestions/casquette.png'),
   alt: 'temperate-weather'
 };
 const VeryHot = {
@@ -53,32 +44,32 @@ const VeryHot = {
     '          You must drink a lot of water, cover your head and find cool places if you go outside.',
   img1: require('../images/suggestions/bottle.png'),
   img2: require('../images/suggestions/ventilator.png'),
-  img3: require('../images/suggestions/swimsuit.png'),
+  img3: require('../images/suggestions/sunglasses.png'),
   img4: require('../images/suggestions/sunscreen.png'),
   alt: 'very-hot-weather'
 };
 
 let clothes = '';
 
-class Weathers extends Component {
+class SuggestionsList extends Component {
   render () {
     const temperature = this.props.min;
     const description = this.props.main;
 
     if (description.includes('Rain')) {
-      clothes = <Weather {...Rainy} />;
+      clothes = <SuggestionsCard {...Rainy} />;
     } else if (description.includes('Snow')) {
-      clothes = <Weather {...Snowy} />;
+      clothes = <SuggestionsCard {...Snowy} />;
     } else if (temperature <= 10) {
-      clothes = <Weather {...Cold} />;
+      clothes = <SuggestionsCard {...Cold} />;
     } else if ((temperature >= 10 && temperature <= 18)) {
-      clothes = <Weather {...Temperate} />;
+      clothes = <SuggestionsCard {...Temperate} />;
     } else if ((temperature > 18 && temperature <= 30 && description.includes('Clouds'))) {
-      clothes = <Weather {...Sunny} />;
+      clothes = <SuggestionsCard {...Temperate} />;
     } else if (temperature > 18 && temperature <= 30) {
-      clothes = <Weather {...Temperate} />;
+      clothes = <SuggestionsCard {...Temperate} />;
     } else if (temperature >= 31) {
-      clothes = <Weather {...VeryHot} />;
+      clothes = <SuggestionsCard {...VeryHot} />;
     } else clothes = <h2 align='center'>no data</h2>;
 
     return (
@@ -87,4 +78,4 @@ class Weathers extends Component {
   }
 }
 
-export default Weathers;
+export default SuggestionsList;

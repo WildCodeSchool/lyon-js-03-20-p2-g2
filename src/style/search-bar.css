@@ -1,46 +1,36 @@
-@font-face {
-    font-family: 'Raleway';
-    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Nunito';
-    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
-}
-
 .search-bar {
     width: 40%;
     margin: auto;
     display: flex;
-    padding-bottom: 50px;
 }
 
-@media only screen and (max-width: 800px) {
-    .search-bar {
-        width: 90%;
-    }
 
-    .search-label .autocomplete {
-        width: 87%;
-    }
-}
 
 .search-bar input[type=text] {
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid #005C89;
-    border-radius: 12px;
+    border: 1px solid #ffffff;
+    border-radius: 30px;
     font-size: 16px;
     background-color: white;
-    background-image: url('../images/searchicon-blue.png');
-    background-position: 10px 15px;
+    background-image: url("../images/searchicon-blue.png");
+    background-position: 15px 15px;
     background-repeat: no-repeat;
-    padding: 15px 20px 10px 40px;
+    padding: 15px 20px 10px 50px;
     outline: none;
     background-size: 24px;
     color: #005C89;
     font-family: 'Nunito', serif;
+    box-shadow: 0 8px 16px rgba(181, 180, 170, 0.4);
+    letter-spacing: 1px;
+    font-weight: bolder;
 }
+
+.search-bar input[type=text]:focus {
+    transform: scale(1.025);
+    transition: 0.4s;
+}
+
 
 .search-bar input[type=text]::placeholder {
     color: rgba(0, 92, 137, 0.4);
@@ -51,7 +41,6 @@
     position: absolute;
     list-style-type: none;
     background-color: white;
-    width: 39%;
     border-radius: 10px;
 }
 
@@ -69,8 +58,9 @@
     position: absolute;
     list-style-type: none;
     background-color: white;
-    width: 39%;
+    width: 38%;
     border-radius: 10px;
+    padding: 0;
 }
 
 .search-bar ul li {
@@ -92,17 +82,13 @@
     padding-bottom: 100px;
 }
 
-.main-search {
-    padding-bottom: 100px;
-}
-
 .geoLocation-input {
     position: relative;
-    right: 30px;
+    right: 50px;
     bottom: 5px;
     background: none;
     border: none;
-    color: #005C89;
+    color: #02A2EF;
     font-size: 24px;
 }
 
@@ -110,67 +96,63 @@
     outline: none;
 }
 
-/* Loader */
-img.search-loding {
-    display: flex;
-    margin: 0 auto;
+.content > h5 {
+    font-family: 'Nunito';
+    color: #005C89;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* moreInfo */
+/* Favoris */
+.list-favorites {
+    list-style: none;
+    width: 30%;
+    margin: 0 auto;
+    font-family: 'Nunito', serif;
+    padding: 50px 0;
+}
 
-.moreInfo {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px 0;
-    margin: 20px 50px;
+.list-favorites li {
+    background-color: rgba(255, 255, 255, 0.45);
+    color: #005C89;
     border-radius: 10px;
     text-align: center;
-    flex-basis: auto;
-    box-shadow: 0 70px 40px -50px rgba(0, 0, 0, 0.2), 0 3px 20px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    margin-top: 10px;
+    display: flex
 }
 
-.specifics {
-    text-align: center;
-    width: 25%;
-    height: 100px;
-    color: #005C89;
+.list-favorites li .city-favorite {
+    margin: auto;
+    width: 100%;
 }
 
-.moreInfo:hover {
-    transform: scale(1.02);
-    transition: 0.4s;
+.deleting-city {
+    font-size: 15px;
 }
 
-.celsius {
-    color: grey;
-    cursor: pointer;
+/* Error message */
+.error-message {
+    font-family: 'Nunito', serif;
+    display: block;
+    width: fit-content;
+    margin: 50px auto 20px auto;
+    background-color: rgba(146, 27, 27, 0.7);
+    border-radius: 6px;
+    padding: 10px 30px;
+    color: white;
+    font-weight: 500;
 }
 
-.fahrenheit {
-    cursor: pointer;
-}
 
-.separation-bar {
-    color: grey;
-}
-
-.temp {
-    display: flex;
-    justify-content: center;
-}
-
-.temp > div {
-    margin-right: 5px;
-}
-
-@media only screen and (max-width: 900px) {
-    .moreInfo {
-        width: 80%;
-        height: 100%;
+@media only screen and (max-width: 800px) {
+    .search-bar {
+        width: 90%;
+        margin-left: 35px;
     }
 
-    .specifics {
-        width: 50%;
+    .search-label .autocomplete {
+        width: 87%;
     }
 }
 

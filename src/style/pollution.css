@@ -1,18 +1,8 @@
-@font-face {
-    font-family: 'Raleway';
-    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Nunito';
-    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
-}
-
 .div-pollution {
-    background-image: linear-gradient(135deg, #8bc6ec63 0%, #95d0e2b0 100%);
     width: 80%;
     margin: 20px auto;
     font-family: 'Nunito', serif;
+    background-color: rgba(255, 255, 255, 0.45);
 }
 
 .title-pollution {
@@ -31,6 +21,7 @@
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    font-weight: bolder;
 }
 
 .div-pollution > hr {
@@ -85,9 +76,6 @@
 }
 
 /* GOOD AQI */
-.div-good-AQI > div {
-    background-color: rgba(6, 98, 59, 0.3);
-}
 
 .div-good-AQI > div > i,
 .green {
@@ -100,9 +88,7 @@
 }
 
 /* MODERATE AQI */
-.div-moderate-AQI > div {
-    background-color: rgba(246, 215, 67, 0.3);
-}
+
 
 .div-moderate-AQI > div > i,
 .yellow {
@@ -115,9 +101,7 @@
 }
 
 /* UNHEALTHY AQI */
-.div-unhealthy-AQI > div {
-    background-color: rgba(221, 44, 0, 0.3);
-}
+
 
 .div-unhealthy-AQI > div > i,
 .red {
