@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Overlay from 'react-bootstrap/Overlay';
 import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
-import '../style/modalsuggestions.css';
+import '../style/footer.css';
 
 const SmileysPopover = (props) => {
   const [clickedSmiley, setClickedSmiley] = useState(null);
@@ -43,15 +43,8 @@ function ModalSuggestions () {
 
   return (
     <div className='modal_Suggestions' ref={ref}>
-      <Button className='btn_Suggestions' onClick={handleClick}><div className='icon_OpenModal'>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</div></Button>
-
-      <Overlay
-        show={show}
-        target={target}
-        placement='top'
-        container={ref.current}
-        containerPadding={20}
-      >
+      <Button className='btn-sugg' style={{ backgroundColor: '#005C89', color: '#99D7F5' }} onClick={handleClick}>{show ? <i className='fas fa-times' /> : <i className='far fa-grin' />}</Button>
+      <Overlay show={show} target={target} placement='top' container={ref.current} containerPadding={20}>
         <Popover id='popover-contained' className='popover_Container'>
           <Popover.Title as='h3' className='title_Popover'>How would you rate your experience ?</Popover.Title>
           <Popover.Content className='paragraph_Popover'>

@@ -1,25 +1,217 @@
-@font-face {
-    font-family: 'Nunito';
-    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
-}
-
-footer {
+.footer {
     font-family: 'Nunito', serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
     position: absolute;
-    bottom: 2px;
+    left: 0;
+    bottom: 0;
     width: 100%;
 }
 
-footer > div > a,
-footer > div > a:hover {
-    color: #005C89;
-    text-decoration: none
+.link-about-us {
+    padding: 10px;
+    align-self: center;
+    color: #02A2EF;
 }
 
-.link {
-    position: absolute;
-    left: 5px;
+.link-about-us a {
+    color: #02A2EF;
+}
+
+.link-about-us a:hover {
+    text-decoration: none;
+    color: #005C89
+}
+
+.link-ws {
+    align-self: center;
+    color: #02A2EF;
+    text-align: center;
+}
+
+.link-ws a {
+    color: #02A2EF;
+}
+
+.link-ws a:hover {
+    text-decoration: none;
+    color: #005C89
+}
+
+.suggest {
+    padding: 10px;
+
+}
+
+.fa-grin {
+    width: 31px;
+    font-size: 30px;
+}
+
+.fa-times {
+    width: 33px;
+    font-size: 30px;
+}
+
+.btn-sugg {
+    font-size: 35px;
+    border-radius: 8px;
+}
+
+.popover_Container {
+    width: 450px !important;
+    background-color: #99D7F5 !important;
+    border: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    color: #005C89 !important;
+    margin-bottom: 1em;
+    bottom: 10px !important;
+    max-width: 290px !important;
+}
+
+.title_Popover {
+    font-size: 14px !important;
+    background-color: #99D7F5 !important;
+    color: #005C89 !important;
+    font-weight: bold !important;
+    font-family: 'Nunito', serif !important;
+    border: none !important;
+    text-align: center !important;
     display: flex;
-    justify-content: flex-start;
-    padding: 15px;
+}
+
+.closing-modal {
+    margin-left: 5px;
+}
+
+.paragraph_Popover {
+    font-size: 24px !important;
+    color: #005C89 !important;
+    display: flex;
+    max-height: 220px;
+}
+
+.iconsPopover {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.icon-clicked {
+    font-size: 45px;
+    opacity: 1 !important;
+    color: #02A2EF;
+}
+
+.bs-popover-top > .arrow::after, .bs-popover-top > .arrow::before {
+    border-top-color: #99D7F5 !important;
+    left: -10px !important;
+    bottom: 2px !important;
+}
+
+[type=button]:focus {
+    box-shadow: none !important;
+}
+
+[type=button],
+[type=button]:hover {
+    border: none !important;
+}
+
+/* Text area suggestions */
+
+.text-area {
+    right: 50px;
+    bottom: 150px;
+    width: 275px;
+    height: 20vh;
+    background-color: #99D7F5;
+    z-index: 2000;
+    transition: transform 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    min-height: 10vh;
+}
+
+.input-textarea {
+    font-family: 'Nunito', serif;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 14px;
+    outline: none;
+}
+
+label.input-textarea {
+    color: #005C89;
+}
+
+textarea[name='message'], textarea[name='message']::placeholder {
+    background-color: #02A2EF;
+    border: none;
+    color: white;
+    opacity: 0.8;
+    border-radius: 8px;
+    resize: none;
+    margin: 0;
+    padding-left: 5px;
+}
+
+
+.smileys-popover {
+    display: flex;
+    flex-direction: column;
+}
+
+.smileys-popover > div {
+    text-align: center;
+}
+
+input[type='submit'], input[type='submit']:active, input[type='submit']:focus {
+    background-color: #005C89 !important;
+    color: #99D7F5 !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    width: 60px;
+    border-radius: 10px;
+    margin: 0;
+
+}
+
+@media screen and (max-width: 700px) {
+    .btn_Suggestions {
+        height: 7vh;
+        max-height: 7vh;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .btn_Suggestions {
+        height: 5vh;
+        max-height: 5vh;
+    }
+
+    .link-about-us {
+        padding: 10px;
+        align-self: center;
+    }
+
+    .link-about-us a {
+        font-size: 18px;
+        color: white;
+    }
+
+    .link-ws {
+        width: 50%;
+    }
+
+    .link-ws a {
+        font-size: 18px;
+    }
 }

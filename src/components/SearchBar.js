@@ -1,33 +1,43 @@
 import React from 'react';
 import '../style/search-bar.css';
-import { Card, Header, Icon } from 'semantic-ui-react';
+import { Card, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import Meteo from './Meteo';
-import Weathers from './Weathers';
+import SuggestionsList from './SuggestionsList';
 import citiesList from 'cities.json';
 import Pollution from './Pollution';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FavoriteItem from './FavoriteItem';
+import WeatherDetails from './WeatherDetails';
+import Alerts from './Alerts';
+import moment from 'moment';
+import '../App.css';
 
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
 const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
+const keyDarkSky = 'cfeed98eb60dc557187a9ea2c357cd52';
 
 class SearchBar extends React.Component {
   constructor () {
     super();
     this.state = {
+      up: true,
       city: '',
       lat: 0,
       long: 0,
-      meteoByGeo: false,
-      meteoBySearch: false,
+      weatherForecast: false,
       loading: false,
       country: '',
       suggestions: [],
       text: '',
       AQI: null,
-      pollutionIndex: null
+      pollutionIndex: null,
+      favorites: [],
+      liked: null,
+      errorMessage: false,
+      alerts: null
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -72,7 +82,8 @@ class SearchBar extends React.Component {
     await this.setState(() => ({
       text: value,
       suggestions: [],
-      meteoByGeo: false
+      forecast: false,
+      alerts: null
     }), () => this.fetchOnClick(this.state.text));
   }
 
@@ -81,19 +92,16 @@ class SearchBar extends React.Component {
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
   async fetchOnClick (city) {
+    const { favorites } = this.state;
+
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
-
-    if (this.cancel) {
-      this.cancel.cancel();
-    }
-
-    this.cancel = axios.CancelToken.source();
 
     await axios.get(searchCityUrl, { cancelToken: this.cancel.token })
       .then(res => res.data)
       .then(data => {
         this.setState({
-          meteoBySearch: {
+          alerts: null,
+          weatherForecast: {
             city: data.city.name.replace('Arrondissement de ', ''),
             country: data.city.country,
             sunrise: data.city.sunrise,
@@ -107,20 +115,30 @@ class SearchBar extends React.Component {
             wind: data.list[0].wind.speed,
             icon: data.list[0].weather[0].icon,
             main: data.list[0].weather[0].main,
-            weatherData: data.list
+            weatherData: data.list,
+            lat: data.city.coord.lat,
+            lon: data.city.coord.lon
+
           },
           loading: false,
-          suggestions: []
-
-        });
+          suggestions: [],
+          errorMessage: false,
+          up: false
+        }, () => this.setState({ text: this.state.weatherForecast.city }));
+      })
+      .catch(error => {   /* eslint-disable-line */
+        console.log('Please search again...');
+        this.setState({ errorMessage: true });
       });
 
-    const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.meteoBySearch.city}/?token=${keyAQI}`).then(res => res.data)
-      .catch(error => {
-        if (axios.isCancel(error) || error) {
-          this.setState({ loading: false });
-        }
-      });
+    if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
+      this.setState({ liked: null });
+    } else {
+      this.setState({ liked: 'yes' });
+    }
+
+    const dataPollution = await axios.get(`https://api.waqi.info/feed/${this.state.weatherForecast.city}/?token=${keyAQI}`).then(res => res.data)
+      .catch(error => this.setState({ errorMessage: true })); /* eslint-disable-line */
 
     dataPollution.data.aqi &&
       this.setState({
@@ -132,6 +150,21 @@ class SearchBar extends React.Component {
           PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
         }
       });
+
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.weatherForecast.lat},${this.state.weatherForecast.lon}`)
+      .then(res => res.data)
+      .then(data => {
+        data.alerts &&
+          this.setState({
+            alerts: {
+              title: data.alerts[0].title,
+              description: data.alerts[0].description,
+              regions: data.alerts[0].regions,
+              severity: data.alerts[0].severity,
+              url: data.alerts[0].uri
+            }
+          });
+      });
   }
 
   /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur la touche 'Entrée'.
@@ -142,257 +175,255 @@ class SearchBar extends React.Component {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
-      this.setState({ city: city, meteoByGeo: false, AQI: null, meteoBySearch: false });
+      this.setState({ city: city, weatherForecast: false, AQI: null, forecast: false, alerts: null });
       this.fetchOnClick(city);
+      event.target.blur();
     }
   }
 
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  handleClick (e) {
+  async handleClick (e) {
     e.preventDefault();
-    this.setState({ meteoBySearch: false, AQI: null, loading: true });
-    navigator.geolocation.getCurrentPosition(pos => {
-      this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)), loading: false });
+    const { favorites } = this.state;
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ weatherForecast: false, AQI: null, alerts: null, Pollution: null });
 
-      const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
+      navigator.geolocation.getCurrentPosition(pos => {
+        this.setState({ loading: false },
+          () => {
+            this.setState({ lat: parseFloat(pos.coords.latitude.toFixed(3)), long: parseFloat(pos.coords.longitude.toFixed(3)) });
+          }
+        );
 
-      if (this.cancel) {
-        this.cancel.cancel();
-      }
+        const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.long}&appid=${Apikeyw}`;
 
-      this.cancel = axios.CancelToken.source();
+        axios.get(searchCityUrl)
+          .then(res => res.data)
+          .then(data => {
+            this.setState({
 
-      axios.get(searchCityUrl, { cancelToken: this.cancel.token })
+              weatherForecast: {
+                city: data.city.name.replace('Arrondissement de', ''),
+                country: data.city.country,
+                sunrise: data.city.sunrise,
+                sunset: data.city.sunset,
+                temperature: Math.round(data.list[0].main.temp - 273.15),
+                feelslike: Math.round(data.list[0].main.feels_like - 273.15),
+                tempmin: Math.round(data.list[0].main.temp_min - 273.15),
+                tempmax: Math.round(data.list[0].main.temp_max - 273.15),
+                pressure: data.list[0].main.pressure,
+                humidity: data.list[0].main.humidity,
+                wind: data.list[0].wind.speed,
+                icon: data.list[0].weather[0].icon,
+                weatherData: data.list,
+                main: data.list[0].weather[0].main,
+                lat: data.city.coord.lat,
+                lon: data.city.coord.lon
+              },
 
-        .then(res => res.data)
-        .then(data => {
-          this.setState({
-            meteoByGeo: {
-              city: data.city.name.replace('Arrondissement de', ''),
-              country: data.city.country,
-              sunrise: data.city.sunrise,
-              sunset: data.city.sunset,
-              temperature: Math.round(data.list[0].main.temp - 273.15),
-              feelslike: Math.round(data.list[0].main.feels_like - 273.15),
-              tempmin: Math.round(data.list[0].main.temp_min - 273.15),
-              tempmax: Math.round(data.list[0].main.temp_max - 273.15),
-              pressure: data.list[0].main.pressure,
-              humidity: data.list[0].main.humidity,
-              wind: data.list[0].wind.speed,
-              icon: data.list[0].weather[0].icon,
-              weatherData: data.list,
-              main: data.list[0].weather[0].main
+              loading: false,
+              errorMessage: false,
+              up: false
 
             },
-            loading: false
+            () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
+              () => {
+                if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
+                  this.setState({ liked: null });
+                } else {
+                  this.setState({ liked: 'yes' });
+                }
+              }, () => this.setState({ up: false })),
 
-          }, () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }));
-        });
-
-      axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
-        .then(res => res.data)
-        .then(data => {
-          this.setState({
-            AQI: data.data.aqi,
-            pollutionIndex: {
-              NO2: data.data.iaqi.no2.v,
-              O3: data.data.iaqi.o3.v,
-              PM10: data.data.iaqi.pm10.v
-            }
+            this.fetchAlertsData(this.state.lat, this.state.lon)
+            );
+          })
+          .catch(error => { /* eslint-disable-line */
+            console.log('Please search again...');
+            this.setState({ errorMessage: true });
           });
-        })
 
-        .catch(error => {
-          if (axios.isCancel(error) || error) {
-            this.setState({ loading: false });
-          }
-        });
-    });
+        axios.get(`https://api.waqi.info/feed/geo:${this.state.lat};${this.state.long}/?token=${keyAQI}`)
+          .then(res => res.data)
+          .then(data => {
+            this.setState({
+              AQI: data.data.aqi,
+              pollutionIndex: {
+                NO2: data.data.iaqi.no2.v,
+                O3: data.data.iaqi.o3.v,
+                PM10: data.data.iaqi.pm10.v
+              }
+
+            });
+          })
+
+          .catch(error => {   /* eslint-disable-line */
+            console.log('Please search again...');
+            this.setState({ errorMessage: true });
+          });
+      });
+    }, 1000);
   }
 
-  UnixTimestamp (t) {
+
+  async fetchAlertsData (lat, long) {
+    await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
+      .then(res => res.data)
+      .then(data => {
+        data.alerts &&
+          this.setState({
+            alerts: {
+              title: data.alerts[0].title,
+              description: data.alerts[0].description,
+              regions: data.alerts[0].regions,
+              severity: data.alerts[0].severity,
+              url: data.alerts[0].uri
+            }
+
+          });
+      });
+  }
+
+
+  unixTimestamp (t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
     return hr + ':' + m.substr(-2);
   }
 
+  addToFavorite = (favorite) => {
+    const { favorites } = this.state;
+    if (!favorites.some(alreadyFavorite => alreadyFavorite === favorite)) {
+      this.setState({
+        favorites: [...this.state.favorites, favorite],
+        liked: 'yes'
+      });
+    } else {
+      this.setState({ favorites: [...this.state.favorites.filter(alreadyFavorite => alreadyFavorite !== favorite)], liked: null });
+    }
+  };
+
+  deleteFavorite = (favoriteCity) => {
+    const { favorites } = this.state;
+    this.setState({ favorites: [...favorites.filter(city => city !== favoriteCity.favorite)] },
+      () => {
+        if (favoriteCity.favorite === this.state.text) {
+          this.setState({ liked: null });
+        } else if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === favoriteCity.favorite.toLowerCase())) {
+          this.setState({ liked: null });
+        }
+      }
+    );
+  }
+
+  componentDidMount () {
+    localStorage.getItem('favorites') /* eslint-disable-line */
+      ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
+      : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
+  }
+
+  componentDidUpdate (prevState) {
+    localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
+  }
+
+  handleFocus = (event) => {
+    event.target.select();
+  }
+
   render () {
+    const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage, alerts, up } = this.state;
+
     return (
-      <div className='main-search'>
-        {this.state.data}
-        <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
-          <label className='search-label' htmlFor='search-input'>
-            <input
-              type='text'
-              placeholder='Search for....'
-              onKeyDown={this.handleChange}
-              value={this.state.text}
-              onChange={this.handleTextChanged}
-            />
-            {this.renderSuggestions()}
-          </label>
-          <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
-        </form>
 
-        {/* Loader */}
-        {this.state.loading && <div style={{display: 'flex', justifyContent: 'center'}}><CircularProgress style={{width: '100px', height: '100px'}} /></div>}
+      <div>
+        <div className={up ? 'header1' : 'header1 up'}>
+          <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
+          <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
+        </div>
 
-        {(this.state.meteoByGeo || this.state.meteoBySearch)
-          ? <div className='display-weather'>
-            {this.state.meteoByGeo
-              ? <Header as='h2' className='title'>
-                <Icon name='adjust' />
-                <Header.Content>
-                  <div>
-                    <h1>{this.state.meteoByGeo.city}, {this.state.meteoByGeo.country}</h1>
+        <div className={up ? 'main-search' : 'main-search up'}>
+
+          <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
+            <label className='search-label' htmlFor='search-input'>
+              <input
+                type='text' placeholder='Search for....'
+                onKeyDown={this.handleChange}
+                value={this.state.text}
+                onChange={this.handleTextChanged}
+                onFocus={this.handleFocus}
+              />
+              {this.renderSuggestions()}
+            </label>
+            <button className='geoLocation-input' onClick={this.handleClick}><i className='fas fa-map-marker-alt' /></button>
+          </form>
+
+          {errorMessage &&
+            <div className='error-message'>
+              <p>Sorry, the specified city was not found. <br />
+            Please try searching with a valid city name!
+              </p>
+            </div>}
+
+          {loading && <div style={{ display: 'flex', justifyContent: 'center' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
+
+          {favorites &&
+            <ul className='list-favorites'>{favorites.map((favorite, index) => <li style={{ cursor: 'pointer' }} key={index}><span onClick={() => this.fetchOnClick(favorite)} className='city-favorite'>{favorite}</span> <span onClick={() => this.deleteFavorite({ favorite })}><i className='fas fa-times deleting-city' /></span></li>)}</ul>}
+
+          {weatherForecast &&
+            <div className='display-weather'>
+              <FavoriteItem addFavorite={this.addToFavorite} city={weatherForecast.city} liked={liked} />
+              {weatherForecast &&
+                <Header className='title'>
+                  <Header.Content style={{ display: 'flex', flexDirection: 'column' }}>
+                    <h5>{moment().format('dddd, MMM DD')}</h5>
+                    <h2>{weatherForecast.city}, {weatherForecast.country}</h2>
                     <div className='temp'>
-                      <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.temperature * 9 / 5) + 32}°</h2> : <h2>{this.state.meteoByGeo.temperature}°</h2>}</div>
+                      <div>{temp ? <h2>{Math.round(weatherForecast.temperature * 9 / 5) + 32}°</h2> : <h2>{weatherForecast.temperature}°</h2>}</div>
                       <h3>
-                        <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                        <span className='celsius'> | </span>
-                        <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
+                        <span onClick={() => { temp && this.setState({ temp: null }); }} className={temp ? 'celsius' : 'fahrenheit'}>C</span>
+                        <span className='separation-bar'> | </span>
+                        <span onClick={() => { !temp && this.setState({ temp: 'farenheit' }); }} className={temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
-                    <img src={`https://openweathermap.org/img/wn/${this.state.meteoByGeo.icon}@2x.png`} alt='icon' />
-                  </div>
-                </Header.Content>
-                <div className='moreInfo'>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.feelslike}°C</h2>}</div>
-                    <h3>Feeling</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoByGeo.wind} m/s</h2>
-                    <h3>Wind</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmin}°C</h2>}</div>
-                    <h3>Min Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoByGeo.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoByGeo.tempmax}°C</h2>}</div>
-                    <h3>Max Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoByGeo.pressure} hpa</h2>
-                    <h3>Pressure</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoByGeo.humidity} %</h2>
-                    <h3>Humidity</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunrise)}</h2>
-                    <h3>Sunrise</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoByGeo.sunset)}</h2>
-                    <h3>Sunset</h3>
-                  </div>
-                </div>
-              </Header> /*  eslint-disable-line */
+                    <img src={`https://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} alt='icon' />
+                  </Header.Content>
 
-              : <Header as='h2' className='title'>
-                <Icon name='adjust' />
-                <Header.Content>
-                  {this.state.meteoBySearch &&
-                    <div>
-                      <h1>{this.state.meteoBySearch.city}, {this.state.meteoBySearch.country}</h1>
-                      <div className='temp'>
-                        <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.temperature * 9 / 5) + 32}°  </h2> : <h2>{this.state.meteoBySearch.temperature}°  </h2>}</div>
-                        <h3>
-                          <span onClick={() => { (this.state.temp) && this.setState({ temp: null }); }} className={this.state.temp ? 'celsius' : 'fahrenheit'}>C</span>
-                          <span className='separation-bar'> | </span>
-                          <span onClick={() => { (!this.state.temp) && this.setState({ temp: 'farenheit' }); }} className={this.state.temp ? 'fahrenheit' : 'celsius'}>F</span>
-                        </h3>
-                      </div>
-                      <img src={`https://openweathermap.org/img/wn/${this.state.meteoBySearch.icon}@2x.png`} alt='icon' />
-                    </div>}
-                </Header.Content>
-                <div className='moreInfo'>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.feelslike * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.feelslike}°C</h2>}</div>
-                    <h3>Feeling</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.wind} m/s</h2>
-                    <h3>Wind</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmin * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmin}°C</h2>}</div>
-                    <h3>Min Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <div>{this.state.temp ? <h2>{Math.round(this.state.meteoBySearch.tempmax * 9 / 5) + 32}°F</h2> : <h2>{this.state.meteoBySearch.tempmax}°C</h2>}</div>
-                    <h3>Max Temp</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.pressure} hpa</h2>
-                    <h3>Pressure</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.state.meteoBySearch.humidity} %</h2>
-                    <h3>Humidity</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunrise)}</h2>
-                    <h3>Sunrise</h3>
-                  </div>
-                  <div className='specifics'>
-                    <h2>{this.UnixTimestamp(this.state.meteoBySearch.sunset)}</h2>
-                    <h3>Sunset</h3>
-                  </div>
-                </div>
-              </Header>} {/*  eslint-disable-line */}
+                  <WeatherDetails weatherForecast={weatherForecast} unixTimestamp={this.unixTimestamp} temp={temp} />
+                </Header>}
 
-            <Card.Group className='cards'>
-              {this.state.meteoByGeo &&
-                this.state.meteoByGeo.weatherData
-                  .filter(data => data.dt_txt.includes('12:00:00'))
-                  .map((meteo, index) => {
-                    return <Meteo
-                      key={index}
-                      phrase={meteo.weather[0].description}
-                      date={meteo.dt_txt}
-                      min={Math.floor(meteo.main.temp_min - 273.15)}
-                      max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={meteo.weather[0].icon}
-                      switch={this.state.temp}
-                    />; // eslint-disable-line
-                  })}
+              <Card.Group className='cards'>
+                {weatherForecast &&
+                  weatherForecast.weatherData
+                    .filter(data => data.dt_txt.includes('12:00:00'))
+                    .map((meteo, index) => {
+                      return <Meteo
+                        key={index}
+                        phrase={meteo.weather[0].description}
+                        date={meteo.dt_txt}
+                        min={Math.floor(meteo.main.temp_min - 273.15)}
+                        max={Math.ceil(meteo.main.temp_max - 273.15)}
+                        icon={meteo.weather[0].icon}
+                        switch={this.state.temp}
+                      />; // eslint-disable-line
+                    })}
+              </Card.Group>
+            </div>}
+          {AQI && <Pollution AQI={AQI} NO2={pollutionIndex.NO2} O3={pollutionIndex.O3} PM10={pollutionIndex.PM10} />}
+          {weatherForecast && <SuggestionsList min={weatherForecast.tempmin} main={weatherForecast.main} />}
 
-              {this.state.meteoBySearch &&
-                this.state.meteoBySearch.weatherData
-                  .filter(data => data.dt_txt.includes('12:00:00'))
-                  .map((meteo, index) => {
-                    return <Meteo
-                      key={index}
-                      phrase={meteo.weather[0].description}
-                      date={meteo.dt_txt}
-                      min={Math.floor(meteo.main.temp_min - 273.15)}
-                      max={Math.ceil(meteo.main.temp_max - 273.15)}
-                      icon={meteo.weather[0].icon}
-                      switch={this.state.temp}
-                    />; // eslint-disable-line
-                  })}
-            </Card.Group>
-          </div> : ''} { /* eslint-disable-line */}
-
-        {this.state.AQI &&
-          <Pollution
-            AQI={this.state.AQI}
-            NO2={this.state.pollutionIndex.NO2}
-            O3={this.state.pollutionIndex.O3}
-            PM10={this.state.pollutionIndex.PM10}
-          />}
-
-        {this.state.meteoByGeo &&
-          <Weathers min={this.state.meteoByGeo.tempmin} main={this.state.meteoByGeo.main} />}
-        {this.state.meteoBySearch &&
-          <Weathers min={this.state.meteoBySearch.tempmin} main={this.state.meteoBySearch.main} />}
+          {alerts &&
+            <Alerts
+              title={alerts.title}
+              description={alerts.description}
+              regions={alerts.regions}
+              severity={alerts.severity}
+              url={alerts.url}
+            />}
+        </div>
       </div>
     );
   }

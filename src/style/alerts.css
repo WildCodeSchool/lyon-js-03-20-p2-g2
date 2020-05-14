@@ -1,0 +1,21 @@
+.div-alerts {
+    width: 80%;
+    margin: 20px auto;
+    font-family: 'Nunito', serif;
+    background-color: rgba(255, 255, 255, 0.45);
+    padding: 20px;
+    border: 2px #8B0000 solid;
+}
+
+.div-alerts > h3 {
+    color: #8B0000;
+}
+
+.details-alerts a {
+    color: #8B0000;
+}
+
+.details-alerts a:hover {
+    color: #CD5C5C;
+    text-decoration: none;
+}

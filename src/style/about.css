@@ -1,11 +1,7 @@
-@font-face {
-    font-family: 'Raleway';
-    src: local('Raleway'), url(../fonts/Raleway/Raleway-Regular.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Nunito';
-    src: local('Nunito'), url(../fonts/Nunito/Nunito-Regular.ttf) format('truetype');
+.back-home {
+    left: 10px;
+    top: 10px;
+    position: fixed;
 }
 
 .about {
@@ -15,12 +11,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url('../images/background/background_dawn1.jpg') no-repeat;
+    background-size: cover;
+    background: url("../images/background_dawn2.jpg") no-repeat fixed center;
+    padding-bottom: 20px;
+    min-height: 100vh;
     background-size: cover;
 }
 
 .about > h1 {
-    color: #005C89;
+    color: white;
 }
 
 .our-story {
@@ -56,7 +55,6 @@
     padding: 20px 20px 0;
 }
 
-
 .our-story > .paragraphs {
     font-family: 'Raleway', serif;
     color: #005C89;
@@ -91,4 +89,22 @@
 
 .coeur {
     color: red;
+}
+
+
+.fa-3x {
+    color: white;
+}
+
+.fa-3x:hover {
+    color: #D3D3D3;
+}
+
+@media only screen and (max-width: 300px) {
+    .footer-style {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
 }
