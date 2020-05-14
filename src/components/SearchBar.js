@@ -14,8 +14,6 @@ import ScrollButton from './ScrollButton';
 import moment from 'moment';
 import '../App.css';
 
-
-
 /* Suite import dossier JSON des villes -> je map afin d'obtenir dans un tableau seulement villes et pays */
 const cities = citiesList.map(element => `${element.name}, ${element.country}`);
 const Apikeyw = 'afd6dc163815a3f489f2782e14afc600';
@@ -23,7 +21,7 @@ const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 const keyDarkSky = 'cfeed98eb60dc557187a9ea2c357cd52';
 
 class SearchBar extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       up: true,
@@ -64,7 +62,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions() {
+  renderSuggestions () {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -81,7 +79,7 @@ class SearchBar extends React.Component {
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
     de l'utilisateur. */
 
-  async handleSuggestionSelected(value) {
+  async handleSuggestionSelected (value) {
     await this.setState(() => ({
       text: value,
       suggestions: [],
@@ -94,7 +92,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
-  async fetchOnClick(city) {
+  async fetchOnClick (city) {
     const { favorites } = this.state;
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
@@ -174,8 +172,7 @@ class SearchBar extends React.Component {
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
-  handleChange(event, city) {
-
+  handleChange (event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -188,10 +185,9 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  async handleClick(e) {
+  async handleClick (e) {
     e.preventDefault();
     const { favorites } = this.state;
-
 
     this.setState({ weatherForecast: false, AQI: null, alerts: null, loading: true });
 
@@ -232,18 +228,17 @@ class SearchBar extends React.Component {
             errorMessage: false,
             up: false
 
-
           },
-            () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }, () => this.setState({ up: false }),
-              () => {
-                if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
-                  this.setState({ liked: null });
-                } else {
-                  this.setState({ liked: 'yes' });
-                }
-              }, () => this.setState({ up: false })),
+          () => this.setState({ text: data.city.name.replace('Arrondissement de', '') }, () => this.setState({ up: false }),
+            () => {
+              if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
+                this.setState({ liked: null });
+              } else {
+                this.setState({ liked: 'yes' });
+              }
+            }, () => this.setState({ up: false })),
 
-            this.fetchAlertsData(this.state.lat, this.state.lon)
+          this.fetchAlertsData(this.state.lat, this.state.lon)
           );
         })
         .catch(error => { /* eslint-disable-line */
@@ -270,10 +265,9 @@ class SearchBar extends React.Component {
           this.setState({ errorMessage: true });
         });
     });
-
   }
 
-  async fetchAlertsData(lat, long) {
+  async fetchAlertsData (lat, long) {
     await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
       .then(res => res.data)
       .then(data => {
@@ -290,7 +284,7 @@ class SearchBar extends React.Component {
       });
   }
 
-  unixTimestamp(t) {
+  unixTimestamp (t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
@@ -322,13 +316,13 @@ class SearchBar extends React.Component {
     );
   }
 
-  componentDidMount() {
+  componentDidMount () {
     localStorage.getItem('favorites') /* eslint-disable-line */
       ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
       : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate (prevState) {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
@@ -336,20 +330,18 @@ class SearchBar extends React.Component {
     event.target.select();
   }
 
-  render() {
+  render () {
     const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage, alerts, up } = this.state;
 
     return (
 
-
       <div>
         <div className={up ? 'header1' : 'header1 up'}>
-          <h2 className='welcome-message' >Welcome to <strong>Weather Suggest</strong></h2>
+          <h2 className='welcome-message'>Welcome to <strong>Weather Suggest</strong></h2>
           <img className='menu-logo-img' src={require('../images/logo.png')} alt='logo' />
         </div>
 
-
-        <div className={up ? 'main-search' : 'main-search up'} >
+        <div className={up ? 'main-search' : 'main-search up'}>
           <form className='search-bar' onSubmit={this.preventSubmit}> { /* eslint-disable-line */}
             <label className='search-label' htmlFor='search-input'>
               <input
@@ -369,7 +361,7 @@ class SearchBar extends React.Component {
             <div className='error-message'>
               <p>Sorry, the specified city was not found. <br />
             Please try searching with a valid city name!
-            </p>
+              </p>
             </div>}
 
           {loading && <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }}><CircularProgress style={{ width: '100px', height: '100px' }} /></div>}
@@ -429,7 +421,7 @@ class SearchBar extends React.Component {
 
           {weatherForecast && <ScrollButton />}
         </div>
-      </div >
+      </div>
     );
   }
 }

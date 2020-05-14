@@ -6,11 +6,10 @@ import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Footer from '../components/Footer';
-import '../App.css'
-
+import '../App.css';
 
 class About extends Component {
-  render() {
+  render () {
     return (
       <>
         <section className='about'>

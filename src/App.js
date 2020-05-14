@@ -16,10 +16,10 @@ const Background = styled.div`
     (time >= 0 && time < 6 && 'url("https://img-weather.netlify.app/background/background_night7.jpg")')
   } no-repeat fixed center;
     min-height: 100vh;
-    background-size: cover;`
+    background-size: cover;`;
 
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <Router>
         <main id='App'>
