@@ -1,104 +1,122 @@
-tbody {
-width: 100%;
+
+tbody
+{
+	width: 100%;
 }
 
-tr {
-width: 100%;
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
+tr
+{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-td {
-margin: 20px 0;
-font-family: 'Nunito', serif;
-width: 25%;
-box-sizing: border-box;
+td
+{
+	margin: 20px 0;
+	font-family: 'Nunito', serif;
+	width: 25%;
+	box-sizing: border-box;
 }
 
-.details-figures {
-margin-bottom: 0;
-color: #005C89;
+.details-figures
+{
+	margin-bottom: 0;
+	color: #005C89;
 }
 
-.details-titles {
-font-size: 20px;
-font-weight: bolder;
+.details-titles
+{
+	font-size: 20px;
+	font-weight: bolder;
 }
 
-@media only screen and (max-width: 900px) {
-td {
-    width: 50%;
-}
-}
-
-@media only screen and (max-width: 480px) {
-td {
-    width: 100%;
-}
+@media only screen and (max-width: 900px)
+{
+	td
+	{
+		width: 50%;
+	}
 }
 
-
-.moreInfo {
-display: flex;
-flex-wrap: wrap;
-padding: 20px 0;
-margin-bottom: 50px;
-border-radius: 10px;
-text-align: center;
-flex-basis: auto;
-box-shadow: 0 70px 40px -50px rgba(0, 0, 0, 0.2), 0 3px 20px rgba(0, 0, 0, 0.1);
-background-color: rgba(255, 255, 255, 0.45);
+@media only screen and (max-width: 480px)
+{
+	td
+	{
+		width: 100%;
+	}
 }
 
-.specifics {
-text-align: center;
-width: 25%;
-height: 100px;
-color: #005C89;
+.moreInfo
+{
+	display: flex;
+	flex-wrap: wrap;
+	padding: 20px 0;
+	margin-bottom: 50px;
+	border-radius: 10px;
+	text-align: center;
+	flex-basis: auto;
+	box-shadow: 0 70px 40px -50px rgba(0, 0, 0, 0.2), 0 3px 20px rgba(0, 0, 0, 0.1);
+	background-color: rgba(255, 255, 255, 0.45);
 }
 
-.moreInfo:hover {
-transform: scale(1.02);
-transition: 0.4s;
+.specifics
+{
+	text-align: center;
+	width: 25%;
+	height: 100px;
+	color: #005C89;
 }
 
-
-.celsius {
-color: #48484a;
-cursor: pointer;
-font-family: 'Nunito', serif;
+.moreInfo:hover
+{
+	transform: scale(1.02);
+	transition: 0.4s;
 }
 
-.fahrenheit {
-cursor: pointer;
-color: white;
-font-family: 'Nunito', serif;
+.celsius
+{
+	color: #48484a;
+	cursor: pointer;
+	font-family: 'Nunito', serif;
 }
 
-.separation-bar {
-color: #48484a;
-font-family: 'Nunito', serif;
+.fahrenheit
+{
+	cursor: pointer;
+	color: white;
+	font-family: 'Nunito', serif;
 }
 
-.temp {
-display: flex;
-justify-content: center;
-}
-#App > div > div > div.main-search > div.display-weather > div.ui.header.title > div > img{
-width: 150px;
-
-margin: auto
+.separation-bar
+{
+	color: #48484a;
+	font-family: 'Nunito', serif;
 }
 
-.temp > div {
-margin-right: 5px;
+.temp
+{
+	display: flex;
+	justify-content: center;
 }
 
-.img-icon {
-width: 30px !important;
+#App > div > div > div.main-search > div.display-weather > div.ui.header.title > div > img
+{
+	width: 150px;
+margin: auto}
+
+.temp > div
+{
+	margin-right: 5px;
 }
 
-.sunrise {
-width: 35px !important;
+.img-icon
+{
+	width: 30px !important;
+}
+
+.sunrise
+{
+	width: 35px !important;
 }

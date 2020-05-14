@@ -20,7 +20,7 @@ const Background = styled.div`
     background-size: cover;`;
 
 class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.myRef = React.createRef();
     this.state = {
@@ -28,7 +28,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const scrollComponent = this;
     document.addEventListener('scroll', function (e) {
       scrollComponent.toggleVisibility();
@@ -43,14 +43,14 @@ class App extends React.Component {
     }
   }
 
-  scrollToTop() {
+  scrollToTop () {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   }
 
-  render() {
+  render () {
     return (
       <Router>
         <main

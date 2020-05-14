@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function ScrollButton(props) {
+function ScrollButton (props) {
   return (
     <>
       <div className='btnScrollToTop' onClick={props.onClick} style={styleBtn}>
@@ -23,7 +23,7 @@ const styleBtn = {
   display: 'flex',
   textDecoration: 'none',
   cursor: 'pointer',
-  transition: 'all 0.5s ease-in-out',
+  transition: 'all 0.5s ease-in-out'
 
 };
 
