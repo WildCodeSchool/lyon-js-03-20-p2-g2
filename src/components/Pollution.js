@@ -5,7 +5,7 @@ let icone = '';
 let classIndex = '';
 let classAQIIndice = '';
 
-function GoodAQI () {
+function GoodAQI() {
   return (
     <div className='div-AQI div-good-AQI'>
       <div>
@@ -16,7 +16,7 @@ function GoodAQI () {
   );
 }
 
-function ModerateAQI () {
+function ModerateAQI() {
   return (
     <div className='div-AQI div-moderate-AQI'>
       <div>
@@ -27,7 +27,7 @@ function ModerateAQI () {
   );
 }
 
-function UnhealthyAQI () {
+function UnhealthyAQI() {
   return (
     <div className='div-AQI div-unhealthy-AQI'>
       <div>
@@ -62,20 +62,20 @@ const Pollution = (props) => {
       </div>
       {icone}
       <div className='AQI-indice'>
-        <h3 className={classAQIIndice}>{props.AQI} AQI</h3>
+        <h3 className={classAQIIndice} title="Air quality index">{props.AQI} AQI</h3>
       </div>
       <hr />
       <div className='div-pollution-index'>
         <div className='NO2'>
-          <p><span className='bold-indice'>NO2</span> (µg/m3)</p>
+          <p><span className='bold-indice' title="Dioxyde d'azote">NO2</span> (µg/m3)</p>
           <span className={`pollution-index ${classIndex}`}>{props.NO2}</span>
         </div>
         <div className='O3'>
-          <p><span className='bold-indice'>O3</span> (µg/m3)</p>
+          <p><span className='bold-indice' title="Ozone">O3</span> (µg/m3)</p>
           <span className={`pollution-index ${classIndex}`}>{props.O3}</span>
         </div>
         <div className='PM10'>
-          <p><span className='bold-indice'>PM10</span> (µg/m3)</p>
+          <p><span className='bold-indice' title="Particulates">PM10</span> (µg/m3)</p>
           <span className={`pollution-index ${classIndex}`}>{props.PM10}</span>
         </div>
       </div>
