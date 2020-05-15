@@ -20,7 +20,7 @@ const keyAQI = 'a21a5dc572269b362928535f3857be9975516906';
 const keyDarkSky = 'cfeed98eb60dc557187a9ea2c357cd52';
 
 class SearchBar extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       up: true,
@@ -61,7 +61,7 @@ class SearchBar extends React.Component {
   /* La méthode renderSuggestions me permet de mapper les villes et de proposer une liste (ul) de villes correspondant aux premiers
   caractères entrés par l'utilisateur. Au clic sur l'un des choix de ville, j'appelle ensuite handleSuggestionSelected. */
 
-  renderSuggestions () {
+  renderSuggestions() {
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -78,7 +78,7 @@ class SearchBar extends React.Component {
     Grâce à cette fonction, j'appelle ensuite fetchOnClik qui prend en paramètre 'text' de mon state qui a été updatée avec le click
     de l'utilisateur. */
 
-  async handleSuggestionSelected (value) {
+  async handleSuggestionSelected(value) {
     await this.setState(() => ({
       text: value,
       suggestions: [],
@@ -91,7 +91,7 @@ class SearchBar extends React.Component {
     Elle prend en paramètre la ville choisie (cliquée) par l'utilisateur et, grâce à cette ville, on va aller chercher la météo correspondante.
     Lorsque l'on a la météo de la ville, on remplace les données de notre propriété meteoBySearch (du state) par les données recueillies par l'API. */
 
-  async fetchOnClick (city) {
+  async fetchOnClick(city) {
     const { favorites } = this.state;
 
     const searchCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${Apikeyw}`;
@@ -149,6 +149,7 @@ class SearchBar extends React.Component {
           O3: (dataPollution.data.iaqi.o3 ? dataPollution.data.iaqi.o3.v : 'no data'),
           PM10: (dataPollution.data.iaqi.pm10 ? dataPollution.data.iaqi.pm10.v : 'no data')
         }
+
       });
 
     axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.weatherForecast.lat},${this.state.weatherForecast.lon}`)
@@ -167,11 +168,31 @@ class SearchBar extends React.Component {
       });
   }
 
+  showSvg(weatherInfo) {
+    if (weatherInfo == 'Clear sky' || weatherInfo == 'Clear') {
+      weatherInfo = 'clear.svg';
+    } else if (weatherInfo == 'Few clouds') {
+      weatherInfo = 'few-clouds';
+    } else if (weatherInfo == 'Scattered clouds' || weatherInfo == 'Broken clouds' || weatherInfo == 'Clouds' || weatherInfo == 'Overcast clouds') {
+      weatherInfo = 'cloudy.svg';
+    } else if (weatherInfo == 'Rain' || weatherInfo == 'Light rain' || weatherInfo == 'Shower rain') {
+      weatherInfo = 'rain.svg';
+    } else if (weatherInfo == 'Thunderstorm') {
+      weatherInfo = 'thunder.svg';
+    } else if (weatherInfo == 'Snow') {
+      weatherInfo = 'day-snow.svg';
+    } else if (weatherInfo == 'Mist') {
+      weatherInfo = 'mist.svg';
+    } else {
+      weatherInfo = 'cloudy.svg';
+    }
+    return weatherInfo;
+  }
   /* handleChange est appelé sur l'input (notre barre de recherche) lors d'un évènement keyDown qui va être effectué lors de l'appui sur la touche 'Entrée'.
     A ce moment là, je change la 'city' de mon state avec la valeur qu'a entré mon utilisateur.
     J'appelle ensuite fetchSearchResults qui va prendre en paramètre 'city'. */
 
-  handleChange (event, city) {
+  handleChange(event, city) {
     if (event.key === 'Enter') {
       event.preventDefault();
       const city = event.target.value;
@@ -184,7 +205,7 @@ class SearchBar extends React.Component {
   /* La méthode handleClick va fonctionner la même façon que fetchOnClick mais au click cette fois.
     Elles va recueillir les coordonnées de l'utilisateur (getCurrentPosition) pour ensuite afficher les données de la météo. */
 
-  async handleClick (e) {
+  async handleClick(e) {
     e.preventDefault();
     const { favorites } = this.state;
     this.setState({ loading: true });
@@ -229,16 +250,16 @@ class SearchBar extends React.Component {
               up: false
 
             },
-            () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
-              () => {
-                if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
-                  this.setState({ liked: null });
-                } else {
-                  this.setState({ liked: 'yes' });
-                }
-              }, () => this.setState({ up: false })),
+              () => this.setState({ text: data.city.name.replace('Arrondissement de', '') },
+                () => {
+                  if (!favorites.some(alreadyFavorite => alreadyFavorite.toLowerCase() === this.state.text.toLowerCase())) {
+                    this.setState({ liked: null });
+                  } else {
+                    this.setState({ liked: 'yes' });
+                  }
+                }, () => this.setState({ up: false })),
 
-            this.fetchAlertsData(this.state.lat, this.state.lon)
+              this.fetchAlertsData(this.state.lat, this.state.lon)
             );
           })
           .catch(error => { /* eslint-disable-line */
@@ -268,8 +289,7 @@ class SearchBar extends React.Component {
     }, 1000);
   }
 
-
-  async fetchAlertsData (lat, long) {
+  async fetchAlertsData(lat, long) {
     await axios.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${keyDarkSky}/${this.state.lat},${this.state.long}`)
       .then(res => res.data)
       .then(data => {
@@ -287,8 +307,7 @@ class SearchBar extends React.Component {
       });
   }
 
-
-  unixTimestamp (t) {
+  unixTimestamp(t) {
     const dt = new Date(t * 1000);
     const hr = dt.getHours();
     const m = '0' + dt.getMinutes();
@@ -320,13 +339,13 @@ class SearchBar extends React.Component {
     );
   }
 
-  componentDidMount () {
+  componentDidMount() {
     localStorage.getItem('favorites') /* eslint-disable-line */
       ? this.setState({ favorites: JSON.parse(localStorage.getItem('favorites')) }) /* eslint-disable-line */
       : localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
-  componentDidUpdate (prevState) {
+  componentDidUpdate(prevState) {
     localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); /* eslint-disable-line */
   }
 
@@ -334,7 +353,7 @@ class SearchBar extends React.Component {
     event.target.select();
   }
 
-  render () {
+  render() {
     const { loading, favorites, weatherForecast, liked, temp, AQI, pollutionIndex, errorMessage, alerts, up } = this.state;
 
     return (
@@ -389,7 +408,7 @@ class SearchBar extends React.Component {
                         <span onClick={() => { !temp && this.setState({ temp: 'farenheit' }); }} className={temp ? 'fahrenheit' : 'celsius'}>F</span>
                       </h3>
                     </div>
-                    <img src={`https://openweathermap.org/img/wn/${weatherForecast.icon}@2x.png`} alt='icon' />
+                    <img src={require(`../images/svg/${this.showSvg(weatherForecast.main)}`)} alt='icon' />
                   </Header.Content>
 
                   <WeatherDetails weatherForecast={weatherForecast} unixTimestamp={this.unixTimestamp} temp={temp} />
@@ -406,7 +425,7 @@ class SearchBar extends React.Component {
                         date={meteo.dt_txt}
                         min={Math.floor(meteo.main.temp_min - 273.15)}
                         max={Math.ceil(meteo.main.temp_max - 273.15)}
-                        icon={meteo.weather[0].icon}
+                        icon={require(`../images/svg/${this.showSvg(meteo.weather[0].main)}`)}
                         switch={this.state.temp}
                       />; // eslint-disable-line
                     })}

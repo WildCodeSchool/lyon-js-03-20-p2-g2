@@ -15,7 +15,7 @@ class Meteo extends Component {
       <Card className='Meteo'>
         <Card.Content>
           <Card.Header className='card-phrase-weather'>{moment(this.props.date).format('dddd')}</Card.Header>
-          <div className='card-icons'><img src={`https://openweathermap.org/img/wn/${this.props.icon}@2x.png`} alt='icon' /></div>
+          <div className='card-icons'><img src={this.props.icon} alt='icon' /></div>
           <Card.Meta className='card-date'>{capitalize(this.props.phrase)}</Card.Meta>
           {this.props.switch
             ? <Card.Description className='card-temperatures'>
