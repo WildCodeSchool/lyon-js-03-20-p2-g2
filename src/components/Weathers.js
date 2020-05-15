@@ -61,7 +61,7 @@ const VeryHot = {
 let clothes = '';
 
 class Weathers extends Component {
-  render() {
+  render () {
     const temperature = this.props.min;
     const description = this.props.main;
 
