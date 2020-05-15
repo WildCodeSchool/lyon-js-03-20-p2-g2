@@ -52,6 +52,7 @@
 
     .humanoid {
         width: 70%;
+        min-width: 230px;
     }
 
     .clothes img {
